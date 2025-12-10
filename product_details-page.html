@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Converse AS-1 Pro</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #F1F4F8;
+            --primary-purple: rgba(111, 97, 239, 1);
+            --text-dark: #000000;
+            --text-grey: #6E6C6C;
+            --border-color: #AAAAAA;
+            --card-bg: #FFFFFF;
+            --light-purple-bg: rgba(192, 186, 243, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            padding-bottom: 120px; /* Space for floating bar */
+        }
+
+        /* --- Header / Navigation --- */
+        .navbar {
+            width: 100%;
+            height: 82px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon-btn {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 2px solid #555;
+            background: var(--primary-purple);
+            cursor: pointer;
+        }
+
+        /* --- Breadcrumbs --- */
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            padding: 20px 65px;
+            gap: 10px;
+        }
+
+        .home-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .breadcrumb-pill {
+            background-color: #C0BAF3;
+            border: 1px solid var(--primary-purple);
+            border-radius: 100px;
+            padding: 6px 12px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            color: #3E3E3E;
+        }
+
+        /* --- Main Content --- */
+        .main-container {
+            max-width: 1240px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Product Top Section */
+        .product-hero {
+            display: flex;
+            gap: 40px;
+        }
+
+        .product-images {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .main-img {
+            width: 100%;
+            height: 414px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 5px solid var(--primary-purple);
+        }
+
+        .thumbnails {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #000;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        .dot.active { opacity: 1; }
+
+        .product-info {
+            flex: 1;
+            position: relative;
+        }
+
+        .product-title {
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 32px;
+            color: var(--primary-purple);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .product-desc {
+            font-size: 16px;
+            color: var(--text-grey);
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 20px 0;
+        }
+
+        /* Options (Size/Color) */
+        .option-group {
+            margin-bottom: 25px;
+        }
+
+        .option-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-grey);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .option-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .opt-btn {
+            background-color: #D9D9D9;
+            border: none;
+            border-radius: 100px;
+            padding: 8px 16px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            color: #595959;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .opt-btn.active {
+            background-color: var(--primary-purple);
+            color: #fff;
+            border: 1px solid var(--primary-purple);
+        }
+
+        /* --- Seller Bar --- */
+        .seller-bar {
+            background-color: var(--light-purple-bg);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .seller-avatar {
+            width: 85px;
+            height: 85px;
+            border-radius: 10px;
+            border: 1px solid #aaa;
+            object-fit: cover;
+        }
+
+        .seller-info h3 {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .seller-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .sales-count { color: var(--primary-purple); }
+        .location { color: var(--text-grey); }
+
+        .seller-rating {
+            margin-left: auto;
+            display: flex;
+            gap: 5px;
+        }
+
+        /* --- Reviews Section --- */
+        .reviews-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .btn-leave-review {
+            background-color: #C0BAF3;
+            border: 1px solid var(--primary-purple);
+            border-radius: 100px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .review-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            gap: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .reviewer-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            border: 1px solid #aaa;
+        }
+
+        .review-content {
+            flex: 1;
+        }
+
+        .reviewer-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .reviewer-handle {
+            font-size: 10px;
+            color: var(--text-grey);
+            margin-bottom: 5px;
+        }
+
+        .review-meta {
+            font-size: 10px;
+            color: var(--text-grey);
+            margin-bottom: 10px;
+        }
+
+        .review-text {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .review-score {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            min-width: 100px;
+        }
+
+        /* --- Floating Bottom Bar --- */
+        .floating-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1310px;
+            height: 103px;
+            background-color: rgba(217, 217, 217, 0.9);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .qty-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stepper {
+            display: flex;
+            align-items: center;
+            background: #D9D9D9;
+            border-radius: 100px;
+            height: 32px;
+            width: 123px;
+            justify-content: space-between;
+        }
+
+        .step-btn {
+            width: 40px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--primary-purple);
+        }
+
+        .btn-add-cart {
+            background-color: var(--primary-purple);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 100px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAABSCAYAAADw4kyvAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAB0SURBVHgB7c8xEcAgAAAxWv+eUMSAAtDxXOIg35r7jEf942FyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVRd7pgRAJOvl6gAAAABJRU5ErkJggg==" alt="Logo">
+        </div>
+        
+        <div class="nav-links">
+            <span>My Orders</span>
+            <span>Favorites</span>
+        </div>
+
+        <div class="nav-icons">
+            <div class="icon-btn" style="background: transparent; border: none;">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDgnIGhlaWdodD0nNDgnIHZpZXdCb3g9JzAgMCA0OCA0OCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTggMzhWMzRIMTJWMjBDMTIgMTcuMjMzMyAxMi44MzMzIDE0Ljc4MzMgMTQuNSAxMi42NUMxNi4xNjY3IDEwLjQ4MzMgMTguMzMzMyA5LjA2NjY2IDIxIDguNFY3QzIxIDYuMTY2NjcgMjEuMjgzMyA1LjQ2NjY3IDIxLjg1IDQuOUMyMi40NSA0LjMgMjMuMTY2NyA0IDI0IDRDMjQuODMzMyA0IDI1LjUzMzMgNC4zIDI2LjEgNC45QzI2LjcgNS40NjY2NyAyNyA2LjE2NjY3IDI3IDdWOC40QzI5LjY2NjcgOS4wNjY2NiAzMS44MzMzIDEwLjQ4MzMgMzMuNSAxMi42NUMzNS4xNjY3IDE0Ljc4MzMgMzYgMTcuMjMzMyAzNiAyMFYzNEg0MFYzOEg4Wk0yNCA0NEMyMi45IDQ0IDIxLjk1IDQzLjYxNjcgMjEuMTUgNDIuODVDMjAuMzgzMyA0Mi4wNSAyMCA0MS4xIDIwIDQwSDI4QzI4IDQxLjEgMjcuNiA0Mi4wNSAyNi44IDQyLjg1QzI2LjAzMzMgNDMuNjE2NyAyNS4xIDQ0IDI0IDQ0Wk0xNiAzNEgzMlYyMEMzMiAxNy44IDMxLjIxNjcgMTUuOTE2NyAyOS42NSAxNC4zNUMyOC4wODMzIDEyLjc4MzMgMjYuMiAxMiAyNCAxMkMyMS44IDEyIDE5LjkxNjcgMTIuNzgzMyAxOC4zNSAxNC4zNUMxNi43ODMzIDE1LjkxNjcgMTYgMTcuOCAxNiAyMFYzNFonIGZpbGw9JyMxRDFCMjAnLz4KPC9zdmc+Cg==" width="32">
+            </div>
+            <div class="icon-btn">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMzAnIGhlaWdodD0nMzAnIHZpZXdCb3g9JzAgMCAzMCAzMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTI1IDI2LjI1VjIzLjc1QzI1IDIyLjQyMzkgMjQuNDczMiAyMS4xNTIxIDIzLjUzNTUgMjAuMjE0NUMyMi41OTc5IDE5LjI3NjggMjEuMzI2MSAxOC43NSAyMCAxOC43NUgxMEM4LjY3MzkyIDE4Ljc1IDcuNDAyMTUgMTkuMjc2OCA2LjQ2NDQ3IDIwLjIxNDVDNS41MjY3OCAyMS4xNTIxIDUgMjIuNDIzOSA1IDIzLjc1VjI2LjI1TTIwIDguNzVDMjAgMTEuNTExNCAxNy43NjE0IDEzLjc1IDE1IDEzLjc1QzEyLjIzODYgMTMuNzUgMTAgMTEuNTExNCAxMCA4Ljc1QzEwIDUuOTg4NTggMTIuMjM4NiAzLjc1IDE1IDMuNzVDMTcuNzYxNCAzLjc1IDIwIDUuOTg4NTggMjAgOC43NVonIHN0cm9rZT0nI0YzRjNGMycgc3Ryb2tlLXdpZHRoPScyJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnLz4KPC9zdmc+Cg==">
+            </div>
+            <div class="icon-btn">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMzAnIGhlaWdodD0nMzAnIHZpZXdCb3g9JzAgMCAzMCAzMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEuMjUgMS4yNUg2LjI1TDkuNiAxNy45ODc1QzkuNzE0MzEgMTguNTYzIDEwLjAyNzQgMTkuMDc5OSAxMC40ODQ0IDE5LjQ0NzlDMTAuOTQxNSAxOS44MTU4IDExLjUxMzQgMjAuMDExMiAxMi4xIDIwSDI0LjI1QzI0LjgzNjYgMjAuMDExMiAyNS40MDg1IDE5LjgxNTggMjUuODY1NiAxOS40NDc5QzI2LjMyMjYgMTkuMDc5OSAyNi42MzU3IDE4LjU2MyAyNi43NSAxNy45ODc1TDI4Ljc1IDcuNUg3LjVNMTIuNSAyNi4yNUMxMi41IDI2Ljk0MDQgMTEuOTQwNCAyNy41IDExLjI1IDI3LjVDMTAuNTU5NiAyNy41IDEwIDI2Ljk0MDQgMTAgMjYuMjVDMTAgMjUuNTU5NiAxMC41NTk2IDI1IDExLjI1IDI1QzExLjk0MDQgMjUgMTIuNSAyNS41NTk2IDEyLjUgMjYuMjVaTTI2LjI1IDI2LjI1QzI2LjI1IDI2Ljk0MDQgMjUuNjkwNCAyNy41IDI1IDI3LjVDMjQuMzA5NiAyNy41IDIzLjc1IDI2Ljk0MDQgMjMuNzUgMjYuMjVDMjMuNzUgMjUuNTU5NiAyNC4zMDk2IDI1IDI1IDI1QzI1LjY5MDQgMjUgMjYuMjUgMjUuNTU5NiAyNi4yNSAyNi4yNVonIHN0cm9rZT0nI0YzRjNGMycgc3Ryb2tlLXdpZHRoPScyJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnLz4KPC9zdmc+Cg==">
+            </div>
+        </div>
+    </nav>
+
+    <div class="breadcrumbs">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMzAnIGhlaWdodD0nMzAnIHZpZXdCb3g9JzAgMCAzMCAzMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTExLjI1IDI3LjVWMTVIMTguNzVWMjcuNU0zLjc1IDExLjI1TDE1IDIuNUwyNi4yNSAxMS4yNVYyNUMyNi4yNSAyNS42NjMgMjUuOTg2NiAyNi4yOTg5IDI1LjUxNzggMjYuNzY3OEMyNS4wNDg5IDI3LjIzNjYgMjQuNDEzIDI3LjUgMjMuNzUgMjcuNUg2LjI1QzUuNTg2OTYgMjcuNSA0Ljk1MTA3IDI3LjIzNjYgNC40ODIyMyAyNi43Njc4QzQuMDEzMzkgMjYuMjk4OSAzLjc1IDI1LjY2MyAzLjc1IDI1VjExLjI1Wicgc3Ryb2tlPScjNkY2MUVGJyBzdHJva2Utd2lkdGg9JzMnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCcvPgo8L3N2Zz4K" class="home-icon">
+        <span>&gt;</span>
+        <div class="breadcrumb-pill">Product Details</div>
+    </div>
+
+    <div class="main-container">
+        
+        <div class="product-hero">
+            <div class="product-images">
+                <img src="data:image/png;base64,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" class="main-img">
+                <div class="thumbnails">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <h1 class="product-title">Converse AS-1 Pro Leather Ox Sneakers</h1>
+                <div class="product-price">[$1,234.56]</div>
+                <p class="product-desc">Designed by Alexis Sablone, the AS-1 Pro combines attention to detail with Converse heritage and modern skate tech. A ‘90s cupsole skate aesthetic meets updated coring that brings you closer to the board. Sturdy leather and exposed rubber pods deliver on durability in high-abrasion areas.</p>
+                
+                <div class="divider"></div>
+
+                <div class="option-group">
+                    <span class="option-label">Shoe Size</span>
+                    <div class="option-buttons">
+                        <button class="opt-btn active">Size 8</button>

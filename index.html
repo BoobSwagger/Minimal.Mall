@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- SF Pro font usually local, using system stack for fallback -->
+    <style>
+        @font-face { font-family: 'SF Pro'; src: local('SF Pro Display'), local('SF Pro'), sans-serif; }
+    </style>
+</head>
+<body class="home-body">
+    <div class="home-container">
+        <!-- Background -->
+        <img class="home-bg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAOECAYAAACd288aAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABzSURBVHgB7dlRDoMgEERBC+19L8y+1242wU2M8W1m4O+wW7Y8AAAAAElFTkSuQmCC" alt="Background">
+        
+        <!-- Header / App Bar -->
+        <div class="app-bar-home-container">
+            <img class="app-bar-bg-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAOECAYAAACd288aAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABzSURBVHgB7dlRDoMgEERBC+19L8y+1242wU2M8W1m4O+wW7Y8AAAAAElFTkSuQmCC" alt="Header BG">
+            <img class="rect-19" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAABSCAYAAADw4kyvAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAB0SURBVHgB7c8xEcAgAAAxWv+eUMSAAtDxXOIg35r7jEf942FyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVRd7pgRAJOvl6gAAAABJRU5ErkJggg==" alt="Decor">
+            <img class="logo-home" src="data:image/png;base64,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" alt="Logo">
+            
+            <div class="search-field-home">
+                <span>🔍</span>
+                <input type="text" class="search-text" placeholder="Looking for something?">
+            </div>
+
+            <div class="nav-my-orders">My Orders</div>
+            <div class="nav-favorites">Favorites</div>
+            
+            <div class="icon-btn-user"></div>
+            <img class="icon-btn-cart" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABfSURBVHgB7c9BDcAgEABBRyBEKkgqSKpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKsj37g2i+wN5m3X9lAAAAABJRU5ErkJggg==" alt="Cart">
+            
+            <div class="notif-container">
+                <!-- Notifications would go here -->
+                <div class="notif-icon"></div>
+            </div>
+        </div>
+
+        <!-- Upper Section (Categories) -->
+        <div class="categories-section">
+            <img class="upper-container-bg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAFpCAYAAABqCI+nAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABOSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvwE5oAAAAQ==" alt="Categories BG">
+            <h1 class="featured-title">Featured Products</h1>
+            <p class="featured-subtitle">View our latest styles from across our store below.</p>
+            
+            <div class="cat-card cat-card-1">
+                <img class="cat-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Category 1">
+                <h3 class="cat-title">Shoes</h3>
+                <span class="cat-subtitle">3.1k Products</span>
+            </div>
+             <div class="cat-card cat-card-2">
+                <img class="cat-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Category 2">
+                <h3 class="cat-title">Outerwear</h3>
+                <span class="cat-subtitle">1.4k Products</span>
+            </div>
+             <div class="cat-card cat-card-3">
+                <img class="cat-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Category 3">
+                <h3 class="cat-title">Fitness Wear</h3>
+                <span class="cat-subtitle">320 Products</span>
+            </div>
+
+            <div class="scrollbar-h">
+                 <div class="scrollbar-track">
+                     <div class="scrollbar-thumb" style="background-color: rgba(255, 255, 255, 0.5);"></div>
+                 </div>
+            </div>
+        </div>
+
+        <!-- Lower Section (Favorites) -->
+        <div class="lower-container-bg"></div>
+        <div class="favorites-section">
+            <h2 class="fav-title-text">Order your Favorites</h2>
+            
+            <!-- Product 1 -->
+            <div class="prod-card prod-card-1">
+                <div class="prod-img-rect"></div>
+                 <!-- Using simplified structure as per analysis -->
+                 <img class="prod-inner-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Prod 1">
+                 <h3 class="prod-name">Converse AS-1 Pro</h3>
+                 <span class="prod-price">[$1,234.56]</span>
+                 <span class="prod-cat">Shoes</span>
+                 <div class="prod-checkbox">
+                     <img class="checkbox-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEwIDE2LjRMNiAxMi40TDcuNCAxMUwxMCAxMy42TDE2LjYgN0wxOCA4LjRMMTAgMTYuNFonIGZpbGw9J3doaXRlJy8+Cjwvc3ZnPgo=" alt="Checked">
+                 </div>
+                 <img class="prod-heart" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjUnIGhlaWdodD0nMjUnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDIxLjM1bC0xLjQ1LTEuMzJDNS40IDE1LjM2IDIgMTIuMjggMiA4LjUgMiA1LjQyIDQuNDIgMyA3LjUgM2MxLjc0IDAgMy40MS44MSA0LjUgMi4wOUMxMy4wOSAzLjgxIDE0Ljc2IDMgMTYuNSAzIDE5LjU4IDMgMjIgNS40MiAyMiA4LjVjMCAzLjc4LTMuNCA2Ljg2LTguNTUgMTEuNTRMMTIgMjEuMzV6JyBmaWxsPScjNkY2MUVGJy8+Cjwvc3ZnPgo=" alt="Heart">
+            </div>
+
+             <!-- Product 2 -->
+            <div class="prod-card prod-card-2">
+                <div class="prod-img-rect" style="border: 1px solid rgba(108, 108, 108, 0.5); border-width: 1px;"></div>
+                 <img class="prod-inner-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" style="border: 5px solid rgba(111,97,239,1)" alt="Prod 2">
+                 <h3 class="prod-name">[name]</h3>
+                 <span class="prod-price">[$1,234.56]</span>
+                 <span class="prod-cat">[category]</span>
+                 <div class="prod-checkbox">
+                     <img class="checkbox-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHJlY3QgeD0nMScgeT0nMScgd2lkdGg9JzIyJyBoZWlnaHQ9JzIyJyByeD0nNCcgc3Ryb2tlPScjNkY2MUVGJyBzdHJva2Utd2lkdGg9JzInLz4KPC9zdmc+Cg==" alt="Unchecked">
+                 </div>
+                 <img class="prod-heart" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjUnIGhlaWdodD0nMjUnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDIxLjM1bC0xLjQ1LTEuMzJDNS40IDE1LjM2IDIgMTIuMjggMiA4LjUgMiA1LjQyIDQuNDIgMyA3LjUgM2MxLjc0IDAgMy40MS44MSA0LjUgMi4wOUMxMy4wOSAzLjgxIDE0Ljc2IDMgMTYuNSAzIDE5LjU4IDMgMjIgNS40MiAyMiA4LjVjMCAzLjc4LTMuNCA2Ljg2LTguNTUgMTEuNTRMMTIgMjEuMzV6JyBzdHJva2U9JyM2RjYxRUYnIHN0cm9rZS13aWR0aD0nMicvPgo8L3N2Zz4K" alt="Heart Outline">
+            </div>
+            
+             <!-- Product 3 (Opacity 0.5) -->
+            <div class="prod-card prod-card-3">
+                 <div class="prod-img-rect" style="border: 1px solid rgba(108, 108, 108, 0.5);"></div>
+                 <img class="prod-inner-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" style="border: 5px solid rgba(111,97,239,1)" alt="Prod 3">
+                 <h3 class="prod-name">[name]</h3>
+                 <span class="prod-price">[$1,234.56]</span>
+                 <span class="prod-cat">[category]</span>
+                  <div class="prod-checkbox">
+                     <img class="checkbox-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHJlY3QgeD0nMScgeT0nMScgd2lkdGg9JzIyJyBoZWlnaHQ9JzIyJyByeD0nNCcgc3Ryb2tlPScjNkY2MUVGJyBzdHJva2Utd2lkdGg9JzInLz4KPC9zdmc+Cg==" alt="Unchecked">
+                 </div>
+                 <img class="prod-heart" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjUnIGhlaWdodD0nMjUnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDIxLjM1bC0xLjQ1LTEuMzJDNS40IDE1LjM2IDIgMTIuMjggMiA4LjUgMiA1LjQyIDQuNDIgMyA3LjUgM2MxLjc0IDAgMy40MS44MSA0LjUgMi4wOUMxMy4wOSAzLjgxIDE0Ljc2IDMgMTYuNSAzIDE5LjU4IDMgMjIgNS40MiAyMiA4LjVjMCAzLjc4LTMuNCA2Ljg2LTguNTUgMTEuNTRMMTIgMjEuMzV6JyBzdHJva2U9JyM2RjYxRUYnIHN0cm9rZS13aWR0aD0nMicvPgo8L3N2Zz4K" alt="Heart Outline">
+            </div>
+
+             <!-- Product 4 (Clipped/Partial) -->
+            <div class="prod-card prod-card-4">
+                <!-- Content similar to others -->
+                 <div class="prod-img-rect" style="border: 1px solid rgba(108, 108, 108, 0.5);"></div>
+                 <img class="prod-inner-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" style="border: 5px solid rgba(111,97,239,1)" alt="Prod 4">
+            </div>
+            
+            <button class="btn-add-to-cart">Add to Cart</button>
+        </div>
+        
+        <!-- Tab Bar -->
+        <div class="tab-bar-iphone">
+             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABGCAYAAABU5pWcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABfSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4GYH0J4AAe9w8qAAAAAASUVORK5CYII=" alt="TabBar">
+        </div>
+
+    </div>
+</body>
+</html>

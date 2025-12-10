@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Profile Page</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=SF+Pro+Display:wght@400&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #F1F4F8;
+            --primary-purple: rgba(111, 97, 239, 1);
+            --primary-light: rgba(192, 186, 243, 1);
+            --text-dark: #000000;
+            --text-grey: #6E6C6C;
+            --card-bg: #FFFFFF;
+            --border-color: #E0E0E0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        /* --- Navigation Bar --- */
+        .navbar {
+            width: 100%;
+            max-width: 1440px;
+            height: 82px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 33px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .search-bar {
+            width: 497px;
+            height: 45px;
+            background-color: rgba(120, 120, 128, 0.16);
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            color: #999;
+        }
+
+        .search-bar span {
+            margin-left: 10px;
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 17px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-text {
+            font-weight: 300;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            border: 2px solid #555353;
+            background-color: var(--primary-purple);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /* --- Main Layout --- */
+        .main-content {
+            display: flex;
+            width: 100%;
+            max-width: 1310px;
+            gap: 20px;
+            padding: 20px;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        /* --- Breadcrumbs / Tabs --- */
+        .breadcrumbs {
+            position: absolute;
+            top: -60px;
+            left: 22px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .crumb-btn {
+            background-color: rgba(219, 222, 227, 1);
+            border: 1px solid rgba(89, 89, 89, 1);
+            border-radius: 100px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            color: #5E5E5E;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .crumb-btn.active {
+            background-color: var(--primary-light);
+            border-color: var(--primary-purple);
+            color: #3E3E3E;
+        }
+
+        /* --- Left Side: Seller Info --- */
+        .seller-info-card {
+            width: 444px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            height: 515px;
+            text-align: center;
+        }
+
+        .seller-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            border: 1px solid #AAAAAA;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .seller-name {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .seller-rating {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .seller-meta {
+            font-size: 14px;
+            color: var(--text-grey);
+            margin-bottom: 20px;
+        }
+
+        .seller-meta span {
+            color: var(--primary-purple);
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        .msg-seller-btn {
+            border: 1px solid var(--primary-purple);
+            color: white;
+            background-color: var(--primary-purple);
+            border-radius: 100px;
+            padding: 10px 24px;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        /* --- Right Side: Store Content --- */
+        .store-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .store-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .store-search {
+            display: flex;
+            align-items: center;
+            border: 1px solid #D9D9D9;
+            border-radius: 100px;
+            padding: 8px 16px;
+            width: 200px;
+            background: white;
+            font-size: 14px;
+            color: #AAAAAA;
+        }
+
+        .store-search svg {
+            margin-left: auto;
+            cursor: pointer;
+        }
+
+        /* Tabs */
+        .store-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--primary-purple);
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 14px 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: #49454F;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab.active {
+            color: var(--primary-purple);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-purple);
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* Categories */
+        .categories-grid {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-card {
+            min-width: 196px;
+            height: 120px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-text {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            color: white;
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .category-count {
+            font-size: 12px;
+            font-weight: 300;
+        }
+
+        /* Products List */
+        .products-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .product-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .product-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .product-img {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #AAAAAA;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: 500;
+            color: #555353;
+            margin-bottom: 5px;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: var(--text-grey);
+        }
+
+        .product-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-view, .btn-add {
+            border: 1px solid var(--primary-purple);
+            border-radius: 100px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-view {
+            background-color: var(--primary-light);
+            color: #555353;
+        }
+
+        .btn-add {
+            background-color: var(--primary-purple);
+            color: white;
+        }
+
+        .fav-icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #CAC4D0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /* Scrollbar styles */
+        .custom-scrollbar {
+            height: 6px;
+            background: #E0E0E0;
+            border-radius: 10px;
+            margin-top: 10px;
+            width: 50%;
+            position: relative;
+        }
+
+        .scrollbar-thumb {
+            width: 50%;
+            height: 100%;
+            background: #AAAAAA;
+            border-radius: 10px;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .main-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .seller-info-card, .store-content {
+                width: 100%;
+                max-width: 800px;
+            }
+            .navbar {
+                flex-wrap: wrap;
+                justify-content: center;
+                height: auto;
+                padding: 15px;
+                gap: 15px;
+            }
+            .search-bar {
+                order: 3;
+                width: 100%;
+            }
+            .breadcrumbs {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 20px;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="data:image/png;base64,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" alt="Logo">
+        </div>
+
+        <div class="search-bar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <span>Looking for something?</span>
+        </div>
+
+        <div class="nav-links">
+            <span class="nav-text">My Orders</span>
+            <span class="nav-text">Favorites</span>
+            
+            <div class="nav-icons">
+                <div style="cursor: pointer;">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDgnIGhlaWdodD0nNDgnIHZpZXdCb3g9JzAgMCA0OCA0OCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTggMzhWMzRIMTJWMjBDMTIgMTcuMjMzMyAxMi44MzMzIDE0Ljc4MzMgMTQuNSAxMi42NUMxNi4xNjY3IDEwLjQ4MzMgMTguMzMzMyA5LjA2NjY2IDIxIDguNFY3QzIxIDYuMTY2NjcgMjEuMjgzMyA1LjQ2NjY3IDIxLjg1IDQuOUMyMi40NSA0LjMgMjMuMTY2NyA0IDI0IDRDMjQuODMzMyA0IDI1LjUzMzMgNC4zIDI2LjEgNC45QzI2LjcgNS40NjY2NyAyNyA2LjE2NjY3IDI3IDdWOC40QzI5LjY2NjcgOS4wNjY2NiAzMS44MzMzIDEwLjQ4MzMgMzMuNSAxMi42NUMzNS4xNjY3IDE0Ljc4MzMgMzYgMTcuMjMzMyAzNiAyMFYzNEg0MFYzOEg4Wk0yNCA0NEMyMi45IDQ0IDIxLjk1IDQzLjYxNjcgMjEuMTUgNDIuODVDMjAuMzgzMyA0Mi4wNSAyMCA0MS4xIDIwIDQwSDI4QzI4IDQxLjEgMjcuNiA0Mi4wNSAyNi44IDQyLjg1QzI2LjAzMzMgNDMuNjE2NyAyNS4xIDQ0IDI0IDQ0Wk0xNiAzNEgzMlYyMEMzMiAxNy44IDMxLjIxNjcgMTUuOTE2NyAyOS42NSAxNC4zNUMyOC4wODMzIDEyLjc4MzMgMjYuMiAxMiAyNCAxMkMyMS44IDEyIDE5LjkxNjcgMTIuNzgzMyAxOC4zNSAxNC4zNUMxNi43ODMzIDE1LjkxNjcgMTYgMTcuOCAxNiAyMFYzNFonIGZpbGw9JyMxRDFCMjAnLz4KPC9zdmc+Cg==" alt="Notify" width="30">
+                </div>
+                <div class="icon-btn">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMzAnIGhlaWdodD0nMzAnIHZpZXdCb3g9JzAgMCAzMCAzMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTI1IDI2LjI1VjIzLjc1QzI1IDIyLjQyMzkgMjQuNDczMiAyMS4xNTIxIDIzLjUzNTUgMjAuMjE0NUMyMi41OTc5IDE5LjI3NjggMjEuMzI2MSAxOC43NSAyMCAxOC43NUgxMEM4LjY3MzkyIDE4Ljc1IDcuNDAyMTUgMTkuMjc2OCA2LjQ2NDQ3IDIwLjIxNDVDNS41MjY3OCAyMS4xNTIxIDUgMjIuNDIzOSA1IDIzLjc1VjI2LjI1TTIwIDguNzVDMjAgMTEuNTExNCAxNy43NjE0IDEzLjc1IDE1IDEzLjc1QzEyLjIzODYgMTMuNzUgMTAgMTEuNTExNCAxMCA4Ljc1QzEwIDUuOTg4NTggMTIuMjM4NiAzLjc1IDE1IDMuNzVDMTcuNzYxNCAzLjc1IDIwIDUuOTg4NTggMjAgOC43NVonIHN0cm9rZT0nI0YzRjNGMycgc3Ryb2tlLXdpZHRoPScyJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnLz4KPC9zdmc+Cg==" alt="User">
+                </div>
+                <div class="icon-btn">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMzAnIGhlaWdodD0nMzAnIHZpZXdCb3g9JzAgMCAzMCAzMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEuMjUgMS4yNUg2LjI1TDkuNiAxNy45ODc1QzkuNzE0MzEgMTguNTYzIDEwLjAyNzQgMTkuMDc5OSAxMC40ODQ0IDE5LjQ0NzlDMTAuOTQxNSAxOS44MTU4IDExLjUxMzQgMjAuMDExMiAxMi4xIDIwSDI0LjI1QzI0LjgzNjYgMjAuMDExMiAyNS40MDg1IDE5LjgxNTggMjUuODY1NiAxOS40NDc5QzI2LjMyMjYgMTkuMDc5OSAyNi42MzU3IDE4LjU2MyAyNi43NSAxNy45ODc1TDI4Ljc1IDcuNUg3LjVNMTIuNSAyNi4yNUMxMi41IDI2Ljk0MDQgMTEuOTQwNCAyNy41IDExLjI1IDI3LjVDMTAuNTU5NiAyNy41IDEwIDI2Ljk0MDQgMTAgMjYuMjVDMTAgMjUuNTU5NiAxMC41NTk2IDI1IDExLjI1IDI1QzExLjk0MDQgMjUgMTIuNSAyNS41NTk2IDEyLjUgMjYuMjVaTTI2LjI1IDI2LjI1QzI2LjI1IDI2Ljk0MDQgMjUuNjkwNCAyNy41IDI1IDI3LjVDMjQuMzA5NiAyNy41IDIzLjc1IDI2Ljk0MDQgMjMuNzUgMjYuMjVDMjMuNzUgMjUuNTU5NiAyNC4zMDk2IDI1IDI1IDI1QzI1LjY5MDQgMjUgMjYuMjUgMjUuNTU5NiAyNi4yNSAyNi4yNVonIHN0cm9rZT0nI0YzRjNGMycgc3Ryb2tlLXdpZHRoPScyJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnLz4KPC9zdmc+Cg==" alt="Cart">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumbs">
+            <button class="crumb-btn">Product Details</button>
+            <button class="crumb-btn active">Seller Details</button>
+        </div>
+
+        <section class="seller-info-card">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWAQMAAAAGz+OhAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABlJREFUSMftwYEAAAAAw6D7Ux/gClUBAMDTAwZ4AAH1241lAAAAAElFTkSuQmCC" alt="Seller Avatar" class="seller-avatar">
+            
+            <h2 class="seller-name">anko</h2>
+            
+            <div class="seller-rating">
+                <svg width="24" height="24" viewBox="0 0 35 35" fill="none"><path d="M8.5 32L10.8 21.8L2.9 14.9L13.4 14L17.5 4.4L21.6 14L32 14.9L24.1 21.8L26.5 32L17.5 26.6L8.5 32Z" fill="black"/></svg>
+                <svg width="24" height="24" viewBox="0 0 35 35" fill="none"><path d="M8.5 32L10.8 21.8L2.9 14.9L13.4 14L17.5 4.4L21.6 14L32 14.9L24.1 21.8L26.5 32L17.5 26.6L8.5 32Z" fill="black"/></svg>
+                <svg width="24" height="24" viewBox="0 0 35 35" fill="none"><path d="M8.5 32L10.8 21.8L2.9 14.9L13.4 14L17.5 4.4L21.6 14L32 14.9L24.1 21.8L26.5 32L17.5 26.6L8.5 32Z" fill="black"/></svg>
+                <svg width="24" height="24" viewBox="0 0 35 35" fill="none"><path d="M8.5 32L10.8 21.8L2.9 14.9L13.4 14L17.5 4.4L21.6 14L32 14.9L24.1 21.8L26.5 32L17.5 26.6L8.5 32Z" fill="black"/></svg>
+                <svg width="24" height="24" viewBox="0 0 35 35" fill="none"><path d="M12.9 26L17.5 23.2L22 26L20.9 20.8L24.9 17.3L19.6 16.8L17.5 11.8L15.4 16.8L10 17.2L14.1 20.8L12.9 26ZM8.5 32L10.8 21.8L2.9 14.9L13.4 14L17.5 4.4L21.6 14L32 14.9L24.1 21.8L26.5 32L17.5 26.6L8.5 32Z" fill="#1D1B20"/></svg>
+            </div>
+
+            <p class="seller-meta"><span>240 Sales</span> Melbourne, Australia</p>
+            
+            <button class="msg-seller-btn">Message Seller</button>
+        </section>
+
+        <section class="store-content">
+            <div class="store-header">
+                <div class="store-search">
+                    Search this Store
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="#1E1E1E" stroke-width="1.6" stroke-linecap="round"/></svg>
+                </div>
+            </div>
+
+            <div class="store-tabs">
+                <div class="tab active">Featured</div>
+                <div class="tab">All Products</div>
+                <div class="tab">Reviews</div>
+            </div>
+
+            <div class="categories-grid">
+                <div class="category-card">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAAB4CAYAAACR6q1JAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJwSURBVHgB7cEBDQAAAMKg909tDjegAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4M0AAw0AAQ==" alt="Shoes">
+                    <div class="category-text">
+                        <div class="category-title">Shoes</div>
+                        <div class="category-count">3.1k Products</div>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAAB4CAYAAACR6q1JAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJwSURBVHgB7cEBDQAAAMKg909tDjegAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4M0AAw0AAQ==" alt="Outerwear">
+                    <div class="category-text">
+                        <div class="category-title">Outerwear</div>
+                        <div class="category-count">1.4k Products</div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAAB4CAYAAACR6q1JAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJwSURBVHgB7cEBDQAAAMKg909tDjegAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4M0AAw0AAQ==" alt="Underwear">
+                    <div class="category-text">
+                        <div class="category-title">Underwear</div>
+                        <div class="category-count">5k Products</div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAAB4CAYAAACR6q1JAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJwSURBVHgB7cEBDQAAAMKg909tDjegAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4M0AAw0AAQ==" alt="Fitness">
+                    <div class="category-text">
+                        <div class="category-title">Fitness Wear</div>
+                        <div class="category-count">320 Products</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="custom-scrollbar">
+                <div class="scrollbar-thumb"></div>
+            </div>
+
+            <div class="products-list">
+                <div class="product-item">
+                    <div class="product-left">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF0SURBVHgB7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4M1A4AAQ==" alt="Product" class="product-img">
+                        <div class="product-details">
+                            <span class="product-name">Converse AS-1 Pro Leather Ox Sneakers</span>
+                            <span class="product-desc">[description]</span>
+                        </div>
+                    </div>
+                    <div class="product-right">
+                        <div class="product-price">[$1,234.56]</div>
+                        <div class="product-actions">
+                            <button class="btn-view">View Item</button>
+                            <button class="btn-add">Add to Cart</button>
+                            <div class="fav-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.1 18.55L12 18.65L11.89 18.55C7.14 14.24 4 11.39 4 8.5C4 6.5 5.5 5 7.5 5C9.04 5 10.54 6 11.07 7.36H12.93C13.46 6 14.96 5 16.5 5C18.5 5 20 6.5 20 8.5C20 11.39 16.86 14.24 12.1 18.55ZM16.5 3C14.76 3 13.09 3.81 12 5.08C10.91 3.81 9.24 3 7.5 3C4.42 3 2 5.41 2 8.5C2 12.27 5.4 15.36 10.55 20.03L12 21.35L13.45 20.03C18.6 15.36 22 12.27 22 8.5C22 5.41 19.58 3 16.5 3Z" fill="#555"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item">
+                    <div class="product-left">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF0SURBVHgB7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4M1A4AAQ==" alt="Product" class="product-img">
+                        <div class="product-details">
+                            <span class="product-name">[name]</span>
+                            <span class="product-desc">[description]</span>
+                        </div>
+                    </div>
+                    <div class="product-right">
+                        <div class="product-price">[$1,234.56]</div>
+                        <div class="product-actions">
+                            <button class="btn-view">View Item</button>
+                            <button class="btn-add">Add to Cart</button>
+                            <div class="fav-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.1 18.55L12 18.65L11.89 18.55C7.14 14.24 4 11.39 4 8.5C4 6.5 5.5 5 7.5 5C9.04 5 10.54 6 11.07 7.36H12.93C13.46 6 14.96 5 16.5 5C18.5 5 20 6.5 20 8.5C20 11.39 16.86 14.24 12.1 18.55ZM16.5 3C14.76 3 13.09 3.81 12 5.08C10.91 3.81 9.24 3 7.5 3C4.42 3 2 5.41 2 8.5C2 12.27 5.4 15.36 10.55 20.03L12 21.35L13.45 20.03C18.6 15.36 22 12.27 22 8.5C22 5.41 19.58 3 16.5 3Z" fill="#555"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item">
+                    <div class="product-left">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF0SURBVHgB7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4M1A4AAQ==" alt="Product" class="product-img">
+                        <div class="product-details">
+                            <span class="product-name">[name]</span>
+                            <span class="product-desc">[description]</span>
+                        </div>
+                    </div>
+                    <div class="product-right">
+                        <div class="product-price">[$1,234.56]</div>
+                        <div class="product-actions">
+                            <button class="btn-view">View Item</button>
+                            <button class="btn-add">Add to Cart</button>
+                            <div class="fav-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12.1 18.55L12 18.65L11.89 18.55C7.14 14.24 4 11.39 4 8.5C4 6.5 5.5 5 7.5 5C9.04 5 10.54 6 11.07 7.36H12.93C13.46 6 14.96 5 16.5 5C18.5 5 20 6.5 20 8.5C20 11.39 16.86 14.24 12.1 18.55ZM16.5 3C14.76 3 13.09 3.81 12 5.08C10.91 3.81 9.24 3 7.5 3C4.42 3 2 5.41 2 8.5C2 12.27 5.4 15.36 10.55 20.03L12 21.35L13.45 20.03C18.6 15.36 22 12.27 22 8.5C22 5.41 19.58 3 16.5 3Z" fill="#555"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>

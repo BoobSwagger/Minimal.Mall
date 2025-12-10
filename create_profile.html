@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=Inter:wght@400&family=Roboto:wght@500&display=swap" rel="stylesheet">
+</head>
+<body class="create-profile-body">
+    <!-- App Bar -->
+    <div class="app-bar">
+        <img class="app-bar-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMzAnIGhlaWdodD0nMzAnIHZpZXdCb3g9JzAgMCAzMCAzMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTIzLjc1IDE1SDYuMjVNNi4yNSAxNUwxNSAyMy43NU02LjI1IDE1TDE1IDYuMjUnIHN0cm9rZT0nIzFFMUUxRScgc3Ryb2tlLXdpZHRoPSc0JyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnLz4KPC9zdmc+Cg==" alt="Back">
+        <span class="app-bar-title">Create Profile</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="profile-container">
+        <!-- Close Icon -->
+        <img class="close-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjInIGhlaWdodD0nMjYnIHZpZXdCb3g9JzAgMCAyMiAyNicgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTE5LjUgMTIuOTUwNUgyTTIgMTIuOTUwNUwxMC43NSAyMy45MDA5TTIgMTIuOTUwNUwxMC43NSAyLjAwMDEyJyBzdHJva2U9JyMxRTFFMUUnIHN0cm9rZS13aWR0aD0nNCcgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJyBzdHJva2UtbGluZWpvaW49J3JvdW5kJy8+Cjwvc3ZnPgo=" alt="Close">
+        
+        <h1 class="profile-title">Create Your Profile</h1>
+
+        <!-- Photo Frame -->
+        <div class="photo-frame">
+            <div class="photo-placeholder">
+                <img class="photo-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nODInIGhlaWdodD0nODInIHZpZXdCb3g9JzAgMCA4MiA4MicgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTE3LjA4MzMgNzEuNzVDMTUuMjA0MiA3MS43NSAxMy41ODEzIDcxLjA5NTEgMTIuMjE0NiA2OS43ODU0QzEwLjkwNDkgNjguNDE4OCAxMC4yNSA2Ni43OTU4IDEwLjI1IDY0LjkxNjdWMTcuMDgzM0MxMC4yNSAxNS4yMDQyIDEwLjkwNDkgMTMuNjA5NyAxMi4yMTQ2IDEyLjNDMTMuNTgxMyAxMC45MzMzIDE1LjIwNDIgMTAuMjUgMTcuMDgzMyAxMC4yNUg2NC45MTY3QzY2Ljc5NTggMTAuMjUgNjguMzkwMyAxMC45MzMzIDY5LjcgMTIuM0M3MS4wNjY3IDEzLjYwOTcgNzEuNzUgMTUuMjA0MiA3MS43NSAxNy4wODMzVjY0LjkxNjdDNzEuNzUgNjYuNzk1OCA3MS4wNjY3IDY4LjQxODggNjkuNyA2OS43ODU0QzY4LjM5MDMgNzEuMDk1MSA2Ni43OTU4IDcxLjc1IDY0LjkxNjcgNzEuNzVIMTcuMDgzM1pNMTcuMDgzMyA2NC45MTY3SDY0LjkxNjdWMTcuMDgzM0gxNy4wODMzVjY0LjkxNjdaTTIwLjUgNTguMDgzM0g2MS41TDQ4LjY4NzUgNDFMMzguNDM3NSA1NC42NjY3TDMwLjc1IDQ0LjQxNjdMMjAuNSA1OC4wODMzWk0xNy4wODMzIDY0LjkxNjdWMTcuMDgzM1Y2NC45MTY3WicgZmlsbD0nIzFEMUIyMCcvPgo8L3N2Zz4K" alt="Photo">
+            </div>
+        </div>
+
+        <form class="profile-form">
+            <!-- Full Name Input -->
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" placeholder="Display Name">
+            </div>
+
+            <!-- Gender Select -->
+            <div class="form-group">
+                <label class="form-label">Gender</label>
+                <div class="select-wrapper">
+                    <select class="form-select">
+                        <option value="" disabled selected hidden>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <img class="select-chevron" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTYnIHZpZXdCb3g9JzAgMCAxNiAxNicgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTQgNkw4IDEwTDEyIDYnIHN0cm9rZT0nIzFFMUUxRScgc3Ryb2tlLXdpZHRoPScxLjYnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCcvPgo8L3N2Zz4K" alt="Chevron">
+                </div>
+            </div>
+
+            <!-- Bio Textarea -->
+            <div class="form-group">
+                <label class="form-label">Bio</label>
+                <div class="textarea-wrapper">
+                    <textarea class="form-textarea" placeholder="Enter Here"></textarea>
+                    <img class="textarea-drag" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nOCcgaGVpZ2h0PSc4JyB2aWV3Qm94PScwIDAgOCA4JyBmaWxsPSdub25lJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPgo8cGF0aCBkPSdNNi41MjMgMC4zNTM1MTZMMC4zNTM1MTYgNi41MjNNNi45ODA2NCAzLjg5NTg5TDMuODk1OSA2Ljk4MDYzJyBzdHJva2U9JyNCM0IzQjMnLz4KPC9zdmc+Cg==" alt="Resize">
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <button class="btn-save">
+                Save Changes
+            </button>
+        </form>
+    </div>
+</body>
+</html>
