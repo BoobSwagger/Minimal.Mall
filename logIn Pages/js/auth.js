@@ -267,7 +267,7 @@ function initSignInForm() {
             
             // Redirect to customer pages after 1 second
             setTimeout(() => {
-                window.location.href = '../customer Pages/index.html';
+                window.location.href = '../customer Pages/tug.html';
             }, 1000);
         } else {
             // Show error message
