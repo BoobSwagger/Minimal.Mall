@@ -202,7 +202,7 @@ function signOut() {
     removeToken();
     localStorage.removeItem('userData');
     // Redirect to sign in page
-    window.location.href = 'signin.html';
+    window.location.href = '../logIn Pages/signin.html';
 }
 
 // Check if user is authenticated
@@ -241,14 +241,20 @@ function initSignInForm() {
         const errorDiv = document.getElementById('errorMessage');
 
         // Disable button and show loading
-        if (submitBtn) submitBtn.disabled = true;
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Signing in...';
+        }
         if (errorDiv) errorDiv.style.display = 'none';
 
         // Attempt sign in
         const result = await signIn(email, password);
 
         // Re-enable button
-        if (submitBtn) submitBtn.disabled = false;
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Sign In';
+        }
 
         if (result.success) {
             // Show success message
@@ -259,9 +265,9 @@ function initSignInForm() {
                 errorDiv.style.display = 'block';
             }
             
-            // Redirect to dashboard after 1 second
+            // Redirect to customer pages after 1 second
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
+                window.location.href = '../customer Pages/index.html';
             }, 1000);
         } else {
             // Show error message
@@ -291,14 +297,20 @@ function initSignUpForm() {
         const errorDiv = document.getElementById('errorMessage');
 
         // Disable button and show loading
-        if (submitBtn) submitBtn.disabled = true;
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Creating account...';
+        }
         if (errorDiv) errorDiv.style.display = 'none';
 
         // Attempt sign up
         const result = await signUp(email, password, fullName, phone);
 
         // Re-enable button
-        if (submitBtn) submitBtn.disabled = false;
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Sign Up';
+        }
 
         if (result.success) {
             // Show success message
@@ -309,9 +321,9 @@ function initSignUpForm() {
                 errorDiv.style.display = 'block';
             }
             
-            // Redirect to dashboard after 1 second
+            // Redirect to customer pages after 1 second
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
+                window.location.href = '../customer Pages/index.html';
             }, 1000);
         } else {
             // Show error message
@@ -358,9 +370,9 @@ function initTabSwitching() {
 function checkAuthOnLoad() {
     if (isAuthenticated()) {
         const currentPage = window.location.pathname;
-        // If on signin or signup page and already authenticated, redirect to dashboard
+        // If on signin or signup page and already authenticated, redirect to customer pages
         if (currentPage.includes('signin') || currentPage.includes('signup')) {
-            window.location.href = 'dashboard.html';
+            window.location.href = '../customer Pages/index.html';
         }
     }
 }
