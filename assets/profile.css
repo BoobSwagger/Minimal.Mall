@@ -1,0 +1,159 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-purple: #7C3AED;
+    --primary-dark: #5B21B6;
+    --primary-light: #DDD6FE;
+    --bg-light: #F9FAFB;
+    --text-dark: #1F2937;
+    --text-grey: #6B7280;
+    --border-color: #E5E7EB;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    margin: 0;
+}
+
+/* --- 1. Header (Consistent Wave) --- */
+.page-header {
+    background: radial-gradient(circle at 10% 20%, #C4B5FD 0%, #7C3AED 50%, #5B21B6 100%);
+    padding-bottom: 90px; 
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+/* Navbar styles to ensure visibility on dark background */
+.navbar .logo-text, .navbar .nav-link, .navbar i { color: white !important; }
+.header-search input { background: rgba(255,255,255,0.2); color: white; border: none; }
+.header-search input::placeholder { color: rgba(255,255,255,0.7); }
+.header-search i { color: rgba(255,255,255,0.7); }
+
+/* --- 2. Main Content Area --- */
+.main-container {
+    margin-top: -60px;
+    position: relative;
+    z-index: 10;
+    padding-bottom: 50px;
+}
+
+/* --- Left Column: Profile Card --- */
+.profile-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid white;
+    height: 100%;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.avatar {
+    width: 70px; height: 70px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.user-name { font-size: 18px; font-weight: 700; margin-bottom: 2px; line-height: 1.2; }
+.user-email { font-size: 12px; color: var(--text-grey); margin: 0; word-break: break-all; }
+.user-handle { font-size: 13px; color: var(--primary-purple); font-weight: 500; margin-top: 2px; }
+
+/* Menu Links */
+.profile-menu { display: flex; flex-direction: column; gap: 10px; }
+
+.menu-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: 0.2s;
+    background: white;
+}
+.menu-item:hover { background-color: #F9FAFB; border-color: var(--primary-purple); color: var(--primary-purple); }
+.menu-item i.menu-icon { width: 24px; color: var(--text-grey); }
+.menu-item:hover i.menu-icon { color: var(--primary-purple); }
+
+/* Buttons */
+.btn-selling {
+    background-color: var(--primary-purple);
+    color: white;
+    width: 100%; padding: 12px;
+    border-radius: 50px; border: none;
+    font-weight: 600; margin-top: 25px; margin-bottom: 10px;
+    transition: 0.2s;
+}
+.btn-selling:hover { background-color: var(--primary-dark); color: white; }
+
+.btn-logout {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-grey);
+    width: 100%; padding: 10px;
+    border-radius: 50px;
+    font-weight: 600; font-size: 13px;
+    transition: 0.2s;
+}
+.btn-logout:hover { background-color: #F3F4F6; color: var(--text-dark); }
+
+
+/* --- Right Column: Activity Card --- */
+.activity-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid white;
+    height: 100%;
+}
+
+.section-title { font-size: 24px; font-weight: 400; margin-bottom: 25px; }
+
+/* Bio Section */
+.bio-box { margin-bottom: 30px; }
+.bio-label { color: var(--primary-purple); font-size: 13px; font-weight: 700; display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+.bio-text { color: var(--text-grey); font-size: 14px; line-height: 1.6; }
+
+/* Stats Grid */
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 30px;
+}
+.stat-box { flex: 1; min-width: 80px; }
+.stat-value { font-size: 32px; font-weight: 700; color: #111; line-height: 1; margin-bottom: 5px; }
+.stat-label { font-size: 12px; color: var(--primary-purple); font-weight: 500; }
+
+/* Transactions */
+.trans-header { font-size: 14px; color: var(--text-grey); font-weight: 600; margin-bottom: 15px; }
+
+.trans-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #F3F4F6;
+}
+.trans-item:last-child { border-bottom: none; }
+
+.trans-id { font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+.trans-date { font-size: 12px; color: var(--text-grey); }
+.trans-price { font-size: 18px; font-weight: 700; color: var(--text-dark); }

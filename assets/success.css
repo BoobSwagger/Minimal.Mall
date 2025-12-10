@@ -1,0 +1,123 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-purple: #7C3AED;
+    --primary-dark: #5B21B6;
+    --primary-light: #DDD6FE;
+    --bg-light: #F9FAFB;
+    --text-dark: #1F2937;
+    --text-grey: #6B7280;
+    --border-color: #E5E7EB;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Success Page Container --- */
+.success-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    background: transparent; 
+}
+
+/* Close Button (Top Right) */
+.btn-close-custom {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #D1D5DB;
+    background: white;
+    color: var(--text-grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 18px;
+    text-decoration: none;
+}
+.btn-close-custom:hover {
+    background: #F3F4F6;
+    color: var(--text-dark);
+}
+
+/* Success Icon Box */
+.success-icon-box {
+    width: 140px;
+    height: 140px;
+    background-color: #C4B5FD; /* Solid Light Purple */
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 50px;
+    border: 2px solid #A78BFA;
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+}
+
+.success-icon-box i {
+    font-size: 60px;
+    color: var(--primary-purple); /* Darker purple checkmark */
+}
+
+/* Typography */
+.success-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #6D28D9; /* Vivid Purple Title */
+    margin-bottom: 10px;
+}
+
+.success-amount {
+    font-size: 48px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
+}
+
+.success-message {
+    font-size: 16px;
+    color: var(--text-grey);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto 60px;
+}
+
+/* History Button */
+.btn-history {
+    background-color: #E5E7EB; /* Light Grey Pill */
+    color: #4B5563; /* Dark Grey Text */
+    border: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-history:hover {
+    background-color: #D1D5DB;
+    color: #1F2937;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}

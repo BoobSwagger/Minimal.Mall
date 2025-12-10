@@ -1,0 +1,155 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-purple: #7C3AED;
+    --primary-dark: #5B21B6;
+    --primary-light: #DDD6FE;
+    --bg-light: #F9FAFB;
+    --text-dark: #1F2937;
+    --text-grey: #6B7280;
+    --border-color: #E5E7EB;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    margin: 0;
+}
+
+/* --- 1. Header (Consistent Wave) --- */
+.page-header {
+    background: radial-gradient(circle at 10% 20%, #C4B5FD 0%, #7C3AED 50%, #5B21B6 100%);
+    padding-bottom: 80px; 
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+/* Navbar styles */
+.navbar .logo-text, .navbar .nav-link, .navbar i { color: white !important; }
+.header-search input { background: rgba(255,255,255,0.2); color: white; border: none; }
+.header-search input::placeholder { color: rgba(255,255,255,0.7); }
+.header-search i { color: rgba(255,255,255,0.7); }
+
+/* --- 2. Main Content Area --- */
+.main-container {
+    margin-top: -50px;
+    position: relative;
+    z-index: 10;
+    padding-bottom: 50px;
+}
+
+/* Left Column: Info Section */
+.info-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid white;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.section-subtitle {
+    font-size: 14px;
+    color: var(--text-grey);
+    margin-bottom: 30px;
+}
+
+/* Selection Boxes (Address, Delivery, Payment) */
+.selection-box {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    background: #fff;
+}
+
+.selection-box:hover {
+    border-color: var(--primary-purple);
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.05);
+}
+
+.box-info h4 { font-size: 16px; font-weight: 600; margin: 0 0 4px 0; }
+.box-info p { font-size: 13px; color: var(--text-grey); margin: 0; }
+
+.box-actions { display: flex; align-items: center; gap: 15px; }
+
+.check-circle {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background-color: #C0BAF3;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 12px;
+}
+/* For active state: Usually toggled via JS, but styled here */
+.selection-box.active .check-circle { background-color: var(--primary-purple); }
+
+
+/* Right Column: Order Summary */
+.summary-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid white;
+}
+
+.summary-table-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-grey);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 15px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--text-grey);
+    margin-bottom: 10px;
+}
+
+.breakdown-row.total {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-purchase {
+    background-color: var(--primary-purple);
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    margin-top: 25px;
+    transition: 0.2s;
+}
+.btn-purchase:hover { background-color: var(--primary-dark); }

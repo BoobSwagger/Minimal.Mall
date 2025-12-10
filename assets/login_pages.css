@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-purple: #7C3AED;
+    --primary-dark: #5B21B6;
+    --primary-light: #DDD6FE;
+    --input-bg: rgba(124, 58, 237, 0.08);
+    --text-dark: #1F2937;
+    --text-grey: #6B7280;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #f8f9fa; /* Bootstrap light grey background */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 1. Smaller Wavy Header --- */
+.signin-header {
+    position: relative;
+    width: 100%;
+    /* REDUCED HEIGHT: Made smaller as requested */
+    height: 240px; 
+    background: radial-gradient(circle at 20% 30%, #C4B5FD 0%, #7C3AED 50%, #4C1D95 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
+    overflow: hidden;
+}
+
+/* Adjusted shapes to fit smaller header */
+.header-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(45px);
+    opacity: 0.5;
+}
+.shape-1 { width: 400px; height: 400px; background: #8B5CF6; top: -250px; left: -50px; }
+.shape-2 { width: 300px; height: 300px; background: #A78BFA; bottom: -150px; right: -50px; opacity: 0.4; }
+
+.logo-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #2E1065; 
+}
+
+.logo-icon {
+    font-size: 32px; /* Smaller logo icon */
+    margin-bottom: 5px;
+    color: #2E1065;
+}
+
+.logo-text {
+    font-size: 24px; /* Smaller logo text */
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* --- 2. Floating Card (Adjusted overlap) --- */
+.main-content {
+    display: flex;
+    justify-content: center;
+    padding: 0 20px 50px 20px;
+    flex-grow: 1;
+}
+
+.auth-card {
+    background: white;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 24px;
+    /* Adjusted margin to pull card up less, since header is smaller */
+    margin-top: -80px; 
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* --- 3. Elements Styling --- */
+.auth-toggle {
+    background: #F3F4F6;
+    border-radius: 50px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Updated Toggle Link Styles */
+.toggle-link {
+    padding: 8px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: var(--text-grey);
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.3s;
+    border: none;
+    background: transparent;
+    display: inline-block;
+}
+
+.toggle-link.active {
+    background: #fff;
+    color: var(--primary-purple);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Keep button style just in case used elsewhere */
+.toggle-btn {
+    padding: 8px 30px;
+    border-radius: 50px;
+    border: none;
+    background: transparent;
+    color: var(--text-grey);
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.toggle-btn.active {
+    background: #fff;
+    color: var(--primary-purple);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.form-title {
+    text-align: center;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.form-subtitle {
+    text-align: center;
+    color: var(--text-grey);
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* Custom Input Styling (Bootstrap Override) */
+.input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-purple);
+    font-size: 18px;
+    z-index: 5;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 14px 20px 14px 50px; /* Space for icon */
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: var(--input-bg);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--primary-dark);
+    outline: none;
+    transition: 0.3s;
+}
+
+.custom-input:focus {
+    background: #fff;
+    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+/* Buttons */
+.btn-signin {
+    background-color: var(--primary-purple);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    width: auto;
+    transition: 0.2s;
+}
+.btn-signin:hover {
+    background-color: #6D28D9;
+}
+
+/* New Primary Button for Sign Up */
+.btn-primary-custom {
+    background-color: var(--primary-purple);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    width: 100%; /* Full width for Sign Up */
+    margin-top: 10px;
+    transition: 0.2s;
+}
+.btn-primary-custom:hover {
+    background-color: #6D28D9;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-grey);
+    font-size: 13px;
+    margin: 25px 0;
+}
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #E5E7EB;
+}
+.divider::before { margin-right: 15px; }
+.divider::after { margin-left: 15px; }
+
+/* Updated Social Button Styles */
+.btn-social {
+    border: 1px solid #E5E7EB;
+    background: white;
+    padding: 12px; /* Increased padding */
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);
+    transition: 0.2s;
+    width: 100%; /* Ensure full width */
+    display: flex; /* Center content */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between icon and text */
+}
+.btn-social:hover {
+    background: #f8f9fa;
+}
+
+.btn-guest {
+    text-decoration: none;
+    background: var(--input-bg);
+    color: var(--primary-purple);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+.btn-guest:hover {
+    background: var(--primary-light);
+}

@@ -1,0 +1,203 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-purple: #7C3AED;
+    --primary-dark: #5B21B6;
+    --primary-light: #DDD6FE;
+    --input-bg: rgba(124, 58, 237, 0.08);
+    --bg-light: #F9FAFB;
+    --text-dark: #1F2937;
+    --text-grey: #6B7280;
+    --border-color: #E5E7EB;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 1. Wavy Header Section --- */
+.order-header {
+    position: relative;
+    width: 100%;
+    /* Taller to allow for card overlap */
+    height: 200px;
+    /* Complex gradient for the wavy effect */
+    background: radial-gradient(circle at 10% 20%, #C4B5FD 0%, #7C3AED 50%, #4C1D95 100%);
+    padding-top: 30px;
+    overflow: hidden;
+    color: white;
+}
+
+/* CSS-generated wavy shapes */
+.header-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    z-index: 0;
+}
+.shape-1 { width: 500px; height: 500px; background: #8B5CF6; top: -200px; left: -150px; }
+.shape-2 { width: 400px; height: 400px; background: #A78BFA; bottom: -100px; right: -50px; opacity: 0.3; }
+
+/* Header Content */
+.header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2E1065;
+}
+.logo-text span { color: white; }
+
+/* Search Bar Styles */
+.search-bar {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    padding: 8px 20px;
+    color: white;
+    width: 100%;
+    max-width: 450px;
+    backdrop-filter: blur(5px);
+}
+.search-bar input {
+    background: transparent;
+    border: none;
+    color: white;
+    width: 100%;
+    outline: none;
+    font-weight: 500;
+}
+.search-bar input::placeholder { color: rgba(255, 255, 255, 0.8); }
+.search-bar i { margin-right: 10px; color: rgba(255, 255, 255, 0.8); }
+
+/* Nav Icons */
+.nav-link { font-weight: 500; font-size: 15px; }
+.nav-icon-btn {
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: 0.2s;
+    text-decoration: none;
+}
+.nav-icon-btn:hover { background: rgba(255, 255, 255, 0.3); }
+.nav-icon-btn.active { background: white; color: var(--primary-purple); }
+
+
+/* --- 2. Main Layout & Floating Card --- */
+.main-content {
+    flex-grow: 1;
+    padding-bottom: 50px;
+}
+
+/* Breadcrumbs */
+.breadcrumb { margin-bottom: 20px; }
+.breadcrumb-item a { text-decoration: none; color: var(--text-grey); font-weight: 500; font-size: 14px; }
+.breadcrumb-item.active { color: var(--primary-purple); font-weight: 600; }
+
+/* Floating Card */
+.order-card {
+    background: white;
+    border-radius: 24px;
+    /* Negative margin pulls the card up over the header */
+    margin-top: -100px; 
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* --- 3. Order Content Styling --- */
+/* Header */
+.order-title { font-weight: 700; color: var(--text-dark); margin-bottom: 5px; }
+.order-meta { color: var(--text-grey); font-size: 15px; }
+.order-total { font-size: 28px; font-weight: 700; color: var(--text-dark); }
+
+/* Buttons */
+.btn-purple {
+    background-color: var(--primary-purple);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.2s;
+    display: inline-flex; align-items: center; justify-content: center;
+}
+.btn-purple:hover { background-color: var(--primary-dark); color: white; }
+
+.btn-purple-light {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.btn-purple-light:hover { background-color: #C4B5FD; color: var(--primary-dark); }
+
+/* Section Titles (e.g., "Your Shipping Address") */
+.section-title {
+    color: var(--primary-purple);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: block;
+}
+
+/* Shipping Section */
+.shipping-box {
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+}
+.tracking-number {
+    color: var(--primary-purple);
+    font-family: monospace;
+    font-weight: 600;
+    background: var(--input-bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+.copy-link { font-size: 12px; color: var(--text-grey); text-decoration: underline; cursor: pointer; margin-left: 5px; }
+
+/* Product List */
+.product-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.product-item:last-child { border-bottom: none; }
+
+.prod-img {
+    width: 80px; height: 80px;
+    border-radius: 12px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    display: flex; align-items: center; justify-content: center;
+    margin-right: 20px; padding: 5px;
+}
+.prod-img img { max-width: 90%; max-height: 90%; mix-blend-mode: multiply; object-fit: contain; }
+
+.prod-name { font-weight: 600; color: var(--text-dark); margin-bottom: 4px; font-size: 16px; }
+.prod-qty { font-size: 14px; color: var(--text-grey); }
+.prod-price { font-weight: 700; font-size: 18px; color: var(--text-dark); }
