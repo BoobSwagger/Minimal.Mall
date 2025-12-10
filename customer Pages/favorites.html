@@ -3,536 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Favorites</title>
+    <title>My Favorites - Minimal Mall</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=SF+Pro+Display:wght@400&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-color: #F1F4F8;
-            --primary-purple: rgba(111, 97, 239, 1);
-            --primary-light: rgba(192, 186, 243, 1);
-            --text-dark: #000000;
-            --text-grey: #6E6C6C;
-            --card-bg: #FFFFFF;
-            --border-color: #E0E0E0;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            color: var(--text-dark);
-        }
-
-        /* --- Navigation Bar --- */
-        .navbar {
-            width: 100%;
-            max-width: 1440px;
-            height: 82px;
-            background-color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 33px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            z-index: 10;
-        }
-
-        .logo img {
-            height: 40px;
-            width: auto;
-        }
-
-        .search-bar {
-            width: 497px;
-            height: 45px;
-            background-color: rgba(120, 120, 128, 0.16);
-            border-radius: 100px;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            color: #999;
-        }
-
-        .search-bar span {
-            margin-left: 10px;
-            font-family: 'SF Pro Display', sans-serif;
-            font-size: 17px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav-text {
-            font-weight: 300;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-dark);
-        }
-
-        .nav-icons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .icon-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            border: 2px solid #555353;
-            background-color: var(--primary-purple);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        /* --- Main Layout --- */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 1058px; /* Matching the width of list items */
-            padding: 20px;
-            align-items: flex-start;
-            position: relative;
-        }
-
-        /* --- Header Section --- */
-        .favorites-header {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .header-top-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            width: 100%;
-        }
-        
-        .breadcrumbs {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .home-icon {
-            width: 30px;
-            height: 30px;
-        }
-
-        .crumb-pill {
-            background-color: #DBDEE3;
-            border: 1px solid #595959;
-            border-radius: 100px;
-            padding: 6px 16px;
-            font-family: 'Roboto', sans-serif;
-            font-size: 14px;
-            color: #5E5E5E;
-        }
-
-        .search-filter {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .filter-icon {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #CAC4D0;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: white;
-        }
-
-        .favorites-search {
-            width: 250px;
-            height: 40px;
-            border: 1px solid #D9D9D9;
-            border-radius: 100px;
-            background: white;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            color: #AAAAAA;
-            font-size: 14px;
-            justify-content: space-between;
-        }
-
-        .page-title h1 {
-            font-size: 32px;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .page-subtitle {
-            font-size: 14px;
-            color: var(--text-grey);
-            font-weight: 500;
-        }
-
-        .divider {
-            width: 100%;
-            height: 1px;
-            background-color: #AAAAAA;
-            margin-top: 20px;
-        }
-
-        /* --- Favorites List --- */
-        .favorites-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .favorite-item {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            position: relative;
-        }
-
-        .item-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .item-img {
-            width: 100px;
-            height: 100px;
-            border: 1px solid #AAAAAA;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        .item-details {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .item-name {
-            font-size: 20px;
-            font-weight: 500;
-            color: #000000;
-            margin-bottom: 5px;
-        }
-
-        .item-desc {
-            font-size: 12px;
-            color: var(--text-grey);
-        }
-
-        .item-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding-right: 50px; /* Space for absolute icons */
-        }
-
-        .item-price {
-            font-size: 24px;
-            font-weight: 500;
-        }
-
-        .btn-add {
-            background-color: var(--primary-purple);
-            color: white;
-            border: none;
-            border-radius: 100px;
-            padding: 8px 20px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        /* Absolute positioned icons inside card */
-        .heart-icon {
-            position: absolute;
-            top: 20px;
-            right: 180px;
-        }
-
-        .menu-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 30px;
-            height: 30px;
-            border: 1px solid #CAC4D0;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        /* Empty State (Hidden by default based on design having items) */
-        .empty-state {
-            display: none; 
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-            width: 100%;
-        }
-        
-        .empty-state img {
-            width: 100px;
-            margin-bottom: 20px;
-        }
-        
-        .empty-text {
-            color: var(--text-grey);
-            font-size: 16px;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .navbar {
-                flex-wrap: wrap;
-                justify-content: center;
-                height: auto;
-                padding: 15px;
-                gap: 15px;
-            }
-            .search-bar {
-                order: 3;
-                width: 100%;
-            }
-            .favorite-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-                padding-bottom: 50px; /* Space for buttons */
-            }
-            .item-right {
-                width: 100%;
-                justify-content: space-between;
-                padding-right: 0;
-            }
-            .heart-icon {
-                top: 15px;
-                right: 60px;
-            }
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/favorites.css">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">
-            <img src="data:image/png;base64,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" alt="Logo">
-        </div>
-
-        <div class="search-bar">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <span>Looking for something?</span>
-        </div>
-
-        <div class="nav-links">
-            <span class="nav-text">My Orders</span>
-            <span class="nav-text">Favorites</span>
-            
-            <div class="nav-icons">
-                <div style="cursor: pointer;">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDgnIGhlaWdodD0nNDgnIHZpZXdCb3g9JzAgMCA0OCA0OCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTggMzhWMzRIMTJWMjBDMTIgMTcuMjMzMyAxMi44MzMzIDE0Ljc4MzMgMTQuNSAxMi42NUMxNi4xNjY3IDEwLjQ4MzMgMTguMzMzMyA5LjA2NjY2IDIxIDguNFY3QzIxIDYuMTY2NjcgMjEuMjgzMyA1LjQ2NjY3IDIxLjg1IDQuOUMyMi40NSA0LjMgMjMuMTY2NyA0IDI0IDRDMjQuODMzMyA0IDI1LjUzMzMgNC4zIDI2LjEgNC45QzI2LjcgNS40NjY2NyAyNyA2LjE2NjY3IDI3IDdWOC40QzI5LjY2NjcgOS4wNjY2NiAzMS44MzMzIDEwLjQ4MzMgMzMuNSAxMi42NUMzNS4xNjY3IDE0Ljc4MzMgMzYgMTcuMjMzMyAzNiAyMFYzNEg0MFYzOEg4Wk0yNCA0NEMyMi45IDQ0IDIxLjk1IDQzLjYxNjcgMjEuMTUgNDIuODVDMjAuMzgzMyA0Mi4wNSAyMCA0MS4xIDIwIDQwSDI4QzI4IDQxLjEgMjcuNiA0Mi4wNSAyNi44IDQyLjg1QzI2LjAzMzMgNDMuNjE2NyAyNS4xIDQ0IDI0IDQ0Wk0xNiAzNEgzMlYyMEMzMiAxNy44IDMxLjIxNjcgMTUuOTE2NyAyOS42NSAxNC4zNUMyOC4wODMzIDEyLjc4MzMgMjYuMiAxMiAyNCAxMkMyMS44IDEyIDE5LjkxNjcgMTIuNzgzMyAxOC4zNSAxNC4zNUMxNi43ODMzIDE1LjkxNjcgMTYgMTcuOCAxNiAyMFYzNFonIGZpbGw9JyMxRDFCMjAnLz4KPC9zdmc+Cg==" alt="Notify" width="30">
-                </div>
-                <div class="icon-btn">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMzAnIGhlaWdodD0nMzAnIHZpZXdCb3g9JzAgMCAzMCAzMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTI1IDI2LjI1VjIzLjc1QzI1IDIyLjQyMzkgMjQuNDczMiAyMS4xNTIxIDIzLjUzNTUgMjAuMjE0NUMyMi41OTc5IDE5LjI3NjggMjEuMzI2MSAxOC43NSAyMCAxOC43NUgxMEM4LjY3MzkyIDE4Ljc1IDcuNDAyMTUgMTkuMjc2OCA2LjQ2NDQ3IDIwLjIxNDVDNS41MjY3OCAyMS4xNTIxIDUgMjIuNDIzOSA1IDIzLjc1VjI2LjI1TTIwIDguNzVDMjAgMTEuNTExNCAxNy43NjE0IDEzLjc1IDE1IDEzLjc1QzEyLjIzODYgMTMuNzUgMTAgMTEuNTExNCAxMCA4Ljc1QzEwIDUuOTg4NTggMTIuMjM4NiAzLjc1IDE1IDMuNzVDMTcuNzYxNCAzLjc1IDIwIDUuOTg4NTggMjAgOC43NVonIHN0cm9rZT0nI0YzRjNGMycgc3Ryb2tlLXdpZHRoPScyJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnLz4KPC9zdmc+Cg==" alt="User">
-                </div>
-                <div class="icon-btn">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMzAnIGhlaWdodD0nMzAnIHZpZXdCb3g9JzAgMCAzMCAzMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEuMjUgMS4yNUg2LjI1TDkuNiAxNy45ODc1QzkuNzE0MzEgMTguNTYzIDEwLjAyNzQgMTkuMDc5OSAxMC40ODQ0IDE5LjQ0NzlDMTAuOTQxNSAxOS44MTU4IDExLjUxMzQgMjAuMDExMiAxMi4xIDIwSDI0LjI1QzI0LjgzNjYgMjAuMDExMiAyNS40MDg1IDE5LjgxNTggMjUuODY1NiAxOS40NDc5QzI2LjMyMjYgMTkuMDc5OSAyNi42MzU3IDE4LjU2MyAyNi43NSAxNy45ODc1TDI4Ljc1IDcuNUg3LjVNMTIuNSAyNi4yNUMxMi41IDI2Ljk0MDQgMTEuOTQwNCAyNy41IDExLjI1IDI3LjVDMTAuNTU5NiAyNy41IDEwIDI2Ljk0MDQgMTAgMjYuMjVDMTAgMjUuNTU5NiAxMC41NTk2IDI1IDExLjI1IDI1QzExLjk0MDQgMjUgMTIuNSAyNS41NTk2IDEyLjUgMjYuMjVaTTI2LjI1IDI2LjI1QzI2LjI1IDI2Ljk0MDQgMjUuNjkwNCAyNy41IDI1IDI3LjVDMjQuMzA5NiAyNy41IDIzLjc1IDI2Ljk0MDQgMjMuNzUgMjYuMjVDMjMuNzUgMjUuNTU5NiAyNC4zMDk2IDI1IDI1IDI1QzI1LjY5MDQgMjUgMjYuMjUgMjUuNTU5NiAyNi4yNSAyNi4yNVonIHN0cm9rZT0nI0YzRjNGMycgc3Ryb2tlLXdpZHRoPScyJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnLz4KPC9zdmc+Cg==" alt="Cart">
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <main class="main-content">
-        <div class="favorites-header">
-            <div class="header-top-row">
-                <div class="breadcrumbs">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMzAnIGhlaWdodD0nMzAnIHZpZXdCb3g9JzAgMCAzMCAzMCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTExLjI1IDI3LjVWMTVIMTguNzVWMjcuNU0zLjc1IDExLjI1TDE1IDIuNUwyNi4yNSAxMS4yNVYyNUMyNi4yNSAyNS42NjMgMjUuOTg2NiAyNi4yOTg5IDI1LjUxNzggMjYuNzY3OEMyNS4wNDg5IDI3LjIzNjYgMjQuNDEzIDI3LjUgMjMuNzUgMjcuNUg2LjI1QzUuNTg2OTYgMjcuNSA0Ljk1MTA3IDI3LjIzNjYgNC40ODIyMyAyNi43Njc4QzQuMDEzMzkgMjYuMjk4OSAzLjc1IDI1LjY2MyAzLjc1IDI1VjExLjI1Wicgc3Ryb2tlPScjNkY2MUVGJyBzdHJva2Utd2lkdGg9JzMnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCcvPgo8L3N2Zz4K" alt="Home" class="home-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEzLjIgMTJMOC42IDcuNEwxMCA2TDE2IDEyTDEwIDE4TDguNiAxNi42TDEzLjIgMTJaJyBmaWxsPScjMUQxQjIwJy8+Cjwvc3ZnPgo=" alt="Arrow" width="24">
-                    <span class="crumb-pill">Favorites</span>
-                </div>
+    <header class="page-header">
+        <div class="container position-relative z-2">
+            <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-3">
+                <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
+                    <i class="fa-solid fa-bag-shopping fs-3"></i>
+                    <span class="fw-bold fs-4 logo-text">minimal.<span class="fw-light">mall</span></span>
+                </a>
                 
-                <div class="search-filter">
-                    <div class="filter-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6F61EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-                    </div>
-                    <div class="favorites-search">
-                        <span>Search Favorites</span>
-                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTYnIHZpZXdCb3g9JzAgMCAxNiAxNicgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDRMNCAxMk00IDRMMTIgMTInIHN0cm9rZT0nIzFFMUUxRScgc3Ryb2tlLXdpZHRoPScxLjYnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCcvPgo8L3N2Zz4K" alt="Clear">
-                    </div>
+                <div class="header-search d-none d-md-flex align-items-center bg-white bg-opacity-25 rounded-pill px-3 py-2" style="width: 400px;">
+                    <i class="fa-solid fa-magnifying-glass text-white opacity-75 me-2"></i>
+                    <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Looking for something?" style="outline: none;">
                 </div>
-            </div>
 
-            <div class="page-title">
-                <h1>My Favorites</h1>
-            </div>
-            <p class="page-subtitle">Below are your items that you have favorited</p>
-            <div class="divider"></div>
+                <div class="d-flex align-items-center gap-4 text-white">
+                    <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">My Orders</a>
+                    <a href="#" class="text-white text-decoration-none fw-bold d-none d-lg-block" style="opacity: 1;">Favorites</a>
+                    <a href="#" class="text-white"><i class="fa-regular fa-bell fs-5"></i></a>
+                    <a href="#" class="text-white"><i class="fa-regular fa-user fs-5"></i></a>
+                    <a href="#" class="text-white"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
+                </div>
+            </nav>
         </div>
+    </header>
 
-        <div class="favorites-list">
-            
-            <div class="favorite-item">
-                <div class="heart-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTExLjk5OTggMjEuMzI4NEwxMC41NTY4IDIwLjAxNDRDNS40MzE4MSAxNS4zNjY4IDIuMDUwODEgMTIuMzAwNCAyLjA1MDgxIDguNTM4NzJDMi4wNTA4MSA1LjQ2MTUyIDQuNDY2ODEgMy4wNDQ5MiA3LjU0NDgxIDMuMDQ0OTJDOS4yODM4MSAzLjA0NDkyIDEwLjk1MjggMy44NTQ1MiAxMS45OTk4IDUuMDgxMTJDMTMuMDQ2OCAzLjg1NDUyIDE0LjcxNTggMy4wNDQ5MiAxNi40NTQ4IDMuMDQ0OTJDMTkuNTMyOCAzLjA0NDkyIDIxLjk0ODggNS40NjE1MiAyMS45NDg4IDguNTM4NzJDMjEuOTQ4OCAxMi4zMDA0IDE4LjU2NzggMTUuMzY2OCAxMy40NDI4IDIwLjAxNDRMMTEuOTk5OCAyMS4zMjg0WicgZmlsbD0nIzZGNjFFRicvPgo8L3N2Zz4K" alt="Liked">
-                </div>
-                <div class="menu-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDRDMTEuNDQ3NyA0IDExIDMuNTUyMjggMTEgM0MxMSAyLjQ0NzcyIDExLjQ0NzcgMiAxMiAyQzEyLjU1MjMgMiAxMyAyLjQ0NzcyIDEzIDNDMTMgMy41NTIyOCAxMi41NTIzIDQgMTIgNFpNMTIgMTRDMTEuNDQ3NyAxNCAxMSAxMy41NTIzIDExIDEzQzExIDEyLjQ0NzcgMTEuNDQ3NyAxMiAxMiAxMkMxMi41NTIzIDEyIDEzIDEyLjQ0NzcgMTMgMTNDMTMgMTMuNTUyOCAxMi41NTIzIDE0IDEyIDE0Wk0xMiAyNEMxMS40NDc3IDI0IDExIDIzLjU1MjMgMTEgMjNDMTEgMjIuNDQ3NyAxMS40NDc3IDIyIDEyIDIyQzEyLjU1MjMgMjIgMTMgMjIuNDQ3NyAxMyAyM0MxMyAyMy41NTIzIDEyLjU1MjMgMjQgMTIgMjRaIiBmaWxsPSIjNDk0NTRGIi8+Cjwvc3ZnPgo=" alt="Menu">
-                </div>
+    <div class="container main-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                
+                <div class="content-card">
+                    
+                    <div class="favorites-header-section mb-4">
+                        <div class="fav-header-top">
+                            <div class="d-flex align-items-center gap-3">
+                                <a href="index.html" class="text-decoration-none text-muted"><i class="fa-solid fa-house"></i></a>
+                                <i class="fa-solid fa-chevron-right text-muted small"></i>
+                                <div class="breadcrumb-pill">
+                                    <i class="fa-solid fa-heart text-primary-purple"></i> Favorites
+                                </div>
+                            </div>
 
-                <div class="item-left">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF0SURBVHgB7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4M1A4AAQ==" alt="Product" class="item-img">
-                    <div class="item-details">
-                        <span class="item-name">Converse AS-1 Pro Leather Ox Sneakers</span>
-                        <span class="item-desc">[description]</span>
+                            <div class="fav-search-container">
+                                <button class="filter-btn"><i class="fa-solid fa-sliders"></i></button>
+                                <div class="fav-search-input">
+                                    <span>Search Favorites</span>
+                                    <i class="fa-solid fa-xmark small cursor-pointer"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h1 class="page-title">My Favorites</h1>
+                        <p class="page-subtitle">Below are your items that you have favorited</p>
+                        <hr class="text-muted opacity-25">
+                    </div>
+
+                    <div class="favorites-list">
+                        
+                        <div class="favorite-item">
+                            <div class="top-icons">
+                                <button class="icon-circle-btn liked"><i class="fa-solid fa-heart"></i></button>
+                                <button class="icon-circle-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                            </div>
+
+                            <div class="item-left">
+                                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=150&q=80" alt="Product" class="item-img">
+                                <div>
+                                    <span class="item-name">Converse AS-1 Pro Sneakers</span>
+                                    <span class="item-desc">White / Maroon · Size 9</span>
+                                </div>
+                            </div>
+
+                            <div class="item-right">
+                                <span class="item-price">$1,234.56</span>
+                                <button class="btn-add-cart">Add to Cart</button>
+                            </div>
+                        </div>
+
+                        <div class="favorite-item">
+                             <div class="top-icons">
+                                <button class="icon-circle-btn liked"><i class="fa-solid fa-heart"></i></button>
+                                <button class="icon-circle-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                            </div>
+
+                            <div class="item-left">
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=150&q=80" alt="Product" class="item-img">
+                                <div>
+                                    <span class="item-name">Minimalist Watch</span>
+                                    <span class="item-desc">Black Leather · Analog</span>
+                                </div>
+                            </div>
+
+                            <div class="item-right">
+                                <span class="item-price">$250.00</span>
+                                <button class="btn-add-cart">Add to Cart</button>
+                            </div>
+                        </div>
+
+                         <div class="empty-state d-none">
+                            <i class="fa-regular fa-heart-broken"></i>
+                            <h3>No favorites yet</h3>
+                            <p>Oops! Looks like you don’t have a favorite yet.</p>
+                        </div>
+
                     </div>
                 </div>
 
-                <div class="item-right">
-                    <span class="item-price">[$1,234.56]</span>
-                    <button class="btn-add">Add to Cart</button>
-                </div>
             </div>
-
-            <div class="favorite-item">
-                <div class="heart-icon">
-                     <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTExLjk5OTggMjEuMzI4NEwxMC41NTY4IDIwLjAxNDRDNS40MzE4MSAxNS4zNjY4IDIuMDUwODEgMTIuMzAwNCAyLjA1MDgxIDguNTM4NzJDMi4wNTA4MSA1LjQ2MTUyIDQuNDY2ODEgMy4wNDQ5MiA3LjU0NDgxIDMuMDQ0OTJDOS4yODM4MSAzLjA0NDkyIDEwLjk1MjggMy44NTQ1MiAxMS45OTk4IDUuMDgxMTJDMTMuMDQ2OCAzLjg1NDUyIDE0LjcxNTggMy4wNDQ5MiAxNi40NTQ4IDMuMDQ0OTJDMTkuNTMyOCAzLjA0NDkyIDIxLjk0ODggNS40NjE1MiAyMS45NDg4IDguNTM4NzJDMjEuOTQ4OCAxMi4zMDA0IDE4LjU2NzggMTUuMzY2OCAxMy40NDI4IDIwLjAxNDRMMTEuOTk5OCAyMS4zMjg0WicgZmlsbD0nIzZGNjFFRicvPgo8L3N2Zz4K" alt="Liked">
-                </div>
-                <div class="menu-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDRDMTEuNDQ3NyA0IDExIDMuNTUyMjggMTEgM0MxMSAyLjQ0NzcyIDExLjQ0NzcgMiAxMiAyQzEyLjU1MjMgMiAxMyAyLjQ0NzcyIDEzIDNDMTMgMy41NTIyOCAxMi41NTIzIDQgMTIgNFpNMTIgMTRDMTEuNDQ3NyAxNCAxMSAxMy41NTIzIDExIDEzQzExIDEyLjQ0NzcgMTEuNDQ3NyAxMiAxMiAxMkMxMi41NTIzIDEyIDEzIDEyLjQ0NzcgMTMgMTNDMTMgMTMuNTUyOCAxMi41NTIzIDE0IDEyIDE0Wk0xMiAyNEMxMS40NDc3IDI0IDExIDIzLjU1MjMgMTEgMjNDMTEgMjIuNDQ3NyAxMS40NDc3IDIyIDEyIDIyQzEyLjU1MjMgMjIgMTMgMjIuNDQ3NyAxMyAyM0MxMyAyMy41NTIzIDEyLjU1MjMgMjQgMTIgMjRaIiBmaWxsPSIjNDk0NTRGIi8+Cjwvc3ZnPgo=" alt="Menu">
-                </div>
-                <div class="item-left">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF0SURBVHgB7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4M1A4AAQ==" alt="Product" class="item-img">
-                    <div class="item-details">
-                        <span class="item-name">[name]</span>
-                        <span class="item-desc">[description]</span>
-                    </div>
-                </div>
-                <div class="item-right">
-                    <span class="item-price">[$1,234.56]</span>
-                    <button class="btn-add">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="favorite-item">
-                <div class="heart-icon">
-                     <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTExLjk5OTggMjEuMzI4NEwxMC41NTY4IDIwLjAxNDRDNS40MzE4MSAxNS4zNjY4IDIuMDUwODEgMTIuMzAwNCAyLjA1MDgxIDguNTM4NzJDMi4wNTA4MSA1LjQ2MTUyIDQuNDY2ODEgMy4wNDQ5MiA3LjU0NDgxIDMuMDQ0OTJDOS4yODM4MSAzLjA0NDkyIDEwLjk1MjggMy44NTQ1MiAxMS45OTk4IDUuMDgxMTJDMTMuMDQ2OCAzLjg1NDUyIDE0LjcxNTggMy4wNDQ5MiAxNi40NTQ4IDMuMDQ0OTJDMTkuNTMyOCAzLjA0NDkyIDIxLjk0ODggNS40NjE1MiAyMS45NDg4IDguNTM4NzJDMjEuOTQ4OCAxMi4zMDA0IDE4LjU2NzggMTUuMzY2OCAxMy40NDI4IDIwLjAxNDRMMTEuOTk5OCAyMS4zMjg0WicgZmlsbD0nIzZGNjFFRicvPgo8L3N2Zz4K" alt="Liked">
-                </div>
-                <div class="menu-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDRDMTEuNDQ3NyA0IDExIDMuNTUyMjggMTEgM0MxMSAyLjQ0NzcyIDExLjQ0NzcgMiAxMiAyQzEyLjU1MjMgMiAxMyAyLjQ0NzcyIDEzIDNDMTMgMy41NTIyOCAxMi41NTIzIDQgMTIgNFpNMTIgMTRDMTEuNDQ3NyAxNCAxMSAxMy41NTIzIDExIDEzQzExIDEyLjQ0NzcgMTEuNDQ3NyAxMiAxMiAxMkMxMi41NTIzIDEyIDEzIDEyLjQ0NzcgMTMgMTNDMTMgMTMuNTUyOCAxMi41NTIzIDE0IDEyIDE0Wk0xMiAyNEMxMS40NDc3IDI0IDExIDIzLjU1MjMgMTEgMjNDMTEgMjIuNDQ3NyAxMS40NDc3IDIyIDEyIDIyQzEyLjU1MjMgMjIgMTMgMjIuNDQ3NyAxMyAyM0MxMyAyMy41NTIzIDEyLjU1MjMgMjQgMTIgMjRaIiBmaWxsPSIjNDk0NTRGIi8+Cjwvc3ZnPgo=" alt="Menu">
-                </div>
-                <div class="item-left">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF0SURBVHgB7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4M1A4AAQ==" alt="Product" class="item-img">
-                    <div class="item-details">
-                        <span class="item-name">[name]</span>
-                        <span class="item-desc">[description]</span>
-                    </div>
-                </div>
-                <div class="item-right">
-                    <span class="item-price">[$1,234.56]</span>
-                    <button class="btn-add">Add to Cart</button>
-                </div>
-            </div>
-
-             <div class="favorite-item">
-                <div class="heart-icon">
-                     <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTExLjk5OTggMjEuMzI4NEwxMC41NTY4IDIwLjAxNDRDNS40MzE4MSAxNS4zNjY4IDIuMDUwODEgMTIuMzAwNCAyLjA1MDgxIDguNTM4NzJDMi4wNTA4MSA1LjQ2MTUyIDQuNDY2ODEgMy4wNDQ5MiA3LjU0NDgxIDMuMDQ0OTJDOS4yODM4MSAzLjA0NDkyIDEwLjk1MjggMy44NTQ1MiAxMS45OTk4IDUuMDgxMTJDMTMuMDQ2OCAzLjg1NDUyIDE0LjcxNTggMy4wNDQ5MiAxNi40NTQ4IDMuMDQ0OTJDMTkuNTMyOCAzLjA0NDkyIDIxLjk0ODggNS40NjE1MiAyMS45NDg4IDguNTM4NzJDMjEuOTQ4OCAxMi4zMDA0IDE4LjU2NzggMTUuMzY2OCAxMy40NDI4IDIwLjAxNDRMMTEuOTk5OCAyMS4zMjg0WicgZmlsbD0nIzZGNjFFRicvPgo8L3N2Zz4K" alt="Liked">
-                </div>
-                <div class="menu-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDRDMTEuNDQ3NyA0IDExIDMuNTUyMjggMTEgM0MxMSAyLjQ0NzcyIDExLjQ0NzcgMiAxMiAyQzEyLjU1MjMgMiAxMyAyLjQ0NzcyIDEzIDNDMTMgMy41NTIyOCAxMi41NTIzIDQgMTIgNFpNMTIgMTRDMTEuNDQ3NyAxNCAxMSAxMy41NTIzIDExIDEzQzExIDEyLjQ0NzcgMTEuNDQ3NyAxMiAxMiAxMkMxMi41NTIzIDEyIDEzIDEyLjQ0NzcgMTMgMTNDMTMgMTMuNTUyOCAxMi41NTIzIDE0IDEyIDE0Wk0xMiAyNEMxMS40NDc3IDI0IDExIDIzLjU1MjMgMTEgMjNDMTEgMjIuNDQ3NyAxMS40NDc3IDIyIDEyIDIyQzEyLjU1MjMgMjIgMTMgMjIuNDQ3NyAxMyAyM0MxMyAyMy41NTIzIDEyLjU1MjMgMjQgMTIgMjRaIiBmaWxsPSIjNDk0NTRGIi8+Cjwvc3ZnPgo=" alt="Menu">
-                </div>
-                <div class="item-left">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF0SURBVHgB7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4M1A4AAQ==" alt="Product" class="item-img">
-                    <div class="item-details">
-                        <span class="item-name">[name]</span>
-                        <span class="item-desc">[description]</span>
-                    </div>
-                </div>
-                <div class="item-right">
-                    <span class="item-price">[$1,234.56]</span>
-                    <button class="btn-add">Add to Cart</button>
-                </div>
-            </div>
-
-             <div class="favorite-item">
-                <div class="heart-icon">
-                     <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTExLjk5OTggMjEuMzI4NEwxMC41NTY4IDIwLjAxNDRDNS40MzE4MSAxNS4zNjY4IDIuMDUwODEgMTIuMzAwNCAyLjA1MDgxIDguNTM4NzJDMi4wNTA4MSA1LjQ2MTUyIDQuNDY2ODEgMy4wNDQ5MiA3LjU0NDgxIDMuMDQ0OTJDOS4yODM4MSAzLjA0NDkyIDEwLjk1MjggMy44NTQ1MiAxMS45OTk4IDUuMDgxMTJDMTMuMDQ2OCAzLjg1NDUyIDE0LjcxNTggMy4wNDQ5MiAxNi40NTQ4IDMuMDQ0OTJDMTkuNTMyOCAzLjA0NDkyIDIxLjk0ODggNS40NjE1MiAyMS45NDg4IDguNTM4NzJDMjEuOTQ4OCAxMi4zMDA0IDE4LjU2NzggMTUuMzY2OCAxMy40NDI4IDIwLjAxNDRMMTEuOTk5OCAyMS4zMjg0WicgZmlsbD0nIzZGNjFFRicvPgo8L3N2Zz4K" alt="Liked">
-                </div>
-                <div class="menu-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDRDMTEuNDQ3NyA0IDExIDMuNTUyMjggMTEgM0MxMSAyLjQ0NzcyIDExLjQ0NzcgMiAxMiAyQzEyLjU1MjMgMiAxMyAyLjQ0NzcyIDEzIDNDMTMgMy41NTIyOCAxMi41NTIzIDQgMTIgNFpNMTIgMTRDMTEuNDQ3NyAxNCAxMSAxMy41NTIzIDExIDEzQzExIDEyLjQ0NzcgMTEuNDQ3NyAxMiAxMiAxMkMxMi41NTIzIDEyIDEzIDEyLjQ0NzcgMTMgMTNDMTMgMTMuNTUyOCAxMi41NTIzIDE0IDEyIDE0Wk0xMiAyNEMxMS40NDc3IDI0IDExIDIzLjU1MjMgMTEgMjNDMTEgMjIuNDQ3NyAxMS40NDc3IDIyIDEyIDIyQzEyLjU1MjMgMjIgMTMgMjIuNDQ3NyAxMyAyM0MxMyAyMy41NTIzIDEyLjU1MjMgMjQgMTIgMjRaIiBmaWxsPSIjNDk0NTRGIi8+Cjwvc3ZnPgo=" alt="Menu">
-                </div>
-                <div class="item-left">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF0SURBVHgB7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4M1A4AAQ==" alt="Product" class="item-img">
-                    <div class="item-details">
-                        <span class="item-name">[name]</span>
-                        <span class="item-desc">[description]</span>
-                    </div>
-                </div>
-                <div class="item-right">
-                    <span class="item-price">[$1,234.56]</span>
-                    <button class="btn-add">Add to Cart</button>
-                </div>
-            </div>
-
-             <div class="favorite-item">
-                <div class="heart-icon">
-                     <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTExLjk5OTggMjEuMzI4NEwxMC41NTY4IDIwLjAxNDRDNS40MzE4MSAxNS4zNjY4IDIuMDUwODEgMTIuMzAwNCAyLjA1MDgxIDguNTM4NzJDMi4wNTA4MSA1LjQ2MTUyIDQuNDY2ODEgMy4wNDQ5MiA3LjU0NDgxIDMuMDQ0OTJDOS4yODM4MSAzLjA0NDkyIDEwLjk1MjggMy44NTQ1MiAxMS45OTk4IDUuMDgxMTJDMTMuMDQ2OCAzLjg1NDUyIDE0LjcxNTggMy4wNDQ5MiAxNi40NTQ4IDMuMDQ0OTJDMTkuNTMyOCAzLjA0NDkyIDIxLjk0ODggNS40NjE1MiAyMS45NDg4IDguNTM4NzJDMjEuOTQ4OCAxMi4zMDA0IDE4LjU2NzggMTUuMzY2OCAxMy40NDI4IDIwLjAxNDRMMTEuOTk5OCAyMS4zMjg0WicgZmlsbD0nIzZGNjFFRicvPgo8L3N2Zz4K" alt="Liked">
-                </div>
-                <div class="menu-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDRDMTEuNDQ3NyA0IDExIDMuNTUyMjggMTEgM0MxMSAyLjQ0NzcyIDExLjQ0NzcgMiAxMiAyQzEyLjU1MjMgMiAxMyAyLjQ0NzcyIDEzIDNDMTMgMy41NTIyOCAxMi41NTIzIDQgMTIgNFpNMTIgMTRDMTEuNDQ3NyAxNCAxMSAxMy41NTIzIDExIDEzQzExIDEyLjQ0NzcgMTEuNDQ3NyAxMiAxMiAxMkMxMi41NTIzIDEyIDEzIDEyLjQ0NzcgMTMgMTNDMTMgMTMuNTUyOCAxMi41NTIzIDE0IDEyIDE0Wk0xMiAyNEMxMS40NDc3IDI0IDExIDIzLjU1MjMgMTEgMjNDMTEgMjIuNDQ3NyAxMS40NDc3IDIyIDEyIDIyQzEyLjU1MjMgMjIgMTMgMjIuNDQ3NyAxMyAyM0MxMyAyMy41NTIzIDEyLjU1MjMgMjQgMTIgMjRaIiBmaWxsPSIjNDk0NTRGIi8+Cjwvc3ZnPgo=" alt="Menu">
-                </div>
-                <div class="item-left">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAF0SURBVHgB7cExAQAAAMKg9U9tCj8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4M1A4AAQ==" alt="Product" class="item-img">
-                    <div class="item-details">
-                        <span class="item-name">[name]</span>
-                        <span class="item-desc">[description]</span>
-                    </div>
-                </div>
-                <div class="item-right">
-                    <span class="item-price">[$1,234.56]</span>
-                    <button class="btn-add">Add to Cart</button>
-                </div>
-            </div>
-
-            <div class="empty-state">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFIAAABSCAYAAADHLIObAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADESURBVHgB7dAxAcAgAMAwNo8IwP/NDSLomUjIt+Y+g2f/ICEyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjIiMiIyIjJyAfRaA077rl3CAAAAAElFTkSuQmCC" alt="Sad Cart">
-                <p class="empty-text">Oops! Looks like you don’t have a favorite yet</p>
-            </div>
-            
         </div>
-    </main>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
