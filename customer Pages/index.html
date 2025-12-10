@@ -3,518 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Minimal Mall - Home</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-color: #F1F4F8;
-            --primary-purple: rgba(111, 97, 239, 1);
-            --text-dark: #000000;
-            --text-grey: #6E6C6C;
-            --card-bg: #FFFFFF;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .home-container {
-            width: 1440px;
-            height: 900px;
-            position: relative;
-            background-color: #fff;
-            overflow: hidden;
-        }
-
-        /* --- Backgrounds --- */
-        .home-bg {
-            width: 1440px;
-            height: 900px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-
-        /* --- App Bar --- */
-        .app-bar-home-container {
-            width: 1440px;
-            height: 110px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 10;
-        }
-
-        .app-bar-bg-img {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .rect-19 {
-            width: 55px;
-            height: 82px;
-            position: absolute;
-            top: 0;
-            left: 37px;
-        }
-
-        .logo-home {
-            width: 147px;
-            height: 97px;
-            position: absolute;
-            top: 6px;
-            left: 108px;
-            object-fit: contain;
-        }
-
-        .search-field-home {
-            width: 489px;
-            height: 50px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 26px;
-            position: absolute;
-            top: 30px;
-            left: 310px;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .search-field-home span {
-            color: #999;
-            margin-right: 10px;
-        }
-
-        .search-text {
-            border: none;
-            background: transparent;
-            font-size: 16px;
-            width: 100%;
-            font-family: 'Outfit', sans-serif;
-            outline: none;
-            color: #555;
-        }
-
-        .nav-my-orders {
-            position: absolute;
-            top: 42px;
-            left: 887px;
-            font-size: 20px;
-            font-weight: 600;
-            color: #ffffff;
-            cursor: pointer;
-        }
-
-        .nav-favorites {
-            position: absolute;
-            top: 42px;
-            left: 1045px;
-            font-size: 20px;
-            font-weight: 300;
-            color: #ffffff;
-            cursor: pointer;
-        }
-
-        .icon-btn-user {
-            width: 32px;
-            height: 32px;
-            background-color: #d9d9d9;
-            border-radius: 50%;
-            position: absolute;
-            top: 39px;
-            left: 1201px;
-            cursor: pointer;
-        }
-
-        .icon-btn-cart {
-            width: 50px;
-            height: 50px;
-            position: absolute;
-            top: 30px;
-            left: 1258px;
-            cursor: pointer;
-        }
-
-        .notif-container {
-            width: 40px;
-            height: 40px;
-            background-color: #f4f4f4;
-            border-radius: 50%;
-            position: absolute;
-            top: 35px;
-            left: 827px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .notif-icon {
-            width: 24px;
-            height: 24px;
-            background-color: #000;
-            mask: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDgnIGhlaWdodD0nNDgnIHZpZXdCb3g9JzAgMCA0OCA0OCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTggMzhWMzRIMTJWMjBDMTIgMTcuMjMzMyAxMi44MzMzIDE0Ljc4MzMgMTQuNSAxMi42NUMxNi4xNjY3IDEwLjQ4MzMgMTguMzMzMyA5LjA2NjY2IDIxIDguNFY3QzIxIDYuMTY2NjcgMjEuMjgzMyA1LjQ2NjY3IDIxLjg1IDQuOUMyMi40NSA0LjMgMjMuMTY2NyA0IDI0IDRDMjQuODMzMyA0IDI1LjUzMzMgNC4zIDI2LjEgNC45QzI2LjcgNS40NjY2NyAyNyA2LjE2NjY3IDI3IDdWOC40QzI5LjY2NjcgOS4wNjY2NiAzMS44MzMzIDEwLjQ4MzMgMzMuNSAxMi42NUMzNS4xNjY3IDE0Ljc4MzMgMzYgMTcuMjMzMyAzNiAyMFYzNEg0MFYzOEg4Wk0yNCA0NEMyMi45IDQ0IDIxLjk1IDQzLjYxNjcgMjEuMTUgNDIuODVDMjAuMzgzMyA0Mi4wNSAyMCA0MS4xIDIwIDQwSDI4QzI4IDQxLjEgMjcuNiA0Mi4wNSAyNi44IDQyLjg1QzI2LjAzMzMgNDMuNjE2NyAyNS4xIDQ0IDI0IDQ0Wk0xNiAzNEgzMlYyMEMzMiAxNy44IDMxLjIxNjcgMTUuOTE2NyAyOS42NSAxNC4zNUMyOC4wODMzIDEyLjc4MzMgMjYuMiAxMiAyNCAxMkMyMS44IDEyIDE5LjkxNjcgMTIuNzgzMyAxOC4zNSAxNC4zNUMxNi43ODMzIDE1LjkxNjcgMTYgMTcuOCAxNiAyMFYzNFonIGZpbGw9JyMxRDFCMjAnLz4KPC9zdmc+Cg==") no-repeat center / contain;
-            -webkit-mask: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDgnIGhlaWdodD0nNDgnIHZpZXdCb3g9JzAgMCA0OCA0OCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTggMzhWMzRIMTJWMjBDMTIgMTcuMjMzMyAxMi44MzMzIDE0Ljc4MzMgMTQuNSAxMi42NUMxNi4xNjY3IDEwLjQ4MzMgMTguMzMzMyA5LjA2NjY2IDIxIDguNFY3QzIxIDYuMTY2NjcgMjEuMjgzMyA1LjQ2NjY3IDIxLjg1IDQuOUMyMi40NSA0LjMgMjMuMTY2NyA0IDI0IDRDMjQuODMzMyA0IDI1LjUzMzMgNC4zIDI2LjEgNC45QzI2LjcgNS40NjY2NyAyNyA2LjE2NjY3IDI3IDdWOC40QzI5LjY2NjcgOS4wNjY2NiAzMS44MzMzIDEwLjQ4MzMgMzMuNSAxMi42NUMzNS4xNjY3IDE0Ljc4MzMgMzYgMTcuMjMzMyAzNiAyMFYzNEg0MFYzOEg4Wk0yNCA0NEMyMi45IDQ0IDIxLjk1IDQzLjYxNjcgMjEuMTUgNDIuODVDMjAuMzgzMyA0Mi4wNSAyMCA0MS4xIDIwIDQwSDI4QzI4IDQxLjEgMjcuNiA0Mi4wNSAyNi44IDQyLjg1QzI2LjAzMzMgNDMuNjE2NyAyNS4xIDQ0IDI0IDQ0Wk0xNiAzNEgzMlYyMEMzMiAxNy44IDMxLjIxNjcgMTUuOTE2NyAyOS42NSAxNC4zNUMyOC4wODMzIDEyLjc4MzMgMjYuMiAxMiAyNCAxMkMyMS44IDEyIDE5LjkxNjcgMTIuNzgzMyAxOC4zNSAxNC4zNUMxNi43ODMzIDE1LjkxNjcgMTYgMTcuOCAxNiAyMFYzNFonIGZpbGw9JyMxRDFCMjAnLz4KPC9zdmc+Cg==") no-repeat center / contain;
-        }
-
-        /* --- Upper Section (Categories) --- */
-        .categories-section {
-            position: absolute;
-            top: 154px;
-            left: 77px;
-            width: 1300px;
-            height: 400px;
-        }
-
-        .upper-container-bg {
-            width: 1256px;
-            height: 290px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-radius: 20px;
-            object-fit: cover;
-        }
-
-        .featured-title {
-            position: absolute;
-            top: 27px;
-            left: 32px;
-            font-size: 32px;
-            font-weight: 600;
-            color: #ffffff;
-            margin: 0;
-        }
-
-        .featured-subtitle {
-            position: absolute;
-            top: 69px;
-            left: 32px;
-            font-size: 14px;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.7);
-            margin: 0;
-        }
-
-        /* Category Cards */
-        .cat-card {
-            width: 250px;
-            height: 180px;
-            position: absolute;
-            top: 104px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .cat-card-1 { left: 32px; }
-        .cat-card-2 { left: 300px; }
-        .cat-card-3 { left: 568px; }
-
-        .cat-img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-        }
-
-        .cat-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin: 10px 0 0 15px;
-        }
-
-        .cat-subtitle {
-            font-size: 12px;
-            font-weight: 400;
-            color: #666;
-            margin-left: 15px;
-        }
-
-        /* Scrollbar */
-        .scrollbar-h {
-            position: absolute;
-            top: 310px;
-            left: 32px;
-            width: 1190px;
-            height: 8px;
-        }
-
-        .scrollbar-track {
-            width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 2px;
-        }
-
-        .scrollbar-thumb {
-            width: 30%;
-            height: 100%;
-            border-radius: 2px;
-        }
-
-        /* --- Lower Section (Favorites) --- */
-        .lower-container-bg {
-            position: absolute;
-            top: 480px;
-            left: 0;
-            width: 1440px;
-            height: 420px;
-            background-color: #EBEBEB; /* Slight contrast for lower section */
-        }
-
-        .favorites-section {
-            position: absolute;
-            top: 480px;
-            left: 77px;
-            width: 1256px;
-        }
-
-        .fav-title-text {
-            font-size: 24px;
-            font-weight: 400;
-            color: #000;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .btn-add-to-cart {
-            position: absolute;
-            top: 20px;
-            left: 200px;
-            background-color: #6f61ef;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: 'Outfit', sans-serif;
-            font-size: 14px;
-        }
-
-        /* Product Cards */
-        .prod-card {
-            width: 250px;
-            height: 300px;
-            background: #fff;
-            border-radius: 16px;
-            position: absolute;
-            top: 70px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .prod-card-1 { left: 0px; }
-        .prod-card-2 { left: 280px; }
-        .prod-card-3 { left: 560px; }
-        .prod-card-4 { left: 840px; overflow: hidden; /* For clipped look */ }
-
-        .prod-img-rect {
-            width: 220px;
-            height: 160px;
-            background: #f9f9f9;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            position: relative;
-        }
-
-        .prod-inner-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: 20px;
-        }
-
-        .prod-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin: 5px 0;
-        }
-
-        .prod-price {
-            font-size: 16px;
-            font-weight: 700;
-            color: #000;
-            float: right;
-        }
-
-        .prod-cat {
-            font-size: 12px;
-            color: #888;
-            display: block;
-            margin-top: 25px; /* Push down to bottom */
-        }
-
-        .prod-checkbox {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-        }
-
-        .checkbox-icon {
-            width: 100%;
-            height: 100%;
-        }
-
-        .prod-heart {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        /* --- Tab Bar (Bottom) --- */
-        .tab-bar-iphone {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 140px;
-            height: 5px;
-            background: #000;
-            border-radius: 100px;
-            opacity: 0.2;
-        }
-
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/index.css">
 </head>
-<body class="home-body">
-    <div class="home-container">
-        <img class="home-bg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAOECAYAAACd288aAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABzSURBVHgB7dlRDoMgEERBC+19L8y+1242wU2M8W1m4O+wW7Y8AAAAAElFTkSuQmCC" alt="Background">
+<body>
+
+    <header class="page-header">
+        <div class="header-shape shape-1"></div>
+        <div class="header-shape shape-2"></div>
+
+        <div class="container position-relative z-2">
+            <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-3">
+                <a href="#" class="text-decoration-none d-flex align-items-center gap-2 text-white">
+                    <i class="fa-solid fa-bag-shopping fs-3"></i>
+                    <span class="fw-bold fs-4 logo-text">minimal.<span class="fw-light">mall</span></span>
+                </a>
+                
+                <div class="header-search d-none d-md-flex align-items-center bg-white bg-opacity-25 rounded-pill px-3 py-2" style="width: 400px;">
+                    <i class="fa-solid fa-magnifying-glass text-white opacity-75 me-2"></i>
+                    <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Looking for something?" style="outline: none;">
+                </div>
+
+                <div class="d-flex align-items-center gap-4 text-white">
+                    <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">My Orders</a>
+                    <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">Favorites</a>
+                    <a href="#" class="text-white"><i class="fa-regular fa-bell fs-5"></i></a>
+                    <a href="#" class="text-white"><i class="fa-regular fa-user fs-5"></i></a>
+                    <a href="#" class="text-white"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
+                </div>
+            </nav>
+
+            <div class="hero-content">
+                <h1 class="hero-title">Featured Products</h1>
+                <p class="hero-subtitle">View our latest styles from across our store below.</p>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="category-card">
+                            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80" class="cat-img" alt="Shoes">
+                            <div class="cat-overlay">
+                                <h3 class="cat-name">Shoes</h3>
+                                <span class="cat-count">3.1k Products</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="category-card">
+                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80" class="cat-img" alt="Outerwear">
+                            <div class="cat-overlay">
+                                <h3 class="cat-name">Outerwear</h3>
+                                <span class="cat-count">1.4k Products</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="category-card">
+                            <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=600&q=80" class="cat-img" alt="Fitness">
+                            <div class="cat-overlay">
+                                <h3 class="cat-name">Fitness Wear</h3>
+                                <span class="cat-count">320 Products</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-container">
         
-        <div class="app-bar-home-container">
-            <img class="app-bar-bg-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAOECAYAAACd288aAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABzSURBVHgB7dlRDoMgEERBC+19L8y+1242wU2M8W1m4O+wW7Y8AAAAAElFTkSuQmCC" alt="Header BG">
-            <img class="rect-19" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAABSCAYAAADw4kyvAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAB0SURBVHgB7c8xEcAgAAAxWv+eUMSAAtDxXOIg35r7jEf942FyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVXJVclVyVRd7pgRAJOvl6gAAAABJRU5ErkJggg==" alt="Decor">
-            <img class="logo-home" src="data:image/png;base64,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" alt="Logo">
-            
-            <div class="search-field-home">
-                <span>🔍</span>
-                <input type="text" class="search-text" placeholder="Looking for something?">
+        <div class="fav-header">
+            <div class="d-flex align-items-center">
+                <h2 class="section-title">Order your Favorites</h2>
+                <button class="btn-add-all">Add to Cart</button>
             </div>
-
-            <div class="nav-my-orders">My Orders</div>
-            <div class="nav-favorites">Favorites</div>
             
-            <div class="icon-btn-user"></div>
-            <img class="icon-btn-cart" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABfSURBVHgB7c9BDcAgEABBRyBEKkgqSKpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKkgqSCpIKsj37g2i+wN5m3X9lAAAAABJRU5ErkJggg==" alt="Cart">
-            
-            <div class="notif-container">
-                <div class="notif-icon"></div>
+            <div class="view-toggles d-none d-md-flex">
+                <div class="toggle-icon active"><i class="fa-solid fa-border-all"></i></div>
+                <div class="toggle-icon"><i class="fa-regular fa-square"></i></div>
             </div>
         </div>
 
-        <div class="categories-section">
-            <img class="upper-container-bg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAFpCAYAAABqCI+nAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABOSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvwE5oAAAAQ==" alt="Categories BG">
-            <h1 class="featured-title">Featured Products</h1>
-            <p class="featured-subtitle">View our latest styles from across our store below.</p>
+        <div class="row g-4">
             
-            <div class="cat-card cat-card-1">
-                <img class="cat-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Category 1">
-                <h3 class="cat-title">Shoes</h3>
-                <span class="cat-subtitle">3.1k Products</span>
-            </div>
-             <div class="cat-card cat-card-2">
-                <img class="cat-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Category 2">
-                <h3 class="cat-title">Outerwear</h3>
-                <span class="cat-subtitle">1.4k Products</span>
-            </div>
-             <div class="cat-card cat-card-3">
-                <img class="cat-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Category 3">
-                <h3 class="cat-title">Fitness Wear</h3>
-                <span class="cat-subtitle">320 Products</span>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product-card selected">
+                    <input type="checkbox" class="card-checkbox" checked>
+                    <div class="prod-img-box">
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=400&q=80" alt="Product">
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <h4 class="prod-title">Converse AS-1 Pro</h4>
+                            <span class="prod-cat">Shoes</span>
+                        </div>
+                        <div class="col-5 text-end">
+                            <div class="prod-price">[$1,234.56]</div>
+                            <i class="fa-solid fa-heart heart-icon mt-2"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="scrollbar-h">
-                 <div class="scrollbar-track">
-                     <div class="scrollbar-thumb" style="background-color: rgba(255, 255, 255, 0.5);"></div>
-                 </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product-card">
+                    <input type="checkbox" class="card-checkbox">
+                    <div class="prod-img-box">
+                        <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=400&q=80" alt="Product">
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <h4 class="prod-title">[name]</h4>
+                            <span class="prod-cat">[category]</span>
+                        </div>
+                        <div class="col-5 text-end">
+                            <div class="prod-price">[$1,234.56]</div>
+                            <i class="fa-regular fa-heart heart-icon mt-2 text-muted"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product-card">
+                    <input type="checkbox" class="card-checkbox">
+                    <div class="prod-img-box">
+                        <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=400&q=80" alt="Product">
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <h4 class="prod-title">[name]</h4>
+                            <span class="prod-cat">[category]</span>
+                        </div>
+                        <div class="col-5 text-end">
+                            <div class="prod-price">[$1,234.56]</div>
+                            <i class="fa-solid fa-heart heart-icon mt-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product-card selected">
+                    <input type="checkbox" class="card-checkbox" checked>
+                    <div class="prod-img-box">
+                        <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=80" alt="Product">
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <h4 class="prod-title">[name]</h4>
+                            <span class="prod-cat">[category]</span>
+                        </div>
+                        <div class="col-5 text-end">
+                            <div class="prod-price">[$1,234.56]</div>
+                            <i class="fa-solid fa-heart heart-icon mt-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-        <div class="lower-container-bg"></div>
-        <div class="favorites-section">
-            <h2 class="fav-title-text">Order your Favorites</h2>
-            
-            <div class="prod-card prod-card-1">
-                <div class="prod-img-rect">
-                    <img class="prod-inner-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Prod 1">
-                </div>
-                <h3 class="prod-name">Converse AS-1 Pro</h3>
-                <span class="prod-price">[$1,234.56]</span>
-                <span class="prod-cat">Shoes</span>
-                <div class="prod-checkbox">
-                    <img class="checkbox-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEwIDE2LjRMNiAxMi40TDcuNCAxMUwxMCAxMy42TDE2LjYgN0wxOCA4LjRMMTAgMTYuNFonIGZpbGw9J3doaXRlJy8+Cjwvc3ZnPgo=" alt="Checked">
-                </div>
-                <img class="prod-heart" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjUnIGhlaWdodD0nMjUnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDIxLjM1bC0xLjQ1LTEuMzJDNS40IDE1LjM2IDIgMTIuMjggMiA4LjUgMiA1LjQyIDQuNDIgMyA3LjUgM2MxLjc0IDAgMy40MS44MSA0LjUgMi4wOUMxMy4wOSAzLjgxIDE0Ljc2IDMgMTYuNSAzIDE5LjU4IDMgMjIgNS40MiAyMiA4LjVjMCAzLjc4LTMuNCA2Ljg2LTguNTUgMTEuNTRMMTIgMjEuMzV6JyBmaWxsPScjNkY2MUVGJy8+Cjwvc3ZnPgo=" alt="Heart">
-            </div>
-
-             <div class="prod-card prod-card-2">
-                <div class="prod-img-rect" style="border: 1px solid rgba(108, 108, 108, 0.5); border-width: 1px;">
-                     <img class="prod-inner-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Prod 2">
-                </div>
-                <h3 class="prod-name">[name]</h3>
-                <span class="prod-price">[$1,234.56]</span>
-                <span class="prod-cat">[category]</span>
-                <div class="prod-checkbox">
-                    <img class="checkbox-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHJlY3QgeD0nMScgeT0nMScgd2lkdGg9JzIyJyBoZWlnaHQ9JzIyJyByeD0nNCcgc3Ryb2tlPScjNkY2MUVGJyBzdHJva2Utd2lkdGg9JzInLz4KPC9zdmc+Cg==" alt="Unchecked">
-                </div>
-                <img class="prod-heart" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjUnIGhlaWdodD0nMjUnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDIxLjM1bC0xLjQ1LTEuMzJDNS40IDE1LjM2IDIgMTIuMjggMiA4LjUgMiA1LjQyIDQuNDIgMyA3LjUgM2MxLjc0IDAgMy40MS44MSA0LjUgMi4wOUMxMy4wOSAzLjgxIDE0Ljc2IDMgMTYuNSAzIDE5LjU4IDMgMjIgNS40MiAyMiA4LjVjMCAzLjc4LTMuNCA2Ljg2LTguNTUgMTEuNTRMMTIgMjEuMzV6JyBzdHJva2U9JyM2RjYxRUYnIHN0cm9rZS13aWR0aD0nMicvPgo8L3N2Zz4K" alt="Heart Outline">
-            </div>
-            
-             <div class="prod-card prod-card-3">
-                 <div class="prod-img-rect" style="border: 1px solid rgba(108, 108, 108, 0.5);">
-                     <img class="prod-inner-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Prod 3">
-                 </div>
-                 <h3 class="prod-name">[name]</h3>
-                 <span class="prod-price">[$1,234.56]</span>
-                 <span class="prod-cat">[category]</span>
-                  <div class="prod-checkbox">
-                      <img class="checkbox-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjQnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHJlY3QgeD0nMScgeT0nMScgd2lkdGg9JzIyJyBoZWlnaHQ9JzIyJyByeD0nNCcgc3Ryb2tlPScjNkY2MUVGJyBzdHJva2Utd2lkdGg9JzInLz4KPC9zdmc+Cg==" alt="Unchecked">
-                  </div>
-                  <img class="prod-heart" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjUnIGhlaWdodD0nMjUnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHBhdGggZD0nTTEyIDIxLjM1bC0xLjQ1LTEuMzJDNS40IDE1LjM2IDIgMTIuMjggMiA4LjUgMiA1LjQyIDQuNDIgMyA3LjUgM2MxLjc0IDAgMy40MS44MSA0LjUgMi4wOUMxMy4wOSAzLjgxIDE0Ljc2IDMgMTYuNSAzIDE5LjU4IDMgMjIgNS40MiAyMiA4LjVjMCAzLjc4LTMuNCA2Ljg2LTguNTUgMTEuNTRMMTIgMjEuMzV6JyBzdHJva2U9JyM2RjYxRUYnIHN0cm9rZS13aWR0aD0nMicvPgo8L3N2Zz4K" alt="Heart Outline">
-            </div>
-
-             <div class="prod-card prod-card-4">
-                 <div class="prod-img-rect" style="border: 1px solid rgba(108, 108, 108, 0.5);">
-                     <img class="prod-inner-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADKCAYAAAD1t+XyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABiSURBVHgB7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGwHE2EAAe8w3eAAAAAASUVORK5CYII=" alt="Prod 4">
-                 </div>
-            </div>
-            
-            <button class="btn-add-to-cart">Add to Cart</button>
-        </div>
-        
-        <div class="tab-bar-iphone"></div>
-
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
