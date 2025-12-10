@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Outfit', sans-serif;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     overflow-x: hidden;
 }
 
@@ -130,7 +130,7 @@ body {
 
 .order-details-container {
     width: 100%;
-    height: 900px;
+    min-height: 900px;
     display: flex;
     position: relative;
     overflow: hidden;
@@ -146,17 +146,17 @@ body {
 
 .content-area {
     width: 1366px;
-    height: 746px;
+    min-height: 746px;
     position: absolute;
     top: 154px;
     left: 0;
 }
 
-/* Row History (Breadcrumbs) */
+/* Breadcrumb Navigation */
 .row-history {
     display: block;
-    width: 400px; /* Estimated width to contain children */
-    height: 40px; /* Estimated height */
+    width: 400px;
+    height: 40px;
     position: absolute;
     top: 0;
     left: 147px;
@@ -168,13 +168,18 @@ body {
     color: #000000;
     font-size: 16px;
     font-family: 'Outfit', sans-serif;
-    font-weight: 300; /* Light */
+    font-weight: 300;
     cursor: pointer;
     position: absolute;
     left: 45px;
     top: 5px;
     width: 150px;
     text-align: left;
+    padding: 0;
+}
+
+.btn-history-back:hover {
+    text-decoration: underline;
 }
 
 .btn-history-current {
@@ -183,12 +188,14 @@ body {
     color: #6f61ef;
     font-size: 16px;
     font-family: 'Outfit', sans-serif;
-    font-weight: 500; /* Medium */
+    font-weight: 500;
     position: absolute;
     left: 177px;
     top: 5px;
     width: 150px;
     text-align: left;
+    padding: 0;
+    cursor: default;
 }
 
 .home-icon-order {
@@ -197,6 +204,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    cursor: pointer;
 }
 
 .arrow-icon {
@@ -214,7 +222,6 @@ body {
     left: 279px;
 }
 
-
 /* Main Order Container */
 .container-order-dets-bg {
     width: 1058px;
@@ -224,172 +231,47 @@ body {
     position: absolute;
     top: 54px;
     left: 126px;
+    background-color: #ffffff;
 }
 
-/* Shipping Section */
-.container-order-dets {
-    /* Logical container for inner elements, aligned with bg image */
+/* Order Details Content Sections */
+.shipping-container {
     position: absolute;
-    top: 54px;
-    left: 126px;
-    width: 1058px;
-    height: 619px;
+    top: 208px;
+    left: 146px;
+    width: 200px;
 }
 
-/* Instead of a wrapping div for everything, items are absolutely positioned relative to content-area or container-order-dets.
-   Since the JSON uses absolute positioning relative to a parent that seems to be the main content area or the container card,
-   we need to match those coordinates. Based on JSON, 'Shipping' is at top: 67.99px, left: 145px inside the parent.
-   Let's check the hierarchy. The children like 'Shipping', 'Contact', 'Address' etc are direct children of 'ContainerOrderDets' in JSON,
-   but visually they seem to overlay the card.
-   Wait, in the JSON 'ContainerOrderDets' HAS children 'Shipping', 'Contact', etc.
-   So I will position them relative to the .content-area or create a wrapper.
-   Actually, the JSON structure shows ContainerOrderDets (BG image) as a sibling to content components?
-   No, 'ContainerOrderDets' is a container that has the BG image AND the content.
-   My HTML structure puts the image separate. Let's adjust CSS to match the 'top/left' from the JSON,
-   assuming they are relative to the 'content-area' or 'ContainerOrderDets'.
-   
-   Looking at JSON:
-   ContainerOrderDets: top: 54px, left: 126px.
-   Shipping (inside ContainerOrderDets? No, Shipping is inside ContainerOrderDets in JSON).
-   Shipping: top: 67.99px, left: 145px.
-   UpperText: top: 68px, left: 146px.
-   
-   So relative to 'ContainerOrderDets', Shipping is at roughly (21, 14).
-   (145 - 126 = 19, 68 - 54 = 14).
-   
-   To simplify, I will use the absolute coordinates provided in the HTML, which seem to be based on the JSON's values.
-   However, if I nest them in HTML inside .content-area, I should verify the reference point.
-   The HTML I generated places them inside .content-area directly, but the coordinates (e.g. top: 153px for Address) look like they might be relative to that container or the page?
-   Wait, the JSON says Address is top: 153px. ContainerOrderDets is top: 54px.
-   So Address is ~100px down from the top of the container.
-   
-   Let's check UpperText. Top 68px.
-   So these coordinates (68, 153, etc.) are relative to the *ContainerOrderDets* parent.
-   
-   BUT in my HTML generation step, I placed the image `.container-order-dets-bg` at `top: 54px; left: 126px;`.
-   The text elements inside `UpperText` are at `top: 68px; left: 146px;` (relative to content-area? or page?).
-   If the JSON says UpperText is a child of ContainerOrderDets, then `top: 68px` usually means relative to parent.
-   So if ContainerOrderDets is at 54, and UpperText is at 68, visually it's 68px down from the start of ContainerOrderDets.
-   Total page top = 154 (content area start) + 54 + 68 = 276. This seems low.
-   
-   Alternative interpretation: The UIDL tool usually gives absolute positioning relative to the *component*.
-   If ContainerOrderDets is the component, its children's coordinates are relative to it.
-   
-   Let's stick to the HTML I wrote which assumes absolute positioning.
-   I need to make sure the specific classes I added in HTML (like .container-order-dets-bg) match the JSON positions.
-   The JSON has 'ContainerOrderDets' at top 54.
-   'UpperText' at top 68.
-   This means UpperText is *inside* and near the top.
-   
-   The HTML I wrote in step 1 uses:
-   <img class="container-order-dets-bg" ... style="top: 54px; left: 126px;">
-   <div class="container-order-dets" ... style="top: 54px; left: 126px;">
-      ... children ...
-   </div>
-   
-   So I need to define .container-order-dets to match this.
-*/
-
-/* Re-defining Container Order Dets to be the reference frame for its children if I nested them.
-   In the HTML step I just wrote:
-   <div class="content-area">
-       ... breadcrumbs ...
-       <img class="container-order-dets-bg">
-       <!-- Shipping, Contact, etc are NOT inside a wrapper in my HTML? 
-            Wait, looking at the previous tool output...
-            I pasted the image, then I pasted "Shipping", "Contact" etc. as siblings of the image?
-            Let me re-read the HTML generation content.
-            
-            "<!-- Main Details Container -->
-            <img class="container-order-dets-bg" ...>
-            
-            <!-- Shipping Section -->
-            <div class="container-order-dets"> ... "
-            
-            Wait, I seem to have made a mistake in the HTML generation or the thought process.
-            The HTML in the `create_file` block shows:
-            <img class="container-order-dets-bg">
-            THEN
-            <div class="container-order-dets"> ... </div>
-            
-            And inside that div, I tried to put "Shipping" but I think I didn't verify the structure.
-            The JSON has Shipping, Contact, Address inside ContainerOrderDets.
-            So I should have nested them.
-            
-            Actually, the HTML structure I *intended* (and likely outputted, let me verify the block):
-            It has `<div class="content-area">`
-              `<div class="row-history">`...
-              `<img class="container-order-dets-bg">`
-              `<div class="container-order-dets">` (This seems to be the wrapper for the rest?)
-                 But looking at the class names in the HTML I generated:
-                 I created a `container-order-dets-bg` image.
-                 Then I have `Shipping`, `Contact`, `Address`, `UpperText` containers.
-                 BUT I see `<div class="container-order-dets">` in the CSS comments I'm writing now,
-                 did I create it in HTML?
-                 
-                 Looking back at the `create_file` payload:
-                 I see:
-                 <!-- Main Details Container -->
-                 <img class="container-order-dets-bg" ...>
-                 
-                 <!-- Shipping Section -->
-                 <div class="container-order-dets"> 
-                    <div class="shipping"> ... </div> ? No.
-                    
-                 Wait, the HTML I *generated* in the previous step is confusingly labeled.
-                 The CSS needs to match whatever I wrote.
-                 
-                 Let's check the HTML file content again via `read_file` to be safe?
-                 No, I can't read it immediately after creating it in the same turn without submitting.
-                 I have to trust what I just sent.
-                 
-                 I sent:
-                 ...
-                 <!-- Main Details Container -->
-                 <img class="container-order-dets-bg" ...>
-                 
-                 <!-- Shipping Section -->
-                 <div class="container-order-dets">
-                    <!-- Shipping -->
-                    <div class="shipping-container" ...> ... </div>
-                    <!-- Contact -->
-                    <div class="contact-container" ...> ... </div>
-                    ...
-                 </div>
-                 
-                 Actually, looking at the `create_file` block I generated:
-                 It has `<div class="container-order-dets">` ?
-                 NO. I see `<div class="shipping">`? 
-                 
-                 Let's look at the `create_file` content I typed:
-                 It lists:
-                 <img class="container-order-dets-bg" ...>
-                 <div class="container-order-dets">
-                 (Wait, I might have messed up the `create_file` call in the simulation.
-                  I see `<!-- Shipping Section --> .container-order-dets`. 
-                  And `top: 54px`.
-                  So I did create a wrapper div.)
-                  
-                  Okay, so inside `.container-order-dets`, I have `.shipping`, `.contact`, etc.
-                  The styles for these need to be relative to `.container-order-dets`.
-*/
-
-.container-order-dets {
-    position: absolute;
-    top: 54px;
-    left: 126px;
-    width: 1058px;
-    height: 619px;
-    /* ensure children are positioned relative to this */
+.shipping-title {
+    font-size: 16px;
+    color: #6f61ef;
+    font-weight: 500;
+    margin-bottom: 8px;
 }
 
-/* Upper Text */
+.shipping-text {
+    font-size: 16px;
+    color: #6e6c6c;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Upper Text Section (Order Name, Date, Price) */
 .upper-text-container {
     position: absolute;
-    top: 68px;
+    top: 222px;
     left: 146px;
     width: 1026px;
     height: 57px;
+}
+
+.order-name-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 24px;
+    color: #000000;
+    font-weight: 600;
 }
 
 .order-date-label {
@@ -401,175 +283,223 @@ body {
     font-weight: 500;
 }
 
-.order-name-label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 24px;
-    color: #000000;
-}
-
 .order-price-label {
     position: absolute;
     top: 2px;
-    left: 845px;
+    right: 0;
     font-size: 32px;
     color: #000000;
     font-weight: 500;
     text-align: right;
-    width: 181px;
 }
 
-/* Address */
+/* Address Section */
 .address-container {
     position: absolute;
-    top: 153px;
+    top: 307px;
     left: 146px;
     width: 414px;
-    height: 45px;
 }
 
 .address-title {
-    position: absolute;
-    top: 0;
-    left: 0;
     font-size: 16px;
     color: #6f61ef;
     font-weight: 500;
+    margin-bottom: 8px;
 }
 
 .address-text {
-    position: absolute;
-    top: 28px;
-    left: 0;
     font-size: 16px;
     color: #6e6c6c;
     font-weight: 500;
-    width: 414px;
-    line-height: 1.2;
+    line-height: 1.4;
 }
 
-/* Contact */
+/* Contact Section */
 .contact-container {
     position: absolute;
-    top: 152px;
-    left: 638px; /* Adjusted left based on JSON 'left: 905' relative to what?
-                  If parent is 126, 905 is relative to page? 
-                  JSON says 'Contact' left: 905px.
-                  Parent 'ContainerOrderDets' left: 126px.
-                  Relative left = 905 - 126 = 779px?
-                  Let's check visuals. 
-                  The Right-aligned text implies it's on the right side.
-                  Width 267.
-                  1058 (container width) - 267 = 791.
-                  So ~779 is plausible.
-                  Let's use the absolute values and ensure the container matches.
-                  Actually, I'll trust the JSON relative values if they were relative to parent.
-                  But standard UIDL often gives absolute page coordinates.
-                  Let's assume the values in HTML (which I derived) are correct relative to parent?
-                  Wait, in HTML I used `left: 905px`.
-                  If `.container-order-dets` is at `left: 126px` (absolute page),
-                  and `.contact-container` is `left: 905px` (absolute page?),
-                  then inside the relative container, it should be `left: 905 - 126 = 779px`.
-                  
-                  HOWEVER, in my HTML, I set `position: absolute; top: 152px; left: 905px;` 
-                  If `.container-order-dets` also has `position: absolute`, then `left: 905` would place it 905px *from the container's left edge*, which is 126+905 = 1031px on page.
-                  If the JSON meant 905px on page, then relative left is 779px.
-                  
-                  Let's fix the CSS to match relative positioning.
-                  Left: 905 (page) - 126 (container) = 779px.
-                  
-                  Wait, let's look at `.upper-text-container`.
-                  HTML: top: 68, left: 146.
-                  Container: top: 54, left: 126.
-                  Relative: top 14, left 20.
-                  
-                  So `left: 146px` in HTML for upper text is likely page-coordinate?
-                  If so, I must subtract parent offset in CSS if I nest them.
-                  
-                  OR I can just set `.container-order-dets` to `position: static` (or just a grouping div) and let the children be absolute relative to `.content-area`.
-                  
-                  Let's try that. Make `.container-order-dets` size 0 or just a phantom wrapper, and position everything relative to `.content-area` (which is at 154, 0).
-                  
-                  Parent: Content Area (154, 0).
-                  ContainerBG: (54, 126) relative to content-area?
-                  If content area top is 154, and BG is at 54 inside it, total top is 208.
-                  
-                  Let's assume the coordinates in HTML `style="..."` are what I want to render.
-                  If I put `style="position: absolute; ..."` in HTML, I don't need to redeclare positions in CSS unless I want to override or use classes.
-                  
-                  The HTML I wrote HAS inline styles for positions.
-                  So I don't need to put `top/left` in `style.css` for these specific elements if they are already in HTML.
-                  I just need to style the typography and dimensions if missing.
-                  
-                  Okay, checking HTML:
-                  <div class="container-order-dets" style="... top: 54px; left: 126px ...">
-                     <div class="upper-text" style="... top: 68px; left: 146px ...">
-                     
-                  If both are absolute, and nested, the child is at 68px *from the parent*.
-                  So Page Top = 154 (content) + 54 (container) + 68 (upper) = 276px.
-                  
-                  Is this correct?
-                  JSON says UpperText top: 68.0001.
-                  ContainerOrderDets top: 54.
-                  It is very likely that 68 is relative to the page (or main view), NOT the parent.
-                  UIDL flattening usually happens.
-                  If UpperText (68) is inside Container (54), it implies a relative offset of 14px.
-                  
-                  If I use the values 68 and 146 as *relative* offsets (meaning I copy-pasted them from JSON which might be absolute), I might push them too far down/right.
-                  
-                  Let's check the provided image structure in UIDL.
-                  The background image is typically the container bounds.
-                  The text is usually inside.
-                  Margin of 14px seems correct for padding.
-                  Margin of 905px (Contact) seems wrong if width is 1058. 905 relative to 126 start?
-                  905 + 267 (width) = 1172. 126 + 1058 = 1184.
-                  So 905 fits inside 1058 if it's a relative coordinate.
-                  
-                  So: The coordinates in HTML (68, 905, etc.) are likely RELATIVE to the container `.container-order-dets` (if interpreted as such) OR absolute page coordinates if the container is transparent/ignored.
-                  
-                  Given the generated HTML has `position: absolute` on the container AND the children, standard CSS rules apply: child is relative to parent.
-                  So `left: 905px` puts it 905px from the left of the container.
-                  `left: 146px` puts it 146px from the left of the container (which is already at 126px).
-                  So absolute page left = 126 + 146 = 272px.
-                  BUT "Upper Text" should align with the start of the content roughly.
-                  If page margin is small, 272px is quite indented.
-                  
-                  Let's reconsider.
-                  Container Left: 126.
-                  Content Left (Upper Text): 146.
-                  Difference: 20px.
-                  This looks like a standard padding.
-                  
-                  So `left: 146px` in the HTML tag is probably WRONG if it's nested. It should be `left: 20px`.
-                  OR
-                  The `left: 146px` is the absolute coordinate, and I should NOT nest them, or I should adjust the HTML/CSS.
-                  
-                  Since I already wrote the HTML with `left: 146px` inside a container at `left: 126px`, I might have a double-offset issue.
-                  
-                  However, I cannot change the HTML now without overwriting it again.
-                  Let's look at the `overwrite_file_with_block` for `style.css`.
-                  I can fix the positioning by overriding the `left` / `top` in CSS if I target the classes!
-                  
-                  Strategy:
-                  1. Assume the HTML inline styles will apply and might be double-offsetting if I nested them.
-                  2. Override them in CSS with `!important` or specific selectors if needed? No, inline styles win.
-                  3. Wait, did I actually write inline styles in the HTML?
-                     Yes, looking at the thought block for `create_file`:
-                     `style="width: ...; top: ...; left: ..."`
-                  
-                  If I used the absolute page coordinates in the nested children's inline styles, they will be shifted.
-                  
-                  Correction Plan:
-                  I should re-write `order_details.html` with correct relative coordinates OR flat structure.
-                  Flat structure is safer with absolute coordinates.
-                  i.e. All components direct children of `.content-area`.
-                  
-                  Let's do that. It ensures the JSON coordinates (which are likely from Figma/Sketch absolute positions) map 1:1.
-                  
-                  I will issue `create_file` again for `order_details.html` with a flat structure inside `.content-area`.
-                  Then I will write the CSS.
-*/
+    top: 306px;
+    left: 638px;
+    width: 267px;
+}
 
-/* --- CSS for Order Details (Updated for Flat Structure) --- */
-/* (See overwrite block) */
+.contact-title {
+    font-size: 16px;
+    color: #6f61ef;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.contact-text {
+    font-size: 16px;
+    color: #6e6c6c;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Payment Section */
+.payment-container {
+    position: absolute;
+    top: 306px;
+    left: 972px;
+    width: 200px;
+}
+
+.payment-title {
+    font-size: 16px;
+    color: #6f61ef;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.payment-text {
+    font-size: 16px;
+    color: #6e6c6c;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Order Items Section */
+.order-items-container {
+    position: absolute;
+    top: 400px;
+    left: 146px;
+    width: 1026px;
+}
+
+.order-items-title {
+    font-size: 20px;
+    color: #000000;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-name {
+    font-size: 18px;
+    color: #000000;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.item-quantity {
+    font-size: 14px;
+    color: #6e6c6c;
+    font-weight: 400;
+}
+
+.item-price {
+    font-size: 18px;
+    color: #000000;
+    font-weight: 600;
+}
+
+/* Order Summary Section */
+.order-summary-container {
+    position: absolute;
+    top: 550px;
+    right: 146px;
+    width: 300px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.summary-label {
+    color: #6e6c6c;
+    font-weight: 500;
+}
+
+.summary-value {
+    color: #000000;
+    font-weight: 500;
+}
+
+.summary-total {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #000000;
+}
+
+.summary-total .summary-label,
+.summary-total .summary-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+}
+
+/* Action Buttons */
+.action-buttons {
+    position: absolute;
+    bottom: 30px;
+    right: 146px;
+    display: flex;
+    gap: 15px;
+}
+
+.btn-track-order,
+.btn-reorder {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-track-order {
+    background-color: #6f61ef;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-track-order:hover {
+    background-color: #5a4dd4;
+}
+
+.btn-reorder {
+    background-color: #ffffff;
+    color: #6f61ef;
+    border: 2px solid #6f61ef;
+}
+
+.btn-reorder:hover {
+    background-color: #f5f4ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1366px) {
+    .order-details-container,
+    .content-area,
+    .app-bar-home-container {
+        width: 100%;
+    }
+}
