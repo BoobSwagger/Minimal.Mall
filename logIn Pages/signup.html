@@ -3,420 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Sign Up - Minimal Mall</title>
     
-    <style>
-        :root {
-            --bg-color: #F1F4F8;
-            --primary-purple: #6f61ef;
-            --text-dark: #1E1E1E;
-            --text-grey: #6E6C6C;
-            --card-bg: #FFFFFF;
-            --border-color: #79747E;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* --- Background Decoration --- */
-        .background-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .bg-rect1 {
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 600px;
-            opacity: 0.5;
-        }
-
-        .bg-rect20 {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 100%;
-            opacity: 0.5;
-        }
-
-        .bg-logo {
-            position: absolute;
-            top: 40px;
-            left: 40px;
-            width: 147px;
-            z-index: 1;
-        }
-
-        /* --- Main Card --- */
-        .card-wrapper {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 570px;
-            padding: 20px;
-        }
-
-        .card-container {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            padding: 40px;
-            border: 1px solid #e0e0e0;
-        }
-
-        /* Tabs */
-        .tab-bar {
-            background-color: #F7F2FA;
-            border-radius: 100px;
-            padding: 4px;
-            display: flex;
-            position: relative;
-            margin-bottom: 30px;
-            width: 100%;
-            height: 48px;
-        }
-
-        .tab-container {
-            display: flex;
-            width: 100%;
-            position: relative;
-        }
-
-        .tab-item {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .tab-text {
-            font-family: 'Roboto', sans-serif;
-            font-size: 16px;
-            font-weight: 500;
-            color: #49454F;
-        }
-        
-        .tab-item.active .tab-text {
-            color: #1D1B20;
-        }
-
-        /* The active pill background */
-        .tab-pill-bg {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 50%;
-            height: 100%;
-            background-color: white;
-            border-radius: 100px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: left 0.3s ease;
-            z-index: 1;
-        }
-
-        /* Visual cue for active tab (underline/dot image from design) */
-        .tab-selection {
-            position: absolute;
-            bottom: 6px;
-            width: 80px;
-            height: auto;
-        }
-
-        /* Sign Up Content */
-        .signin-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .welcome-text {
-            font-size: 32px;
-            font-weight: 400;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .instruction-text {
-            font-size: 16px;
-            color: var(--text-grey);
-            margin-bottom: 30px;
-            text-align: center;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        /* Error/Success Message */
-        #errorMessage {
-            display: none;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .signin-form {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .input-group {
-            position: relative;
-            width: 100%;
-        }
-
-        .input-label {
-            position: absolute;
-            top: -10px;
-            left: 12px;
-            background-color: white;
-            padding: 0 4px;
-            font-size: 12px;
-            color: var(--text-dark);
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .text-input {
-            width: 100%;
-            height: 56px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 0 16px;
-            font-size: 16px;
-            font-family: 'Outfit', sans-serif;
-            background: transparent;
-        }
-        
-        .text-input:focus {
-             border-color: var(--primary-purple);
-             outline: 2px solid var(--primary-purple);
-        }
-
-        .action-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-purple);
-            color: white;
-            border: none;
-            border-radius: 100px;
-            padding: 12px 32px;
-            font-size: 14px;
-            font-weight: 500;
-            font-family: 'Roboto', sans-serif;
-            cursor: pointer;
-            min-width: 130px;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #5a4dd4;
-        }
-
-        .btn-primary:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        /* Divider */
-        .divider-row {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            margin: 30px 0;
-        }
-
-        .divider-line {
-            flex: 1;
-            height: 1px;
-            background-color: #E0E0E0;
-        }
-
-        .divider-text {
-            padding: 0 10px;
-            color: var(--text-grey);
-            font-size: 14px;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        /* Social Buttons */
-        .social-row {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            gap: 15px;
-        }
-
-        .btn-social {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 44px;
-            border: 1px solid #747775;
-            border-radius: 100px;
-            background-color: white;
-            cursor: pointer;
-            font-family: 'Roboto', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            color: #1F1F1F;
-            gap: 10px;
-        }
-
-        .btn-social img {
-            width: 20px;
-            height: 20px;
-        }
-
-        .btn-guest {
-            margin-top: 20px;
-            background: none;
-            border: none;
-            color: var(--text-grey);
-            font-size: 16px;
-            font-weight: 500;
-            font-family: 'Outfit', sans-serif;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .bg-logo {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            .card-container {
-                padding: 20px;
-            }
-            .action-row {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .btn-primary {
-                width: 100%;
-            }
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/login_pages.css">
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="background-layer">
-        <img class="bg-rect1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABVYAAADGCAYAAAA5Z9v2AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARFqSURBVHgB..." alt="Background Shape">
-        <img class="bg-rect20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAADGCAYAAAA5Z9v2AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAM..." alt="Decoration">
-        <img class="bg-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJMAAABhCAYAAADSv5MHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARFq..." alt="Logo">
-    </div>
 
-    <!-- Main Card Container -->
-    <div class="card-wrapper">
-        <div class="card-container">
-            <!-- Tab Bar -->
-            <div class="tab-bar">
-                <div class="tab-container">
-                    <div class="tab-pill-bg"></div>
-                    <div class="tab-item">
-                        <span class="tab-text">Sign In</span>
-                    </div>
-                    <div class="tab-item active">
-                        <img class="tab-selection" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGYAAAAZCAYAAADDq1t2AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGSSURBVHgB..." alt="Selected">
-                        <span class="tab-text">Sign Up</span>
-                    </div>
-                </div>
-            </div>
+    <header class="signin-header">
+        <div class="header-shape shape-1"></div>
+        <div class="header-shape shape-2"></div>
+        <div class="header-shape shape-3"></div>
 
-            <!-- Sign Up Content -->
-            <div class="signin-container">
-                <h1 class="welcome-text">Create Account</h1>
-                <p class="instruction-text">Let's get started by filling out the form below</p>
-
-                <!-- Error/Success Message -->
-                <div id="errorMessage"></div>
-
-                <form class="signin-form" id="signupForm">
-                    <div class="input-group">
-                        <label for="fullName" class="input-label">Full Name</label>
-                        <input type="text" id="fullName" name="fullName" class="text-input" placeholder=" " required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="email" class="input-label">Email</label>
-                        <input type="email" id="email" name="email" class="text-input" placeholder=" " required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="phone" class="input-label">Phone (Optional)</label>
-                        <input type="tel" id="phone" name="phone" class="text-input" placeholder=" ">
-                    </div>
-
-                    <div class="input-group">
-                        <label for="password" class="input-label">Password</label>
-                        <input type="password" id="password" name="password" class="text-input" placeholder=" " required minlength="6">
-                    </div>
-
-                    <div class="action-row">
-                        <button type="submit" class="btn-primary" id="submitBtn">Get Started</button>
-                    </div>
-                </form>
-
-                <div class="divider-row">
-                    <div class="divider-line"></div>
-                    <span class="divider-text">or sign up with</span>
-                    <div class="divider-line"></div>
-                </div>
-
-                <div class="social-row">
-                    <button class="btn-social google">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKsSURBVHgBnZVLSFRRGMf/584Z52Ez6oCPpDGZDCMDU4sWkS5cGDFuLIJalIty50YK2iQVCBUt2rhIM9AgVCqEFi4m6KFh0QMCNTEFk/HBZNB453nn3jmdmSszc5vpVv7hXjiP7/d953zfdy9hXNARCwWhbPgASYLBWQliMultB80JEf0IPX4E6eN7KAtzYLK8tcBgcFXB3NIKS4sbxGbPsiW/Rxh98wrirWvJyPRkKN0J65nzMLvb/gwMDvUjxJ9/lcFZAcfACCAYUnOpI4efPUFosI+7IGkL7iuv/jBoTW1yXp7/AmlqggME0IrdKLx7XwNLAVksjPDwkAZGXXthu9oDyhORKWV9DYHeO7Bf7gaxF2RFnTxy3HsPwf4eRCbL+Ax3WlwCx4NREIsV/60EUH7bwGLPjSwyYmMbbbUstvCVbVeEKVEmv+ShM0X1YG4CPerJcnxjLAqiE9jBCgGt9UZQFpxPwxJ3UOTKafBiRoagQ/T5VaAAwahdIRTbUXyr+Cgx7eIQ3k4smpwQN6dRmMOg1E40FZWMajPdEzazukhB83n668H8U5iWHehetuK6axZ1xfs1xsOd2ozPrsTRORhOjcuLVKCQeJGiZgyHq9DlP4K1eD5ufxpAWI5AT70eSTM+Vk3TQNHZhQHpEESm3ufCz29o91zBWtCXBfJLInrGvZhbTSeyhF9HXaXaMalenlj5gK7JmxpjhS81lTdgn2MPv2NgSfTi3fpnBCJ5sPg6QEM1ie7EJXceTtQatcCE+mZG0Tc9qltvmTL9OIULB06ivTFdKZoa6ag5DYepAA/nxrAa/K4LM1MTLjZbca5aW3Yk1xc7EAthfOk1ni56sOhf5qdVtyS2OneU4XhlI85Wu2Ez5mc5In/7BUSVGJY2vTAaKIotjpyQTP0CAOJAdhJwuTEAAAAASUVORK5CYII=" alt="Google">
-                        <span>Continue with Google</span>
-                    </button>
-                    <button class="btn-social facebook">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJUSURBVHgBrVRLaBNRFD2TZPKbBKI0qRFTFUyCtpDUtiBmU6tIwYj4pSD+lsaFG3e6ciHiwo0K3QihLlR0IRgV7EbEqoi0oSU2rdFIRWsTJxLTJGqaiTNT5k0nk4SS9mxm3nn3nXvvu/ddqsIDqwhdvY1coYTnb79geuYX2GwRpTKH1rVm7Gh3IuBbD4O+9lGqOkJB6PHLBO48m0Xx70LNQy02E473b8XB3i2NBTPZP7g4+AqTyQwxMBt0ONTnRv/OTdBqKJG7NvQeY1MpBAObceFED+qmfPn2G4WYgNP7O3Bsj0fBWcy0+I2MJMGY9Th72Ef2NNLPoxcJRKfTioNC6H3dG8h6/GMatx5GkfyWJdz94SkxWlWEd4fjUIFXNNBasrz5ICoWqRrhJzF0eh2y4Gg8hTm2oDC6EgrAZKBhYQyEO3fUD46rYOjpB0VUQma5/D9YGf1iyhOJtMqrz+MQvVJLObdd5KQ7lCDYTHxi5Qhn2bxKcCw+B1qnhZ8XkNKOff6Jeb6thG6oBvu7KAtqNRqVwaXB1xAaKnL9ABG8Gn6Hr6l51ILFuFgOUcndZsNKYbMaZcEubytWAlpLwe+xy4KudVa+CHY0i109baAoShYUcGpfO7gm5o5jjQlngh1kTQS389UMLXlCywHHVy10xA9nC0M4xVse2OtFmeMQjsRQWuBE7kemgHxRPXUYE43zA53o7XIpeKrWgBX68sa9UYyMfyd3I8HET5/d3S6cDG7j02VUjqhGE1to1pnZHFJ8lKVyBRudVrhdNhj1dedyY8Fm8B/aKNFxcI/SwwAAAABJRU5ErkJggg==" alt="Facebook">
-                        <span>Continue with Facebook</span>
-                    </button>
-                </div>
-
-                <button class="btn-guest">Continue as Guest</button>
-            </div>
+        <div class="logo-container">
+            <i class="fa-solid fa-bag-shopping logo-icon"></i>
+            <div class="logo-text">minimal.<span style="color: #7C3AED;">mall</span></div>
         </div>
-    </div>
+    </header>
 
-    <!-- Include auth.js -->
-    <script src="./js/auth.js"></script>
+    <main class="main-content">
+        <div class="auth-card">
+            
+            <div class="auth-toggle">
+                <a href="signin.html" class="toggle-link">Sign In</a>
+                <a href="#" class="toggle-link active">Sign Up</a>
+            </div>
+
+            <h1 class="form-title">Create Account</h1>
+            <p class="form-subtitle">Let’s get started by filling out the form below</p>
+
+            <form action="#">
+                
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-envelope input-icon"></i>
+                    <input type="email" class="custom-input" placeholder="Email" required>
+                </div>
+                
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" class="custom-input" placeholder="Password" required>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn-primary-custom">Get Started</button>
+                </div>
+
+                <div class="divider">or sign up with</div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-6">
+                        <button type="button" class="btn-social">
+                            <i class="fa-brands fa-google text-danger fs-5"></i> 
+                            Google
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn-social">
+                            <i class="fa-brands fa-facebook text-primary fs-5"></i> 
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="index.html" class="btn-guest">Continue as Guest</a>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
