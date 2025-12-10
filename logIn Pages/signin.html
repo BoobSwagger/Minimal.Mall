@@ -8,6 +8,320 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #F1F4F8;
+            --primary-purple: #6f61ef;
+            --text-dark: #1E1E1E;
+            --text-grey: #6E6C6C;
+            --card-bg: #FFFFFF;
+            --border-color: #79747E;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- Background Decoration --- */
+        .background-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-rect1 {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 600px;
+            opacity: 0.5;
+        }
+
+        .bg-rect20 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 100%;
+            opacity: 0.5;
+        }
+
+        .bg-logo {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            width: 147px;
+            z-index: 1;
+        }
+
+        /* --- Main Card --- */
+        .card-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 570px;
+            padding: 20px;
+        }
+
+        .card-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 40px;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Tabs */
+        .tab-bar {
+            background-color: #F7F2FA;
+            border-radius: 100px;
+            padding: 4px;
+            display: flex;
+            position: relative;
+            margin-bottom: 30px;
+            width: 100%;
+            height: 48px;
+        }
+
+        .tab-container {
+            display: flex;
+            width: 100%;
+            position: relative;
+        }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .tab-text {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #49454F;
+        }
+        
+        .tab-item.active .tab-text {
+            color: #1D1B20;
+        }
+
+        /* The active pill background */
+        .tab-pill-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background-color: white;
+            border-radius: 100px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 1;
+        }
+
+        /* Visual cue for active tab (underline/dot image from design) */
+        .tab-selection {
+            position: absolute;
+            bottom: 6px;
+            width: 80px;
+            height: auto;
+        }
+
+        /* Sign In Content */
+        .signin-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .welcome-text {
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .instruction-text {
+            font-size: 16px;
+            color: var(--text-grey);
+            margin-bottom: 30px;
+            text-align: center;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .signin-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-label {
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background-color: white;
+            padding: 0 4px;
+            font-size: 12px;
+            color: var(--text-dark);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .text-input {
+            width: 100%;
+            height: 56px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0 16px;
+            font-size: 16px;
+            font-family: 'Outfit', sans-serif;
+            background: transparent;
+        }
+        
+        .text-input:focus {
+             border-color: var(--primary-purple);
+             outline: 2px solid var(--primary-purple);
+        }
+
+        .action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .forgot-password {
+            color: var(--text-grey);
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            border-radius: 100px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+            width: 110px;
+        }
+
+        /* Divider */
+        .divider-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin: 30px 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background-color: #E0E0E0;
+        }
+
+        .divider-text {
+            padding: 0 10px;
+            color: var(--text-grey);
+            font-size: 14px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Social Buttons */
+        .social-row {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 15px;
+        }
+
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 44px;
+            border: 1px solid #747775;
+            border-radius: 100px;
+            background-color: white;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1F1F1F;
+            gap: 10px;
+        }
+
+        .btn-social img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-guest {
+            margin-top: 20px;
+            background: none;
+            border: none;
+            color: var(--text-grey);
+            font-size: 16px;
+            font-weight: 500;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .bg-logo {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .card-container {
+                padding: 20px;
+            }
+            .action-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .btn-primary, .forgot-password {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Background Elements -->
