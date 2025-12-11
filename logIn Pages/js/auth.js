@@ -1,6 +1,6 @@
 // auth.js - Authentication handler for login/signup
 
-const API_BASE_URL = 'https://minimallbackend.onrender.com';
+const AUTH_API_BASE_URL = 'https://minimallbackend.onrender.com';
 
 // Store token in localStorage
 function saveToken(token) {
@@ -31,7 +31,7 @@ function getUser() {
 // Sign In function
 async function signIn(email, password) {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/signin`, {
+        const response = await fetch(`${AUTH_API_BASE_URL}/api/auth/signin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ async function signIn(email, password) {
 // Sign Up function
 async function signUp(email, password, fullName, phone = null) {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
+        const response = await fetch(`${AUTH_API_BASE_URL}/api/auth/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ async function getCurrentUser() {
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
+        const response = await fetch(`${AUTH_API_BASE_URL}/api/auth/me`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -174,7 +174,7 @@ async function verifyToken() {
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/verify-token`, {
+        const response = await fetch(`${AUTH_API_BASE_URL}/api/auth/verify-token`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -267,7 +267,7 @@ function initSignInForm() {
             
             // Redirect to customer pages after 1 second
             setTimeout(() => {
-                window.location.href = '../customer Pages/tug.html';
+                window.location.href = '../customer Pages/index.html';
             }, 1000);
         } else {
             // Show error message

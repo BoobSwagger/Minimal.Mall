@@ -28,27 +28,30 @@
             
             <div class="auth-toggle">
                 <button class="toggle-btn active">Sign In</button>
-                <button class="toggle-btn">Sign Up</button>
+                <a href="signup.html" class="toggle-btn" style="text-decoration: none; color: inherit;">Sign Up</a>
             </div>
 
             <h1 class="h2 form-title">Welcome Back</h1>
             <p class="form-subtitle">Enter your details below to access your account.</p>
 
-            <form action="#">
+            <!-- Error/Success Message Display -->
+            <div id="errorMessage" style="display: none; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;"></div>
+
+            <form id="signinForm">
                 
                 <div class="input-wrapper">
                     <i class="fa-regular fa-envelope input-icon"></i>
-                    <input type="email" class="custom-input" placeholder="Email Address" required>
+                    <input type="email" id="email" class="custom-input" placeholder="Email Address" required>
                 </div>
                 
                 <div class="input-wrapper">
                     <i class="fa-solid fa-lock input-icon"></i>
-                    <input type="password" class="custom-input" placeholder="Password" required>
+                    <input type="password" id="password" class="custom-input" placeholder="Password" required>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <a href="#" class="text-decoration-none small text-primary fw-bold">Forgot Password?</a>
-                    <button type="submit" class="btn-signin">Sign In</button>
+                    <button type="submit" id="submitBtn" class="btn-signin">Sign In</button>
                 </div>
 
                 <div class="divider">or continue with</div>
@@ -67,7 +70,7 @@
                 </div>
 
                 <div class="text-center">
-                    <a href="index.html" class="btn-guest">
+                    <a href="../customer Pages/index.html" class="btn-guest">
                         Continue as Guest 
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
@@ -78,5 +81,7 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Include auth.js -->
+   <script src="./js/auth.js"></script>
 </body>
 </html>

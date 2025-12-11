@@ -19,22 +19,27 @@
 
         <div class="container position-relative z-2">
             <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-3">
-                <a href="#" class="text-decoration-none d-flex align-items-center gap-2 text-white">
+                <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
                     <i class="fa-solid fa-bag-shopping fs-3"></i>
                     <span class="fw-bold fs-4 logo-text">minimal.<span class="fw-light">mall</span></span>
                 </a>
                 
                 <div class="header-search d-none d-md-flex align-items-center bg-white bg-opacity-25 rounded-pill px-3 py-2" style="width: 400px;">
                     <i class="fa-solid fa-magnifying-glass text-white opacity-75 me-2"></i>
-                    <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Looking for something?" style="outline: none;">
+                    <input type="text" id="searchInput" class="bg-transparent border-0 text-white w-100" placeholder="Looking for something?" style="outline: none;" autocomplete="off">
                 </div>
 
                 <div class="d-flex align-items-center gap-4 text-white">
                     <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">My Orders</a>
                     <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">Favorites</a>
                     <a href="#" class="text-white"><i class="fa-regular fa-bell fs-5"></i></a>
-                    <a href="#" class="text-white"><i class="fa-regular fa-user fs-5"></i></a>
-                    <a href="#" class="text-white"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
+                    <a href="#" class="text-white" id="userIcon"><i class="fa-regular fa-user fs-5"></i></a>
+                    <a href="#" class="text-white position-relative">
+                        <i class="fa-solid fa-cart-shopping fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount" style="display: none;">
+                            0
+                        </span>
+                    </a>
                 </div>
             </nav>
 
@@ -42,32 +47,11 @@
                 <h1 class="hero-title">Featured Products</h1>
                 <p class="hero-subtitle">View our latest styles from across our store below.</p>
 
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="category-card">
-                            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80" class="cat-img" alt="Shoes">
-                            <div class="cat-overlay">
-                                <h3 class="cat-name">Shoes</h3>
-                                <span class="cat-count">3.1k Products</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="category-card">
-                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80" class="cat-img" alt="Outerwear">
-                            <div class="cat-overlay">
-                                <h3 class="cat-name">Outerwear</h3>
-                                <span class="cat-count">1.4k Products</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="category-card">
-                            <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=600&q=80" class="cat-img" alt="Fitness">
-                            <div class="cat-overlay">
-                                <h3 class="cat-name">Fitness Wear</h3>
-                                <span class="cat-count">320 Products</span>
-                            </div>
+                <div class="row g-4" id="categoryContainer">
+                    <!-- Categories will be loaded here dynamically -->
+                    <div class="col-12 text-center py-3">
+                        <div class="spinner-border text-white" role="status">
+                            <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
                 </div>
@@ -80,7 +64,10 @@
         <div class="fav-header">
             <div class="d-flex align-items-center">
                 <h2 class="section-title">Order your Favorites</h2>
-                <button class="btn-add-all">Add to Cart</button>
+                <button class="btn-add-all">
+                    <i class="fa-solid fa-cart-plus me-2"></i>
+                    Add Selected to Cart
+                </button>
             </div>
             
             <div class="view-toggles d-none d-md-flex">
@@ -89,87 +76,115 @@
             </div>
         </div>
 
-        <div class="row g-4">
-            
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="product-card selected">
-                    <input type="checkbox" class="card-checkbox" checked>
-                    <div class="prod-img-box">
-                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=400&q=80" alt="Product">
-                    </div>
-                    <div class="row">
-                        <div class="col-7">
-                            <h4 class="prod-title">Converse AS-1 Pro</h4>
-                            <span class="prod-cat">Shoes</span>
-                        </div>
-                        <div class="col-5 text-end">
-                            <div class="prod-price">[$1,234.56]</div>
-                            <i class="fa-solid fa-heart heart-icon mt-2"></i>
-                        </div>
-                    </div>
+        <div class="row g-4" id="productContainer">
+            <!-- Products will be loaded here dynamically -->
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
                 </div>
+                <p class="mt-3 text-muted">Loading products...</p>
             </div>
+        </div>
 
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="product-card">
-                    <input type="checkbox" class="card-checkbox">
-                    <div class="prod-img-box">
-                        <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=400&q=80" alt="Product">
-                    </div>
-                    <div class="row">
-                        <div class="col-7">
-                            <h4 class="prod-title">[name]</h4>
-                            <span class="prod-cat">[category]</span>
-                        </div>
-                        <div class="col-5 text-end">
-                            <div class="prod-price">[$1,234.56]</div>
-                            <i class="fa-regular fa-heart heart-icon mt-2 text-muted"></i>
-                        </div>
-                    </div>
+        <!-- Pagination -->
+        <div class="row mt-5 mb-5" id="paginationContainer" style="display: none;">
+            <div class="col-12 d-flex justify-content-center">
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item disabled" id="prevPage">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active" id="currentPageIndicator">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item" id="nextPage">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification for cart -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="cartToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fa-solid fa-check-circle me-2"></i>
+                    <span id="toastMessage">Items added to cart!</span>
                 </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="product-card">
-                    <input type="checkbox" class="card-checkbox">
-                    <div class="prod-img-box">
-                        <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=400&q=80" alt="Product">
-                    </div>
-                    <div class="row">
-                        <div class="col-7">
-                            <h4 class="prod-title">[name]</h4>
-                            <span class="prod-cat">[category]</span>
-                        </div>
-                        <div class="col-5 text-end">
-                            <div class="prod-price">[$1,234.56]</div>
-                            <i class="fa-solid fa-heart heart-icon mt-2"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="product-card selected">
-                    <input type="checkbox" class="card-checkbox" checked>
-                    <div class="prod-img-box">
-                        <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=80" alt="Product">
-                    </div>
-                    <div class="row">
-                        <div class="col-7">
-                            <h4 class="prod-title">[name]</h4>
-                            <span class="prod-cat">[category]</span>
-                        </div>
-                        <div class="col-5 text-end">
-                            <div class="prod-price">[$1,234.56]</div>
-                            <i class="fa-solid fa-heart heart-icon mt-2"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Include auth.js for authentication -->
+    <script src="../logIn Pages/js/auth.js"></script>
+    
+    <!-- Include products.js for product functionality -->
+    <script src="./js/product.js"></script>
+    
+    <script>
+        // Additional initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is logged in and update UI
+            const user = getUser();
+            if (user) {
+                document.getElementById('userIcon').innerHTML = `
+                    <i class="fa-solid fa-user fs-5"></i>
+                    <small class="d-none d-lg-inline ms-1">${user.full_name.split(' ')[0]}</small>
+                `;
+            }
+            
+            // Add to cart functionality
+            const addToCartBtn = document.querySelector('.btn-add-all');
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', () => {
+                    const selectedProducts = document.querySelectorAll('.product-card.selected');
+                    
+                    if (selectedProducts.length === 0) {
+                        showToast('Please select at least one product', 'warning');
+                        return;
+                    }
+                    
+                    // Update cart count
+                    const cartCount = document.getElementById('cartCount');
+                    const currentCount = parseInt(cartCount.textContent) || 0;
+                    cartCount.textContent = currentCount + selectedProducts.length;
+                    cartCount.style.display = 'inline-block';
+                    
+                    // Uncheck and remove selected class
+                    selectedProducts.forEach(card => {
+                        const checkbox = card.querySelector('.card-checkbox');
+                        checkbox.checked = false;
+                        card.classList.remove('selected');
+                    });
+                    
+                    // Show success toast
+                    showToast(`${selectedProducts.length} item(s) added to cart!`, 'success');
+                });
+            }
+        });
+        
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toastElement = document.getElementById('cartToast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.innerHTML = `
+                <i class="fa-solid fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                ${message}
+            `;
+            
+            toastElement.classList.remove('bg-success', 'bg-warning', 'bg-danger');
+            toastElement.classList.add(`bg-${type === 'warning' ? 'warning' : type === 'error' ? 'danger' : 'success'}`);
+            
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
+    </script>
 </body>
 </html>
