@@ -27,11 +27,19 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-4 text-white">
+                    <a href="index.html" class="text-white text-decoration-none fw-medium d-none d-lg-block">
+                        <i class="fa-solid fa-arrow-left me-2"></i>Continue Shopping
+                    </a>
                     <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">My Orders</a>
                     <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">Favorites</a>
                     <a href="#" class="text-white"><i class="fa-regular fa-bell fs-5"></i></a>
-                    <a href="#" class="text-white"><i class="fa-regular fa-user fs-5"></i></a>
-                    <a href="#" class="text-white"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
+                    <a href="#" class="text-white" id="userIcon"><i class="fa-regular fa-user fs-5"></i></a>
+                    <a href="cart.html" class="text-white position-relative" id="cartIconLink">
+                        <i class="fa-solid fa-cart-shopping fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount" style="display: none;">
+                            0
+                        </span>
+                    </a>
                 </div>
             </nav>
         </div>
@@ -40,6 +48,7 @@
     <div class="container main-container">
         <div class="row g-4">
             
+            <!-- Cart Items Section -->
             <div class="col-lg-8">
                 <div class="cart-card">
                     <div class="cart-header">
@@ -47,77 +56,24 @@
                             <h1>Your Cart</h1>
                             <p class="cart-subtitle">Below is the list of items in your cart</p>
                         </div>
-                        <button class="btn-clear">Clear Cart</button>
+                        <button class="btn-clear">
+                            <i class="fa-solid fa-trash-can me-2"></i>Clear Cart
+                        </button>
                     </div>
 
                     <div class="cart-list">
-                        <article class="cart-item">
-                            <div class="item-checkbox">
-                                <input type="checkbox" class="form-check-input" checked>
+                        <!-- Cart items will be loaded here dynamically -->
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
                             </div>
-                            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=150&q=80" alt="Product Image" class="item-image">
-                            
-                            <div class="item-details">
-                                <span class="item-name">Converse AS-1 Pro</span>
-                                <span class="item-desc">Size 9 · White/Maroon</span>
-                                
-                                <div class="quantity-control">
-                                    <span class="text-muted me-3 small fw-medium">Quantity</span>
-                                    <div class="stepper">
-                                        <button class="step-btn">-</button>
-                                        <span class="step-count">1</span>
-                                        <button class="step-btn">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item-price-block">
-                                <span class="item-price">$1,234.56</span>
-                                <span class="item-price-label">Item Price</span>
-                                <button class="item-remove">
-                                    <i class="fa-regular fa-trash-can"></i> Remove
-                                </button>
-                            </div>
-                        </article>
-
-                        <article class="cart-item faded">
-                            <div class="item-checkbox">
-                                <input type="checkbox" class="form-check-input">
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=150&q=80" alt="Product Image" class="item-image">
-                            
-                            <div class="item-details">
-                                <span class="item-name">Minimal Watch</span>
-                                <span class="item-desc">Black Leather Band</span>
-                                
-                                <div class="quantity-control">
-                                    <span class="text-muted me-3 small fw-medium">Quantity</span>
-                                    <div class="stepper">
-                                        <button class="step-btn">-</button>
-                                        <span class="step-count">1</span>
-                                        <button class="step-btn">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item-price-block">
-                                <span class="item-price">$250.00</span>
-                                <span class="item-price-label">Item Price</span>
-                                <button class="item-remove">
-                                    <i class="fa-regular fa-trash-can"></i> Remove
-                                </button>
-                            </div>
-                        </article>
-
-                        <div class="empty-cart-message d-none">
-                            <i class="fa-solid fa-cart-arrow-down"></i>
-                            <h3>Your cart is empty</h3>
-                            <p>Looks like you haven't added anything to your cart yet.</p>
+                            <p class="mt-3 text-muted">Loading your cart...</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Order Summary Section -->
             <div class="col-lg-4">
                 <div class="summary-card">
                     <h2 class="summary-title">Order Summary</h2>
@@ -129,22 +85,19 @@
                     </div>
                     
                     <div class="summary-list">
-                         <div class="summary-list-item">
-                            <span>Converse AS-1 Pro</span>
-                            <span>1x $1,234.56</span>
-                        </div>
-                        </div>
+                        <!-- Summary items will be loaded here -->
+                    </div>
 
                     <hr class="my-4 text-muted opacity-25">
 
                     <p class="breakdown-title">Price Breakdown</p>
                     <div class="breakdown-row">
                         <span>Sub Total</span>
-                        <span>$1,234.56</span>
+                        <span>₱0.00</span>
                     </div>
                     <div class="breakdown-row">
-                        <span>Taxes (est.)</span>
-                        <span>$123.45</span>
+                        <span>Taxes (12%)</span>
+                        <span>₱0.00</span>
                     </div>
                     <div class="breakdown-row">
                         <span>Shipping</span>
@@ -153,16 +106,28 @@
 
                     <div class="breakdown-row total">
                         <span>Total</span>
-                        <span class="price">$1,358.01</span>
+                        <span class="price">₱0.00</span>
                     </div>
 
-                    <button class="btn-checkout" onclick="window.location.href='checkout.html'">Checkout Now</button>
+                    <button class="btn-checkout" disabled>
+                        <i class="fa-solid fa-lock me-2"></i>Checkout Now
+                    </button>
                 </div>
             </div>
 
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Include auth.js for authentication -->
+    <script src="../logIn Pages/js/auth.js"></script>
+    
+    <!-- Include cart.js for cart API -->
+    <script src="./js/cart.js"></script>
+    
+    <!-- Include cart-page.js for cart page specific functionality -->
+    <script src="./js/cart-page.js"></script>
 </body>
 </html>
