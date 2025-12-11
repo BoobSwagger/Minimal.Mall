@@ -34,7 +34,7 @@
                     <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">Favorites</a>
                     <a href="#" class="text-white"><i class="fa-regular fa-bell fs-5"></i></a>
                     <a href="#" class="text-white" id="userIcon"><i class="fa-regular fa-user fs-5"></i></a>
-                    <a href="#" class="text-white position-relative">
+                    <a href="#" class="text-white position-relative" id="cartIconLink">
                         <i class="fa-solid fa-cart-shopping fs-5"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount" style="display: none;">
                             0
@@ -124,6 +124,9 @@
     <!-- Include auth.js for authentication -->
     <script src="../logIn Pages/js/auth.js"></script>
     
+    <!-- Include cart.js for cart functionality -->
+    <script src="./js/cart.js"></script>
+    
     <!-- Include products.js for product functionality -->
     <script src="./js/product.js"></script>
     
@@ -138,35 +141,6 @@
                     <small class="d-none d-lg-inline ms-1">${user.full_name.split(' ')[0]}</small>
                 `;
             }
-            
-            // Add to cart functionality
-            const addToCartBtn = document.querySelector('.btn-add-all');
-            if (addToCartBtn) {
-                addToCartBtn.addEventListener('click', () => {
-                    const selectedProducts = document.querySelectorAll('.product-card.selected');
-                    
-                    if (selectedProducts.length === 0) {
-                        showToast('Please select at least one product', 'warning');
-                        return;
-                    }
-                    
-                    // Update cart count
-                    const cartCount = document.getElementById('cartCount');
-                    const currentCount = parseInt(cartCount.textContent) || 0;
-                    cartCount.textContent = currentCount + selectedProducts.length;
-                    cartCount.style.display = 'inline-block';
-                    
-                    // Uncheck and remove selected class
-                    selectedProducts.forEach(card => {
-                        const checkbox = card.querySelector('.card-checkbox');
-                        checkbox.checked = false;
-                        card.classList.remove('selected');
-                    });
-                    
-                    // Show success toast
-                    showToast(`${selectedProducts.length} item(s) added to cart!`, 'success');
-                });
-            }
         });
         
         // Show toast notification
@@ -175,7 +149,7 @@
             const toastMessage = document.getElementById('toastMessage');
             
             toastMessage.innerHTML = `
-                <i class="fa-solid fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                <i class="fa-solid fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-circle' : 'times-circle'} me-2"></i>
                 ${message}
             `;
             
