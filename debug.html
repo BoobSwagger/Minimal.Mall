@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Debug Tool</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #555;
+            font-size: 18px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .loading {
+            display: none;
+            color: #666;
+            font-style: italic;
+        }
+        .loading.active {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 API Connection Debug Tool</h1>
+        
+        <div class="test-section">
+            <h2>📝 Configuration</h2>
+            <label>API Base URL:</label>
+            <input type="text" id="apiUrl" value="https://minimalbackend.onrender.com">
+            <label>Auth Token (optional):</label>
+            <input type="text" id="authToken" placeholder="Paste your auth token here">
+        </div>
+
+        <div class="test-section">
+            <h2>Test 1: Basic Connection</h2>
+            <p>Tests if the server is reachable</p>
+            <button onclick="testConnection()">Test Connection</button>
+            <span class="loading" id="loading1">Testing...</span>
+            <div id="result1"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 2: CORS Preflight (OPTIONS)</h2>
+            <p>Tests if CORS is properly configured</p>
+            <button onclick="testCORS()">Test CORS</button>
+            <span class="loading" id="loading2">Testing...</span>
+            <div id="result2"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 3: Calculate Total Endpoint</h2>
+            <p>Tests the actual checkout endpoint that's failing</p>
+            <button onclick="testCalculateTotal()">Test Calculate Total</button>
+            <span class="loading" id="loading3">Testing...</span>
+            <div id="result3"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 4: Auth Required Endpoint</h2>
+            <p>Tests with authentication header</p>
+            <button onclick="testAuthEndpoint()">Test Auth Endpoint</button>
+            <span class="loading" id="loading4">Testing...</span>
+            <div id="result4"></div>
+        </div>
+    </div>
+
+    <script>
+        function getApiUrl() {
+            return document.getElementById('apiUrl').value.trim();
+        }
+
+        function getAuthToken() {
+            return document.getElementById('authToken').value.trim();
+        }
+
+        function showResult(elementId, message, type) {
+            const resultDiv = document.getElementById(elementId);
+            resultDiv.className = `result ${type}`;
+            resultDiv.textContent = message;
+        }
+
+        function showLoading(loadingId, show) {
+            const loading = document.getElementById(loadingId);
+            if (show) {
+                loading.classList.add('active');
+            } else {
+                loading.classList.remove('active');
+            }
+        }
+
+        async function testConnection() {
+            showLoading('loading1', true);
+            const apiUrl = getApiUrl();
+            
+            try {
+                const response = await fetch(`${apiUrl}/`, {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+                
+                const data = await response.json();
+                showResult('result1', 
+                    `✅ SUCCESS!\n\nStatus: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`,
+                    'success'
+                );
+            } catch (error) {
+                showResult('result1', 
+                    `❌ FAILED!\n\nError: ${error.message}\n\nPossible causes:\n- Server is down\n- Wrong URL\n- Network issue`,
+                    'error'
+                );
+            } finally {
+                showLoading('loading1', false);
+            }
+        }
+
+        async function testCORS() {
+            showLoading('loading2', true);
+            const apiUrl = getApiUrl();
+            
+            try {
+                // Test OPTIONS request (preflight)
+                const response = await fetch(`${apiUrl}/api/checkout/calculate-total`, {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Origin': window.location.origin,
+                        'Access-Control-Request-Method': 'GET',
+                        'Access-Control-Request-Headers': 'authorization,content-type'
+                    }
+                });
+                
+                const corsHeaders = {
+                    'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
+                    'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods'),
+                    'Access-Control-Allow-Headers': response.headers.get('Access-Control-Allow-Headers'),
+                    'Access-Control-Allow-Credentials': response.headers.get('Access-Control-Allow-Credentials')
+                };
+                
+                const allHeadersPresent = corsHeaders['Access-Control-Allow-Origin'] !== null;
+                
+                if (allHeadersPresent) {
+                    showResult('result2', 
+                        `✅ CORS is configured!\n\nHeaders received:\n${JSON.stringify(corsHeaders, null, 2)}`,
+                        'success'
+                    );
+                } else {
+                    showResult('result2', 
+                        `⚠️ CORS might not be configured properly\n\nHeaders received:\n${JSON.stringify(corsHeaders, null, 2)}`,
+                        'warning'
+                    );
+                }
+            } catch (error) {
+                showResult('result2', 
+                    `❌ CORS TEST FAILED!\n\nError: ${error.message}\n\nThis usually means:\n- CORS middleware not configured\n- Server not responding to OPTIONS requests`,
+                    'error'
+                );
+            } finally {
+                showLoading('loading2', false);
+            }
+        }
+
+        async function testCalculateTotal() {
+            showLoading('loading3', true);
+            const apiUrl = getApiUrl();
+            const token = getAuthToken();
+            
+            if (!token) {
+                showResult('result3', 
+                    '⚠️ Please enter an auth token first',
+                    'warning'
+                );
+                showLoading('loading3', false);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${apiUrl}/api/checkout/calculate-total?delivery_option=standard`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult('result3', 
+                        `✅ SUCCESS!\n\nStatus: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`,
+                        'success'
+                    );
+                } else {
+                    showResult('result3', 
+                        `❌ API ERROR!\n\nStatus: ${response.status}\nError: ${JSON.stringify(data, null, 2)}`,
+                        'error'
+                    );
+                }
+            } catch (error) {
+                showResult('result3', 
+                    `❌ REQUEST FAILED!\n\nError: ${error.message}\n\nPossible causes:\n- CORS not configured\n- Invalid auth token\n- Endpoint doesn't exist\n- Server error`,
+                    'error'
+                );
+            } finally {
+                showLoading('loading3', false);
+            }
+        }
+
+        async function testAuthEndpoint() {
+            showLoading('loading4', true);
+            const apiUrl = getApiUrl();
+            const token = getAuthToken();
+            
+            if (!token) {
+                showResult('result4', 
+                    '⚠️ Please enter an auth token first',
+                    'warning'
+                );
+                showLoading('loading4', false);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${apiUrl}/api/test-cors`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult('result4', 
+                        `✅ AUTH TEST SUCCESS!\n\nStatus: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`,
+                        'success'
+                    );
+                } else {
+                    showResult('result4', 
+                        `⚠️ AUTH FAILED\n\nStatus: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}\n\nYour token might be invalid or expired`,
+                        'warning'
+                    );
+                }
+            } catch (error) {
+                showResult('result4', 
+                    `❌ REQUEST FAILED!\n\nError: ${error.message}`,
+                    'error'
+                );
+            } finally {
+                showLoading('loading4', false);
+            }
+        }
+
+        // Auto-load token from localStorage if available
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedToken = localStorage.getItem('authToken');
+            if (savedToken) {
+                document.getElementById('authToken').value = savedToken;
+                showResult('result4', 
+                    '✅ Auth token loaded from localStorage',
+                    'info'
+                );
+            }
+        });
+    </script>
+</body>
+</html>

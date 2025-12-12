@@ -6,9 +6,7 @@
     <title>Checkout - Minimal Mall</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="../assets/checkout.css">
 </head>
 <body>
@@ -16,7 +14,7 @@
     <header class="page-header">
         <div class="container position-relative z-2">
             <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-3">
-                <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
+                <a href="../customer Pages/index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
                     <i class="fa-solid fa-bag-shopping fs-3"></i>
                     <span class="fw-bold fs-4 logo-text">minimal.<span class="fw-light">mall</span></span>
                 </a>
@@ -27,11 +25,11 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-4 text-white">
-                    <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">My Orders</a>
-                    <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">Favorites</a>
+                    <a href="../order Pages/order_history.html" class="text-white text-decoration-none fw-medium d-none d-lg-block">My Orders</a>
+                    <a href="../customer Pages/favorites.html" class="text-white text-decoration-none fw-medium d-none d-lg-block">Favorites</a>
                     <a href="#" class="nav-icon-btn"><i class="fa-regular fa-bell fs-5"></i></a>
-                    <a href="#" class="nav-icon-btn active"><i class="fa-regular fa-user fs-5"></i></a>
-                    <a href="#" class="nav-icon-btn active"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
+                    <a href="../customer Pages/profile.html" class="nav-icon-btn"><i class="fa-regular fa-user fs-5"></i></a>
+                    <a href="../customer Pages/cart.html" class="nav-icon-btn"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
                 </div>
             </nav>
         </div>
@@ -45,7 +43,7 @@
                     <h1 class="section-title">Enter your Information</h1>
                     <p class="section-subtitle">Enter your details below to process your purchase</p>
 
-                    <div class="selection-box active">
+                    <div class="selection-box">
                         <div class="box-info">
                             <h4>Address</h4>
                             <p>Enter your address below</p>
@@ -56,7 +54,7 @@
                         </div>
                     </div>
 
-                    <div class="selection-box active">
+                    <div class="selection-box">
                         <div class="box-info">
                             <h4>Delivery Options</h4>
                             <p>Please select a delivery option below</p>
@@ -67,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="selection-box active">
+                    <div class="selection-box">
                         <div class="box-info">
                             <h4>Payment Methods</h4>
                             <p>Please select your desired payment method below</p>
@@ -84,22 +82,11 @@
             <div class="col-lg-5">
                 <div class="summary-card">
                     <h2 class="section-title">Order Summary</h2>
-                    <p class="section-subtitle">Below is the list of your items</p>
+                    <p class="section-subtitle">Loading...</p>
 
                     <div class="summary-table-header">
-                        <span>Name</span>
-                        <div class="d-flex gap-5">
-                            <span>Quantity</span>
-                            <span>Price</span>
-                        </div>
-                    </div>
-
-                    <div class="summary-item">
-                        <span>[name]</span>
-                        <div class="d-flex gap-5">
-                            <span>[1x]</span>
-                            <span>[$1,234.56]</span>
-                        </div>
+                        <span>Item Details</span>
+                        <span>Total</span>
                     </div>
 
                     <hr class="text-muted my-4">
@@ -108,27 +95,27 @@
                     
                     <div class="breakdown-row">
                         <span>Sub Total</span>
-                        <span>0.00</span>
+                        <span>₱0.00</span>
                     </div>
                     <div class="breakdown-row">
-                        <span>Taxes</span>
-                        <span>0.00</span>
+                        <span>Taxes (12%)</span>
+                        <span>₱0.00</span>
                     </div>
                     <div class="breakdown-row">
-                        <span>Marketplace Fee</span>
-                        <span>0.00</span>
+                        <span>Marketplace Fee (2%)</span>
+                        <span>₱0.00</span>
                     </div>
                     <div class="breakdown-row">
                         <span>Shipping</span>
-                        <span>[$10,000.00]</span>
+                        <span>₱0.00</span>
                     </div>
 
                     <div class="breakdown-row total">
                         <span>Total</span>
-                        <span>$11,234.56</span>
+                        <span>₱0.00</span>
                     </div>
 
-                    <button class="btn-purchase">Purchase</button>
+                    <button class="btn-purchase" disabled>Purchase</button>
                 </div>
             </div>
 
@@ -136,5 +123,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/checkout.js"></script>
 </body>
 </html>

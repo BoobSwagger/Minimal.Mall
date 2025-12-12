@@ -72,6 +72,12 @@ function showEmptyCart() {
             </div>
         `;
     }
+
+    // Update cart title
+    const cartTitle = document.querySelector('.cart-title h1');
+    if (cartTitle) {
+        cartTitle.textContent = 'Your Cart (0 items)';
+    }
 }
 
 // Show error state
@@ -330,7 +336,7 @@ function handleCheckout(total) {
     sessionStorage.setItem('checkoutTotal', total.toFixed(2));
     
     // Redirect to checkout page
-    window.location.href = 'checkout.html';
+    window.location.href = '../trasaction Pages/checkout.html';
 }
 
 // Show toast notification
