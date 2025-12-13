@@ -19,7 +19,7 @@
 
         <div class="container header-content">
             <nav class="navbar navbar-expand-lg p-0 d-flex justify-content-between align-items-center">
-                <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2">
+                <a href="../customer Pages/index.html" class="text-decoration-none d-flex align-items-center gap-2">
                     <i class="fa-solid fa-bag-shopping fs-3" style="color: #2E1065;"></i>
                     <span class="logo-text">minimal.<span>mall</span></span>
                 </a>
@@ -31,13 +31,13 @@
 
                 <div class="d-flex align-items-center gap-4">
                     <div class="d-none d-lg-flex gap-4">
-                        <a href="#" class="text-white nav-link text-decoration-none">My Orders</a>
-                        <a href="#" class="text-white nav-link text-decoration-none">Favorites</a>
+                        <a href="order_history.html" class="text-white nav-link text-decoration-none">My Orders</a>
+                        <a href="../customer Pages/favorites.html" class="text-white nav-link text-decoration-none">Favorites</a>
                     </div>
                     <div class="d-flex gap-3">
                         <a href="#" class="nav-icon-btn"><i class="fa-regular fa-bell fs-5"></i></a>
-                        <a href="#" class="nav-icon-btn"><i class="fa-regular fa-user fs-5"></i></a>
-                        <a href="#" class="nav-icon-btn active"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
+                        <a href="../customer Pages/profile.html" class="nav-icon-btn"><i class="fa-regular fa-user fs-5"></i></a>
+                        <a href="../customer Pages/cart.html" class="nav-icon-btn"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
                     </div>
                 </div>
             </nav>
@@ -48,8 +48,8 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html"><i class="fa-solid fa-house"></i></a></li>
-                    <li class="breadcrumb-item"><a href="#">Order History</a></li>
+                    <li class="breadcrumb-item"><a href="../customer Pages/index.html"><i class="fa-solid fa-house"></i></a></li>
+                    <li class="breadcrumb-item"><a href="order_history.html">Order History</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Order Details</li>
                 </ol>
             </nav>
@@ -58,93 +58,46 @@
                 
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-5 pb-4 border-bottom">
                     <div class="mb-3 mb-md-0">
-                        <h1 class="h2 order-title">[name]</h1>
-                        <div class="order-meta">Ordered on: [01/01/1900] at 13:30</div>
+                        <h1 class="h2 order-title">Loading...</h1>
+                        <div class="order-meta">Loading...</div>
                     </div>
                     <div class="d-flex align-items-center gap-3">
                         <a href="#" class="btn-purple">Message Seller</a>
-                        <div class="order-total">[$1,234.56]</div>
+                        <div class="order-total">₱0.00</div>
                     </div>
                 </div>
 
                 <div class="row mb-5 g-4">
                     <div class="col-md-6">
                         <span class="section-title">Your Shipping Address</span>
-                        <p class="text-muted mb-0">
-                            A&J Apartments, Rm 09, EJ Blanco Dr., Brgy, Daro,<br>
-                            Dumaguete City, Negros Oriental, Philippines, 6200
-                        </p>
+                        <p class="text-muted mb-0">Loading...</p>
                     </div>
                     <div class="col-md-6 text-md-end">
                         <span class="section-title">Contact Details</span>
-                        <p class="text-muted mb-0">
-                            Phone: +639990009999<br>
-                            Email: sheendempeynado@su.edu.ph
-                        </p>
+                        <p class="text-muted mb-0">Loading...</p>
                     </div>
                 </div>
 
                 <div class="mb-5">
-                    <span class="section-title">Selected Shipping</span>
+                    <span class="section-title">Shipping Information</span>
                     <div class="shipping-box d-flex justify-content-between align-items-center flex-wrap gap-3">
                         <div>
                             <div class="fw-bold text-dark d-flex align-items-center flex-wrap fs-5 mb-1">
-                                J&T Express 
-                                <span class="tracking-number">JDC1092930440</span>
-                                <span class="copy-link">copy</span>
+                                Loading...
                             </div>
-                            <small class="text-muted">Departed from Manila to Dumaguete City</small>
+                            <small class="text-muted">Loading shipping information...</small>
                         </div>
-                        <a href="#" class="btn-purple-light">Track Order</a>
                     </div>
                 </div>
 
                 <div class="product-list mt-5 pt-3 border-top">
-                    
-                    <div class="product-item">
-                        <div class="prod-img">
-                            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=150&q=80" alt="Shoes">
+                    <!-- Products will be dynamically loaded here -->
+                    <div class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
                         </div>
-                        <div class="flex-grow-1">
-                            <div class="prod-name">Converse AS-1 Pro Leather Ox Sneakers</div>
-                            <div class="prod-qty">Quantity: 1</div>
-                        </div>
-                        <div class="prod-price">[$1,234.56]</div>
+                        <p class="text-muted mt-2">Loading order items...</p>
                     </div>
-
-                    <div class="product-item">
-                        <div class="prod-img">
-                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=150&q=80" alt="Shirt">
-                        </div>
-                        <div class="flex-grow-1">
-                            <div class="prod-name">[name]</div>
-                            <div class="prod-qty">Quantity: 1</div>
-                        </div>
-                        <div class="prod-price">[$1,234.56]</div>
-                    </div>
-
-                    <div class="product-item">
-                        <div class="prod-img">
-                            <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=150&q=80" alt="Tshirt">
-                        </div>
-                        <div class="flex-grow-1">
-                            <div class="prod-name">[name]</div>
-                            <div class="prod-qty">Quantity: 1</div>
-                        </div>
-                        <div class="prod-price">[$1,234.56]</div>
-                    </div>
-
-                    <div class="product-item">
-                        <div class="prod-img">
-                            <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=150&q=80" alt="Heels">
-                        </div>
-                        <div class="flex-grow-1">
-                            <div class="prod-name">[name]</div>
-                            <div class="prod-qty">Quantity: 1</div>
-                        </div>
-                        <div class="prod-price">[$1,234.56]</div>
-                    </div>
-
                 </div>
 
             </div>
@@ -152,5 +105,7 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Order Details Handler -->
+    <script src="js/order_details.js"></script>
 </body>
 </html>

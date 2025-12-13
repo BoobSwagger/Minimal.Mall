@@ -1,155 +1,340 @@
-/* style.css */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+/* checkout.css - Styles for checkout page */
 
 :root {
-    --primary-purple: #7C3AED;
-    --primary-dark: #5B21B6;
-    --primary-light: #DDD6FE;
-    --bg-light: #F9FAFB;
-    --text-dark: #1F2937;
-    --text-grey: #6B7280;
-    --border-color: #E5E7EB;
+    --primary-color: #6366f1;
+    --secondary-color: #8b5cf6;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --dark-color: #1f2937;
+    --light-color: #f9fafb;
+    --border-color: #e5e7eb;
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
-    background-color: var(--bg-light);
-    color: var(--text-dark);
-    margin: 0;
+    background-color: var(--light-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* --- 1. Header (Consistent Wave) --- */
+/* Header */
 .page-header {
-    background: radial-gradient(circle at 10% 20%, #C4B5FD 0%, #7C3AED 50%, #5B21B6 100%);
-    padding-bottom: 80px; 
-    position: relative;
-    overflow: hidden;
-    color: white;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* Navbar styles */
-.navbar .logo-text, .navbar .nav-link, .navbar i { color: white !important; }
-.header-search input { background: rgba(255,255,255,0.2); color: white; border: none; }
-.header-search input::placeholder { color: rgba(255,255,255,0.7); }
-.header-search i { color: rgba(255,255,255,0.7); }
+.logo-text {
+    letter-spacing: -0.5px;
+}
 
-/* --- 2. Main Content Area --- */
+.nav-icon-btn {
+    transition: transform 0.2s;
+}
+
+.nav-icon-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Main Container */
 .main-container {
-    margin-top: -50px;
-    position: relative;
-    z-index: 10;
-    padding-bottom: 50px;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
 }
 
-/* Left Column: Info Section */
+/* Info Card */
 .info-card {
     background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
 }
 
 .section-title {
-    font-size: 24px;
+    font-size: 1.75rem;
     font-weight: 700;
-    margin-bottom: 5px;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
 }
 
 .section-subtitle {
-    font-size: 14px;
-    color: var(--text-grey);
-    margin-bottom: 30px;
+    color: #6b7280;
+    margin-bottom: 2rem;
 }
 
-/* Selection Boxes (Address, Delivery, Payment) */
+/* Selection Box */
 .selection-box {
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 15px;
+    align-items: center;
+    padding: 1.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 1rem;
     cursor: pointer;
-    transition: 0.2s;
-    background: #fff;
+    transition: all 0.3s ease;
 }
 
 .selection-box:hover {
-    border-color: var(--primary-purple);
-    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.05);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
 }
 
-.box-info h4 { font-size: 16px; font-weight: 600; margin: 0 0 4px 0; }
-.box-info p { font-size: 13px; color: var(--text-grey); margin: 0; }
+.box-info h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.25rem;
+}
 
-.box-actions { display: flex; align-items: center; gap: 15px; }
+.box-info p {
+    color: #6b7280;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.box-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
 
 .check-circle {
-    width: 24px; height: 24px;
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--border-color);
     border-radius: 50%;
-    background-color: #C0BAF3;
-    display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: transparent;
 }
-/* For active state: Usually toggled via JS, but styled here */
-.selection-box.active .check-circle { background-color: var(--primary-purple); }
 
+.check-circle.active {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    color: white;
+}
 
-/* Right Column: Order Summary */
+.check-circle i {
+    font-size: 0.9rem;
+}
+
+/* Summary Card */
 .summary-card {
     background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
 }
 
 .summary-table-header {
     display: flex;
     justify-content: space-between;
-    font-size: 13px;
-    color: var(--text-grey);
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 15px;
-}
-
-.summary-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
     font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 1rem;
 }
 
+/* Order Items List */
+.order-items-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.order-items-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.order-items-list::-webkit-scrollbar-track {
+    background: var(--light-color);
+    border-radius: 10px;
+}
+
+.order-items-list::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+.order-items-list::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+.order-item-summary {
+    padding: 0.75rem 0;
+}
+
+/* Breakdown Rows */
 .breakdown-row {
     display: flex;
     justify-content: space-between;
-    font-size: 14px;
-    color: var(--text-grey);
-    margin-bottom: 10px;
+    padding: 0.75rem 0;
+    color: #6b7280;
 }
 
 .breakdown-row.total {
-    font-size: 18px;
+    border-top: 2px solid var(--border-color);
+    margin-top: 1rem;
+    padding-top: 1rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: var(--text-dark);
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid var(--border-color);
+    color: var(--dark-color);
 }
 
+/* Purchase Button */
 .btn-purchase {
-    background-color: var(--primary-purple);
-    color: white;
     width: 100%;
-    padding: 12px;
-    border-radius: 50px;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
     border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
     font-weight: 600;
-    margin-top: 25px;
-    transition: 0.2s;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
 }
-.btn-purchase:hover { background-color: var(--primary-dark); }
+
+.btn-purchase:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+}
+
+.btn-purchase:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Modal Customizations */
+.modal-content {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem;
+}
+
+.modal-title {
+    font-weight: 700;
+    color: var(--dark-color);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem;
+}
+
+/* Form Controls */
+.form-label {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Delivery Options */
+.delivery-option {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.delivery-option:hover {
+    background-color: var(--light-color);
+}
+
+.delivery-option.border-primary {
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Payment Options */
+.payment-option {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-option:hover {
+    background-color: var(--light-color);
+}
+
+.payment-option.border-primary {
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+/* Alert Styles */
+.alert-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 1px solid var(--success-color);
+    color: #065f46;
+    border-radius: 8px;
+}
+
+/* Success Modal */
+#successModal .modal-body {
+    padding: 3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .summary-card {
+        position: static;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .info-card,
+    .summary-card {
+        padding: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .selection-box {
+        padding: 1rem;
+    }
+
+    .box-info h4 {
+        font-size: 1rem;
+    }
+
+    .breakdown-row.total {
+        font-size: 1.1rem;
+    }
+}
+
+/* Loading States */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15em;
+}
