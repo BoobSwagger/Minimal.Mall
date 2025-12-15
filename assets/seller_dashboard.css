@@ -1,0 +1,196 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-purple: #7C3AED;
+    --primary-dark: #5B21B6;
+    --primary-light: #DDD6FE;
+    --bg-light: #F9FAFB;
+    --text-dark: #1F2937;
+    --text-grey: #6B7280;
+    --border-color: #E5E7EB;
+    --success-green: #10B981;
+    --warning-orange: #F59E0B;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    margin: 0;
+}
+
+/* --- 1. Header (Consistent Wave) --- */
+.page-header {
+    background: radial-gradient(circle at 10% 20%, #C4B5FD 0%, #7C3AED 50%, #5B21B6 100%);
+    padding-bottom: 90px; 
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+/* Navbar */
+.navbar .logo-text, .navbar .nav-link, .navbar i { color: white !important; }
+.header-search input { background: rgba(255,255,255,0.2); color: white; border: none; }
+.header-search input::placeholder { color: rgba(255,255,255,0.7); }
+.header-search i { color: rgba(255,255,255,0.7); }
+
+.nav-icon-btn {
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.nav-icon-btn:hover { background: rgba(255, 255, 255, 0.4); }
+.nav-icon-btn.active { background: white; color: var(--primary-purple); }
+
+
+/* --- 2. Main Content Area --- */
+.main-container {
+    margin-top: -60px;
+    position: relative;
+    z-index: 10;
+    padding-bottom: 50px;
+}
+
+/* --- Dashboard Sidebar --- */
+.dashboard-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid white;
+    height: 100%;
+}
+
+.seller-profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+.mini-avatar {
+    width: 50px; height: 50px;
+    border-radius: 10px;
+    background: var(--primary-purple);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+}
+
+.dash-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dash-link {
+    display: flex; align-items: center; gap: 15px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    color: var(--text-grey);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: 0.2s;
+}
+.dash-link:hover { background-color: #F9FAFB; color: var(--primary-purple); }
+.dash-link.active {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+.dash-link i { width: 20px; text-align: center; }
+
+.btn-new-product {
+    background-color: var(--primary-purple);
+    color: white;
+    width: 100%; padding: 12px;
+    border-radius: 50px; border: none;
+    font-weight: 600; font-size: 14px;
+    margin-top: 20px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: 0.2s;
+}
+.btn-new-product:hover { background-color: var(--primary-dark); color: white; }
+
+
+/* --- Dashboard Main Area --- */
+.page-title-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 20px;
+}
+.page-heading { font-size: 24px; font-weight: 700; color: #111; margin: 0; }
+.page-subheading { font-size: 13px; color: var(--text-grey); margin: 0; }
+
+/* Stats Grid */
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: 0.2s;
+}
+.stat-card:hover { transform: translateY(-3px); }
+
+.stat-icon {
+    width: 50px; height: 50px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+}
+/* Icon Colors */
+.icon-purple { background: #F3E8FF; color: var(--primary-purple); }
+.icon-green { background: #ECFDF5; color: var(--success-green); }
+.icon-blue { background: #EFF6FF; color: #3B82F6; }
+.icon-orange { background: #FFFBEB; color: var(--warning-orange); }
+
+.stat-info h3 { font-size: 24px; font-weight: 700; margin: 0; line-height: 1.2; }
+.stat-info p { font-size: 13px; color: var(--text-grey); margin: 0; }
+
+
+/* Recent Orders Table */
+.table-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid white;
+    margin-top: 30px;
+}
+
+.table-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+}
+.table-title { font-size: 18px; font-weight: 700; margin: 0; }
+.btn-view-all { font-size: 13px; color: var(--primary-purple); text-decoration: none; font-weight: 600; }
+
+.custom-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+.custom-table th {
+    font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase;
+    padding: 0 15px 10px 15px; border-bottom: 1px solid var(--border-color);
+}
+.custom-table td {
+    padding: 15px; background: white; font-size: 14px; color: var(--text-dark);
+    border-top: 1px solid #F9FAFB; border-bottom: 1px solid #F9FAFB;
+}
+.custom-table tr:hover td { background: #F9FAFB; }
+
+.status-pill {
+    padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+}
+.status-pending { background: #FFFBEB; color: var(--warning-orange); }
+.status-shipped { background: #EFF6FF; color: #3B82F6; }
+.status-delivered { background: #ECFDF5; color: var(--success-green); }
+
+.action-dots { color: var(--text-grey); cursor: pointer; }

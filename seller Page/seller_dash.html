@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard - Minimal Mall</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/seller_dashboard.css">
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="header-shape shape-1"></div>
+        <div class="header-shape shape-2"></div>
+
+        <div class="container position-relative z-2">
+            <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-3">
+                <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
+                    <i class="fa-solid fa-bag-shopping fs-3"></i>
+                    <span class="fw-bold fs-4 logo-text">minimal.<span class="fw-light">mall</span></span>
+                </a>
+                
+                <div class="header-search d-none d-md-flex align-items-center bg-white bg-opacity-25 rounded-pill px-3 py-2" style="width: 400px;">
+                    <i class="fa-solid fa-magnifying-glass text-white opacity-75 me-2"></i>
+                    <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Search orders, products..." style="outline: none;">
+                </div>
+
+                <div class="d-flex align-items-center gap-4 text-white">
+                    <a href="#" class="nav-icon-btn"><i class="fa-regular fa-bell fs-5"></i></a>
+                    <a href="#" class="nav-icon-btn"><i class="fa-regular fa-envelope fs-5"></i></a>
+                    <a href="profile.html" class="nav-icon-btn active"><i class="fa-regular fa-user fs-5"></i></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        
+        <div class="d-flex align-items-center gap-2 mb-3 ms-2">
+            <a href="index.html" class="text-secondary"><i class="fa-solid fa-house"></i></a>
+            <i class="fa-solid fa-chevron-right text-muted small"></i>
+            <span class="badge bg-purple-light text-primary-purple fw-bold px-3 py-2 rounded-pill" style="background:#E9D5FF; color:#7C3AED;">Dashboard</span>
+        </div>
+
+        <div class="row g-4">
+            
+            <div class="col-lg-3">
+                <div class="dashboard-card">
+                    <div class="seller-profile-mini">
+                        <div class="mini-avatar"><i class="fa-solid fa-store"></i></div>
+                        <div>
+                            <h5 class="fw-bold mb-0 fs-6">anko Store</h5>
+                            <small class="text-muted">Seller Account</small>
+                        </div>
+                    </div>
+
+                    <nav class="dash-nav">
+                        <a href="#" class="dash-link active">
+                            <i class="fa-solid fa-chart-pie"></i> Overview
+                        </a>
+                        <a href="#" class="dash-link">
+                            <i class="fa-solid fa-box-open"></i> Products
+                        </a>
+                        <a href="#" class="dash-link">
+                            <i class="fa-solid fa-cart-shopping"></i> Orders <span class="badge bg-danger rounded-pill ms-auto">3</span>
+                        </a>
+                        <a href="#" class="dash-link">
+                            <i class="fa-regular fa-user"></i> Customers
+                        </a>
+                        <a href="#" class="dash-link">
+                            <i class="fa-solid fa-wallet"></i> Payouts
+                        </a>
+                        <a href="#" class="dash-link">
+                            <i class="fa-solid fa-gear"></i> Settings
+                        </a>
+                    </nav>
+
+                    <button class="btn-new-product">
+                        <i class="fa-solid fa-plus"></i> Add Product
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                
+                <div class="page-title-row">
+                    <div>
+                        <h1 class="page-heading">Dashboard Overview</h1>
+                        <p class="page-subheading">Here is what's happening with your store today.</p>
+                    </div>
+                    <div class="text-muted small">
+                        <i class="fa-regular fa-calendar me-1"></i> Oct 24, 2025
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-icon icon-purple"><i class="fa-solid fa-sack-dollar"></i></div>
+                            <div class="stat-info">
+                                <h3>$24k</h3>
+                                <p>Total Revenue</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-icon icon-blue"><i class="fa-solid fa-bag-shopping"></i></div>
+                            <div class="stat-info">
+                                <h3>152</h3>
+                                <p>Total Orders</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-icon icon-orange"><i class="fa-solid fa-box"></i></div>
+                            <div class="stat-info">
+                                <h3>45</h3>
+                                <p>Products</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-card">
+                            <div class="stat-icon icon-green"><i class="fa-solid fa-star"></i></div>
+                            <div class="stat-info">
+                                <h3>4.8</h3>
+                                <p>Store Rating</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3 class="table-title">Recent Orders</h3>
+                        <a href="#" class="btn-view-all">View All</a>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Product</th>
+                                    <th>Date</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#10294</td>
+                                    <td>Converse AS-1 Pro</td>
+                                    <td>Oct 24, 2025</td>
+                                    <td class="fw-bold">$1,234.56</td>
+                                    <td><span class="status-pill status-pending">Pending</span></td>
+                                    <td><i class="fa-solid fa-ellipsis action-dots"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>#10293</td>
+                                    <td>Denim Jacket Blue</td>
+                                    <td>Oct 23, 2025</td>
+                                    <td class="fw-bold">$89.99</td>
+                                    <td><span class="status-pill status-shipped">Shipped</span></td>
+                                    <td><i class="fa-solid fa-ellipsis action-dots"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>#10292</td>
+                                    <td>Cotton Essential T-Shirt</td>
+                                    <td>Oct 22, 2025</td>
+                                    <td class="fw-bold">$35.00</td>
+                                    <td><span class="status-pill status-delivered">Delivered</span></td>
+                                    <td><i class="fa-solid fa-ellipsis action-dots"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>#10291</td>
+                                    <td>Urban Runner</td>
+                                    <td>Oct 21, 2025</td>
+                                    <td class="fw-bold">$110.00</td>
+                                    <td><span class="status-pill status-delivered">Delivered</span></td>
+                                    <td><i class="fa-solid fa-ellipsis action-dots"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
