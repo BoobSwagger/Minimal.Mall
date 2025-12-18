@@ -1,0 +1,100 @@
+/* assets/customers.css */
+
+/* --- 1. Breadcrumb (Pill Style) --- */
+.breadcrumb-area {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.breadcrumb-link { text-decoration: none; color: white; opacity: 0.8; }
+.breadcrumb-pill {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 4px 15px;
+    border-radius: 50px;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+}
+
+/* --- 2. Main Layout --- */
+.page-title-row {
+    margin-bottom: 25px;
+    display: flex; align-items: center;
+}
+.page-heading {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111;
+    margin: 0;
+}
+
+/* --- 3. Customers Card --- */
+.customers-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+/* --- 4. Table Styling --- */
+.custom-table th {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #9CA3AF;
+    font-weight: 700;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.custom-table td {
+    padding: 20px 5px; /* More padding for taller rows */
+    vertical-align: middle;
+    font-size: 14px;
+    color: #1F2937;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+/* Customer Avatar Column */
+.customer-avatar {
+    width: 45px; height: 45px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    background-color: #F3F4F6;
+    color: #6B7280;
+}
+
+.avatar-blue { background-color: #DBEAFE; color: #2563EB; }
+.avatar-orange { background-color: #FFEDD5; color: #C2410C; }
+
+.customer-name {
+    font-weight: 700;
+    color: #111;
+    display: block;
+    line-height: 1.2;
+}
+.customer-id {
+    font-size: 12px;
+    color: #9CA3AF;
+}
+
+/* Action Icon */
+.btn-mail {
+    width: 35px; height: 35px;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    background: white;
+    color: #6B7280;
+    display: flex; align-items: center; justify-content: center;
+    transition: 0.2s;
+    font-size: 14px;
+}
+.btn-mail:hover {
+    border-color: #7C3AED;
+    color: #7C3AED;
+    background-color: #F5F3FF;
+}

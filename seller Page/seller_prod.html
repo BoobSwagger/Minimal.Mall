@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Minimal Mall</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/seller_dashboard.css">
+    
+    <link rel="stylesheet" href="../assets/product_management.css">
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="header-shape shape-1"></div>
+        <div class="header-shape shape-2"></div>
+
+        <div class="container position-relative z-2">
+            <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-3">
+                <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
+                    <span class="fw-bold fs-4 logo-text">minimal.<span class="fw-light">mall</span></span>
+                </a>
+                
+                <div class="header-search d-none d-md-flex align-items-center bg-white bg-opacity-25 rounded-pill px-3 py-2" style="width: 400px;">
+                    <i class="fa-solid fa-magnifying-glass text-white opacity-75 me-2"></i>
+                    <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Search orders, products..." style="outline: none;">
+                </div>
+
+                <div class="d-flex align-items-center gap-4 text-white">
+                    <a href="#" class="nav-icon-btn"><i class="fa-regular fa-bell fs-5"></i></a>
+                    <a href="#" class="nav-icon-btn"><i class="fa-regular fa-envelope fs-5"></i></a>
+                    <a href="profile.html" class="nav-icon-btn active"><i class="fa-regular fa-user fs-5"></i></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        
+        <div class="breadcrumb-area">
+             <a href="dashboard.html" class="breadcrumb-link">Dashboard</a>
+             <i class="fa-solid fa-chevron-right" style="font-size: 10px; opacity: 0.6; color: white;"></i> 
+             <span class="breadcrumb-pill">Products</span>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-3">
+                <div class="dashboard-card">
+                    <div class="seller-profile-mini">
+                        <div class="mini-avatar"><i class="fa-solid fa-store"></i></div>
+                        <div><h5 class="fw-bold mb-0 fs-6">anko Store</h5><small class="text-muted">Seller Account</small></div>
+                    </div>
+                    <nav class="dash-nav">
+                        <a href="dashboard.html" class="dash-link"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                        <a href="products.html" class="dash-link active"><i class="fa-solid fa-box-open"></i> Products</a>
+                        <a href="orders.html" class="dash-link"><i class="fa-solid fa-cart-shopping"></i> Orders <span class="nav-badge">3</span></a>
+                        <a href="customers.html" class="dash-link"><i class="fa-regular fa-user"></i> Customers</a>
+                        <a href="payouts.html" class="dash-link"><i class="fa-solid fa-wallet"></i> Payouts</a>
+                        <a href="settings.html" class="dash-link"><i class="fa-solid fa-gear"></i> Settings</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="dashboard-card h-100">
+                    
+                    <div class="product-header-row">
+                        <div>
+                            <h2 class="prod-page-title">Product Management</h2>
+                            <p class="prod-page-desc">Manage your inventory and stock</p>
+                        </div>
+                        <div class="d-flex gap-3">
+                            <div class="search-group">
+                                <input type="text" class="search-input" placeholder="Search products...">
+                                <i class="fa-solid fa-magnifying-glass search-icon-inner"></i>
+                            </div>
+                            <button class="btn-add-purple">+ Add New</button>
+                        </div>
+                    </div>
+
+                    <div class="tabs-container">
+                        <a href="#" class="tab-item active">All (45)</a>
+                        <a href="#" class="tab-item">Active (42)</a>
+                        <a href="#" class="tab-item">Drafts (2)</a>
+                        <a href="#" class="tab-item">Out of Stock (1)</a>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="https://via.placeholder.com/45" class="prod-thumb" alt="Shoe">
+                                            <div>
+                                                <div class="fw-bold text-dark">Converse AS-1</div>
+                                                <div class="text-muted small">ID: #SKU-102</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Shoes</td>
+                                    <td class="fw-bold">$1,234.56</td>
+                                    <td>24</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="action-btn"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="action-btn"><i class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="https://via.placeholder.com/45" class="prod-thumb" alt="Jacket">
+                                            <div>
+                                                <div class="fw-bold text-dark">Denim Jacket</div>
+                                                <div class="text-muted small">ID: #SKU-103</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Outerwear</td>
+                                    <td class="fw-bold">$89.99</td>
+                                    <td>10</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="action-btn"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="action-btn"><i class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="https://via.placeholder.com/45" class="prod-thumb" alt="Runner">
+                                            <div>
+                                                <div class="fw-bold text-dark">Urban Runner</div>
+                                                <div class="text-muted small">ID: #SKU-105</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Shoes</td>
+                                    <td class="fw-bold">$110.00</td>
+                                    <td>0</td>
+                                    <td><span class="status-badge status-out">Out of Stock</span></td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="action-btn"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="action-btn"><i class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4 gap-2">
+                        <a href="#" class="page-btn">Prev</a>
+                        <a href="#" class="page-btn active">1</a>
+                        <a href="#" class="page-btn">2</a>
+                        <a href="#" class="page-btn">3</a>
+                        <a href="#" class="page-btn">Next</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

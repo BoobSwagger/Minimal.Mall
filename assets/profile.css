@@ -1,4 +1,4 @@
-/* style.css */
+/* assets/profile.css */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -16,48 +16,90 @@ body {
     background-color: var(--bg-light);
     color: var(--text-dark);
     margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll from shapes */
 }
 
-/* --- 1. Header (Consistent Wave) --- */
+/* --- 1. Header (Purple Wave) --- */
 .page-header {
     background: radial-gradient(circle at 10% 20%, #C4B5FD 0%, #7C3AED 50%, #5B21B6 100%);
-    padding-bottom: 90px; 
+    padding-bottom: 100px; /* Space for overlap */
     position: relative;
     overflow: hidden;
     color: white;
+    min-height: 100px;
 }
 
-/* Navbar styles to ensure visibility on dark background */
+/* Background Shapes/Blobs */
+.header-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+    z-index: 0;
+}
+.shape-1 { width: 500px; height: 500px; background: #8B5CF6; top: -150px; left: -100px; }
+.shape-2 { width: 400px; height: 400px; background: #A78BFA; bottom: -50px; right: 0; }
+
+/* Navbar Elements */
+.navbar { position: relative; z-index: 2; }
 .navbar .logo-text, .navbar .nav-link, .navbar i { color: white !important; }
-.header-search input { background: rgba(255,255,255,0.2); color: white; border: none; }
+
+/* Glass Search Bar */
+.header-search {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    padding: 8px 20px;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+}
+.header-search input { 
+    background: transparent; 
+    border: none; 
+    color: white; 
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+}
 .header-search input::placeholder { color: rgba(255,255,255,0.7); }
 .header-search i { color: rgba(255,255,255,0.7); }
 
-/* --- 2. Main Content Area --- */
+/* --- 2. Main Content Area (Overlap) --- */
 .main-container {
-    margin-top: -60px;
+    margin-top: -60px; /* Pulls content up */
     position: relative;
     z-index: 10;
     padding-bottom: 50px;
 }
 
-/* --- Left Column: Profile Card --- */
-.profile-card {
+/* Breadcrumb */
+.breadcrumb-area {
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; margin-left: 10px; color: white; opacity: 0.9;
+}
+.breadcrumb-link { text-decoration: none; color: white; opacity: 0.8; }
+.breadcrumb-pill {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white; padding: 4px 15px; border-radius: 50px;
+    font-weight: 600; backdrop-filter: blur(5px);
+}
+
+
+/* --- 3. Profile Cards --- */
+.profile-card, .activity-card {
     background: white;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid white;
     height: 100%;
 }
 
+/* Left Profile Info */
 .profile-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    display: flex; align-items: center; gap: 15px;
     margin-bottom: 30px;
 }
-
 .avatar {
     width: 70px; height: 70px;
     border-radius: 12px;
@@ -85,7 +127,11 @@ body {
     transition: 0.2s;
     background: white;
 }
-.menu-item:hover { background-color: #F9FAFB; border-color: var(--primary-purple); color: var(--primary-purple); }
+.menu-item:hover { 
+    background-color: #F9FAFB; 
+    border-color: var(--primary-purple); 
+    color: var(--primary-purple); 
+}
 .menu-item i.menu-icon { width: 24px; color: var(--text-grey); }
 .menu-item:hover i.menu-icon { color: var(--primary-purple); }
 
@@ -98,7 +144,7 @@ body {
     font-weight: 600; margin-top: 25px; margin-bottom: 10px;
     transition: 0.2s;
 }
-.btn-selling:hover { background-color: var(--primary-dark); color: white; }
+.btn-selling:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
 
 .btn-logout {
     background-color: transparent;
@@ -111,22 +157,11 @@ body {
 }
 .btn-logout:hover { background-color: #F3F4F6; color: var(--text-dark); }
 
+/* Right Activity Section */
+.section-title { font-size: 24px; font-weight: 700; margin-bottom: 25px; color: #111; }
 
-/* --- Right Column: Activity Card --- */
-.activity-card {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid white;
-    height: 100%;
-}
-
-.section-title { font-size: 24px; font-weight: 400; margin-bottom: 25px; }
-
-/* Bio Section */
 .bio-box { margin-bottom: 30px; }
-.bio-label { color: var(--primary-purple); font-size: 13px; font-weight: 700; display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+.bio-label { color: var(--primary-purple); font-size: 12px; font-weight: 700; display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
 .bio-text { color: var(--text-grey); font-size: 14px; line-height: 1.6; }
 
 /* Stats Grid */
@@ -141,11 +176,11 @@ body {
     padding-bottom: 30px;
 }
 .stat-box { flex: 1; min-width: 80px; }
-.stat-value { font-size: 32px; font-weight: 700; color: #111; line-height: 1; margin-bottom: 5px; }
-.stat-label { font-size: 12px; color: var(--primary-purple); font-weight: 500; }
+.stat-value { font-size: 28px; font-weight: 800; color: #111; line-height: 1; margin-bottom: 5px; }
+.stat-label { font-size: 12px; color: var(--text-grey); font-weight: 500; }
 
 /* Transactions */
-.trans-header { font-size: 14px; color: var(--text-grey); font-weight: 600; margin-bottom: 15px; }
+.trans-header { font-size: 14px; color: #111; font-weight: 700; margin-bottom: 15px; }
 
 .trans-item {
     display: flex; justify-content: space-between; align-items: center;
@@ -154,6 +189,6 @@ body {
 }
 .trans-item:last-child { border-bottom: none; }
 
-.trans-id { font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+.trans-id { font-size: 15px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
 .trans-date { font-size: 12px; color: var(--text-grey); }
-.trans-price { font-size: 18px; font-weight: 700; color: var(--text-dark); }
+.trans-price { font-size: 16px; font-weight: 700; color: var(--text-dark); }

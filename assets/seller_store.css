@@ -1,0 +1,155 @@
+/* assets/store_preview.css */
+
+/* --- 1. Left Sidebar (Store Profile) --- */
+.store-profile-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 25px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    height: 100%;
+}
+
+.store-logo-large {
+    width: 80px; height: 80px;
+    background-color: #F3E8FF; /* Light Purple */
+    color: #7C3AED;
+    font-size: 32px;
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px auto;
+}
+
+.store-name-large { font-size: 24px; font-weight: 700; margin-bottom: 5px; color: #111; }
+
+.star-rating { color: #111; font-size: 14px; margin-bottom: 10px; }
+.star-rating i { margin: 0 1px; }
+
+.store-meta { font-size: 13px; color: #6B7280; margin-bottom: 30px; font-weight: 500; }
+.sales-count { color: #7C3AED; font-weight: 700; }
+
+.btn-message {
+    width: 100%;
+    background-color: #7C3AED;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.btn-message:hover { background-color: #6D28D9; transform: translateY(-2px); }
+
+
+/* --- 2. Right Content Area --- */
+
+/* Inner Search Bar */
+.store-search-container {
+    position: relative;
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+.store-search-input {
+    width: 100%;
+    background: white;
+    border: 1px solid #E5E7EB;
+    padding: 10px 15px;
+    padding-right: 35px;
+    border-radius: 50px;
+    font-size: 14px;
+    outline: none;
+}
+.store-search-clear {
+    position: absolute; right: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: #9CA3AF; cursor: pointer; font-size: 12px;
+}
+
+/* Tabs */
+.store-tabs {
+    display: flex; gap: 30px;
+    border-bottom: 1px solid #F3F4F6;
+    margin-bottom: 30px;
+}
+.store-tab-link {
+    padding-bottom: 10px;
+    font-weight: 600;
+    color: #9CA3AF;
+    text-decoration: none;
+    font-size: 14px;
+    border-bottom: 3px solid transparent;
+}
+.store-tab-link.active {
+    color: #7C3AED;
+    border-bottom-color: #7C3AED;
+}
+
+/* Category Cards */
+.cat-card-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.cat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    transition: 0.2s;
+}
+.cat-card:hover { transform: translateY(-3px); }
+.cat-title { font-weight: 700; font-size: 15px; margin-bottom: 5px; color: #111; }
+.cat-count { font-size: 12px; color: #9CA3AF; }
+
+
+/* Product List Rows */
+.prod-row-card {
+    background: white;
+    border-radius: 15px;
+    padding: 15px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.prod-info-group { display: flex; align-items: center; gap: 20px; }
+
+.prod-thumb-lg {
+    width: 60px; height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.prod-details h5 { font-size: 15px; font-weight: 700; margin: 0; color: #111; }
+.prod-details span { font-size: 13px; color: #9CA3AF; }
+
+.prod-price-group {
+    display: flex; align-items: center; gap: 30px;
+}
+
+.prod-price-tag { font-weight: 700; font-size: 15px; color: #111; }
+
+.action-btn-group { display: flex; gap: 10px; align-items: center; }
+
+.btn-view-soft {
+    background: #F3E8FF; color: #7C3AED;
+    padding: 6px 18px; border-radius: 50px;
+    text-decoration: none; font-size: 12px; font-weight: 700;
+}
+.btn-add-solid {
+    background: #7C3AED; color: white;
+    padding: 6px 18px; border-radius: 50px;
+    text-decoration: none; font-size: 12px; font-weight: 700;
+}
+.icon-heart {
+    color: #D1D5DB; cursor: pointer; font-size: 16px; margin-left: 5px;
+}
+.icon-heart:hover { color: #EF4444; }
+
+@media (max-width: 991px) {
+    .cat-card-row { grid-template-columns: repeat(2, 1fr); }
+    .prod-row-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+    .prod-price-group { width: 100%; justify-content: space-between; }
+}

@@ -1,0 +1,133 @@
+/* assets/settings.css */
+
+/* --- 1. Page Specific Header Elements --- */
+.page-heading-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.btn-save {
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.btn-save:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* --- 2. Form Cards --- */
+.settings-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.settings-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 4px;
+}
+
+.settings-section-desc {
+    font-size: 13px;
+    color: #9CA3AF;
+    margin-bottom: 0;
+}
+
+.section-divider {
+    border-bottom: 1px solid #F3F4F6;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+/* --- 3. Input Fields (Soft Gray Look) --- */
+.settings-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #6B7280; /* Gray-500 */
+    margin-bottom: 8px;
+    display: block;
+}
+
+.settings-input {
+    background-color: #F9FAFB; /* Very light gray */
+    border: 1px solid #F3F4F6;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1F2937;
+    width: 100%;
+    transition: 0.2s;
+}
+
+.settings-input:focus {
+    background-color: white;
+    border-color: #7C3AED; /* Primary Purple */
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+textarea.settings-input {
+    resize: none;
+    min-height: 100px;
+}
+
+/* --- 4. Toggles & Switches --- */
+.toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #F9FAFB;
+}
+.toggle-row:last-child {
+    border-bottom: none;
+}
+
+.toggle-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1F2937;
+    margin: 0;
+}
+
+.toggle-desc {
+    font-size: 13px;
+    color: #9CA3AF;
+    margin: 0;
+}
+
+/* Customizing the Bootstrap Switch */
+.custom-switch {
+    width: 50px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.custom-switch:checked {
+    background-color: #2563EB; /* Bright Blue (matches screenshot) or use #7C3AED for purple */
+    border-color: #2563EB;
+}
+
+.custom-switch:focus {
+    box-shadow: none;
+}
+
+/* Specific text colors */
+.text-danger-custom {
+    color: #EF4444;
+}

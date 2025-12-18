@@ -3,13 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Dashboard - Minimal Mall</title>
+    <title>Dashboard - Minimal Mall</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="../assets/seller_dashboard.css">
+    
+    <style>
+        /* --- DASHBOARD SPECIFIC STYLES --- */
+        
+        /* 1. Breadcrumb (Pill Style) */
+        .breadcrumb-area {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        .breadcrumb-link { text-decoration: none; color: white; opacity: 0.8; }
+        .breadcrumb-pill {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 4px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+
+        /* 2. Stats Cards */
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            display: flex; align-items: center; gap: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.02);
+            height: 100%;
+            transition: transform 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-5px); }
+
+        .stat-icon {
+            width: 60px; height: 60px;
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        /* Icon Colors */
+        .icon-purple { background: #F3E8FF; color: #7C3AED; }
+        .icon-blue   { background: #DBEAFE; color: #2563EB; }
+        .icon-orange { background: #FFEDD5; color: #EA580C; }
+        .icon-green  { background: #DCFCE7; color: #16A34A; }
+
+        .stat-info h3 { font-size: 26px; font-weight: 700; margin: 0; color: #111; }
+        .stat-info p { margin: 0; font-size: 13px; color: #6B7280; margin-top: 2px; font-weight: 500; }
+
+        /* 3. Recent Orders Card */
+        .recent-orders-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px;
+        }
+        .section-title { font-size: 18px; font-weight: 700; margin: 0; color: #111; }
+        .link-view-all { font-size: 14px; font-weight: 600; color: #7C3AED; text-decoration: none; }
+
+        /* Table Styling */
+        .custom-table th {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #9CA3AF;
+            font-weight: 700;
+            padding-bottom: 15px;
+            border-bottom: none;
+        }
+        .custom-table td {
+            padding: 15px 5px;
+            vertical-align: middle;
+            font-size: 14px;
+            color: #1F2937;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        .custom-table tr:last-child td { border-bottom: none; }
+
+        /* Status Pills */
+        .status-pill { padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; display: inline-block; }
+        .status-pending { background-color: #FFEDD5; color: #C2410C; }
+        .status-shipped { background-color: #DBEAFE; color: #2563EB; }
+        .status-delivered { background-color: #DCFCE7; color: #16A34A; }
+
+        .action-dots { color: #9CA3AF; cursor: pointer; }
+
+    </style>
 </head>
 <body>
 
@@ -20,7 +114,6 @@
         <div class="container position-relative z-2">
             <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-3">
                 <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
-                    <i class="fa-solid fa-bag-shopping fs-3"></i>
                     <span class="fw-bold fs-4 logo-text">minimal.<span class="fw-light">mall</span></span>
                 </a>
                 
@@ -40,64 +133,43 @@
 
     <div class="container main-container">
         
-        <div class="d-flex align-items-center gap-2 mb-3 ms-2">
-            <a href="index.html" class="text-secondary"><i class="fa-solid fa-house"></i></a>
-            <i class="fa-solid fa-chevron-right text-muted small"></i>
-            <span class="badge bg-purple-light text-primary-purple fw-bold px-3 py-2 rounded-pill" style="background:#E9D5FF; color:#7C3AED;">Dashboard</span>
+        <div class="breadcrumb-area">
+             <a href="index.html" class="breadcrumb-link"><i class="fa-solid fa-house"></i></a>
+             <i class="fa-solid fa-chevron-right" style="font-size: 10px; opacity: 0.6; color: white;"></i> 
+             <span class="breadcrumb-pill">Dashboard</span>
         </div>
 
         <div class="row g-4">
-            
             <div class="col-lg-3">
                 <div class="dashboard-card">
                     <div class="seller-profile-mini">
                         <div class="mini-avatar"><i class="fa-solid fa-store"></i></div>
-                        <div>
-                            <h5 class="fw-bold mb-0 fs-6">anko Store</h5>
-                            <small class="text-muted">Seller Account</small>
-                        </div>
+                        <div><h5 class="fw-bold mb-0 fs-6">anko Store</h5><small class="text-muted">Seller Account</small></div>
                     </div>
-
                     <nav class="dash-nav">
-                        <a href="#" class="dash-link active">
-                            <i class="fa-solid fa-chart-pie"></i> Overview
-                        </a>
-                        <a href="#" class="dash-link">
-                            <i class="fa-solid fa-box-open"></i> Products
-                        </a>
-                        <a href="#" class="dash-link">
-                            <i class="fa-solid fa-cart-shopping"></i> Orders <span class="badge bg-danger rounded-pill ms-auto">3</span>
-                        </a>
-                        <a href="#" class="dash-link">
-                            <i class="fa-regular fa-user"></i> Customers
-                        </a>
-                        <a href="#" class="dash-link">
-                            <i class="fa-solid fa-wallet"></i> Payouts
-                        </a>
-                        <a href="#" class="dash-link">
-                            <i class="fa-solid fa-gear"></i> Settings
-                        </a>
+                        <a href="dashboard.html" class="dash-link active"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                        <a href="products.html" class="dash-link"><i class="fa-solid fa-box-open"></i> Products</a>
+                        <a href="orders.html" class="dash-link"><i class="fa-solid fa-cart-shopping"></i> Orders <span class="nav-badge">3</span></a>
+                        <a href="customers.html" class="dash-link"><i class="fa-regular fa-user"></i> Customers</a>
+                        <a href="payouts.html" class="dash-link"><i class="fa-solid fa-wallet"></i> Payouts</a>
+                        <a href="settings.html" class="dash-link"><i class="fa-solid fa-gear"></i> Settings</a>
                     </nav>
-
-                    <button class="btn-new-product">
-                        <i class="fa-solid fa-plus"></i> Add Product
-                    </button>
                 </div>
             </div>
 
             <div class="col-lg-9">
                 
-                <div class="page-title-row">
+                <div class="d-flex justify-content-between align-items-end mb-4">
                     <div>
-                        <h1 class="page-heading">Dashboard Overview</h1>
-                        <p class="page-subheading">Here is what's happening with your store today.</p>
+                        <h1 class="fw-bold m-0" style="font-size: 28px; color: #111;">Dashboard Overview</h1>
+                        <p class="text-muted m-0 small">Here is what's happening with your store today.</p>
                     </div>
-                    <div class="text-muted small">
-                        <i class="fa-regular fa-calendar me-1"></i> Oct 24, 2025
+                    <div class="text-muted small fw-bold">
+                        <i class="fa-regular fa-calendar me-2"></i> Oct 24, 2025
                     </div>
                 </div>
 
-                <div class="row g-3">
+                <div class="row g-3 mb-4">
                     <div class="col-md-3 col-sm-6">
                         <div class="stat-card">
                             <div class="stat-icon icon-purple"><i class="fa-solid fa-sack-dollar"></i></div>
@@ -136,14 +208,14 @@
                     </div>
                 </div>
 
-                <div class="table-card">
-                    <div class="table-header">
-                        <h3 class="table-title">Recent Orders</h3>
-                        <a href="#" class="btn-view-all">View All</a>
+                <div class="recent-orders-card">
+                    <div class="section-header">
+                        <h3 class="section-title">Recent Orders</h3>
+                        <a href="orders.html" class="link-view-all">View All</a>
                     </div>
-
+                    
                     <div class="table-responsive">
-                        <table class="custom-table">
+                        <table class="custom-table w-100">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
@@ -195,7 +267,7 @@
             </div>
         </div>
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

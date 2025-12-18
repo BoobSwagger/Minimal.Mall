@@ -1,4 +1,4 @@
-/* style.css */
+/* --- 1. Global Variables & Reset (Matches your Index style) --- */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -9,8 +9,14 @@
     --text-dark: #1F2937;
     --text-grey: #6B7280;
     --border-color: #E5E7EB;
-    --success-green: #10B981;
-    --warning-orange: #F59E0B;
+    
+    /* Status Colors */
+    --status-pending-bg: #FFF7ED;
+    --status-pending-text: #C2410C;
+    --status-shipped-bg: #EFF6FF;
+    --status-shipped-text: #1D4ED8;
+    --status-delivered-bg: #F0FDF4;
+    --status-delivered-text: #15803D;
 }
 
 body {
@@ -18,22 +24,32 @@ body {
     background-color: var(--bg-light);
     color: var(--text-dark);
     margin: 0;
+    overflow-x: hidden;
 }
 
-/* --- 1. Header (Consistent Wave) --- */
+/* --- 2. Global Header (The Purple Wave) --- */
+/* Identical to your Index page for consistency */
 .page-header {
     background: radial-gradient(circle at 10% 20%, #C4B5FD 0%, #7C3AED 50%, #5B21B6 100%);
-    padding-bottom: 90px; 
+    padding-bottom: 90px;
     position: relative;
     overflow: hidden;
     color: white;
+    min-height: 100px; /* Slightly shorter than home page */
 }
 
-/* Navbar */
-.navbar .logo-text, .navbar .nav-link, .navbar i { color: white !important; }
-.header-search input { background: rgba(255,255,255,0.2); color: white; border: none; }
+.header-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+    z-index: 0;
+}
+.shape-1 { width: 500px; height: 500px; background: #8B5CF6; top: -150px; left: -100px; }
+.shape-2 { width: 400px; height: 400px; background: #A78BFA; bottom: -50px; right: 0; }
+
+.navbar .logo-text, .navbar i { color: white !important; }
 .header-search input::placeholder { color: rgba(255,255,255,0.7); }
-.header-search i { color: rgba(255,255,255,0.7); }
 
 .nav-icon-btn {
     width: 40px; height: 40px;
@@ -48,124 +64,126 @@ body {
 .nav-icon-btn.active { background: white; color: var(--primary-purple); }
 
 
-/* --- 2. Main Content Area --- */
+/* --- 3. Main Container Layout --- */
 .main-container {
-    margin-top: -60px;
+    margin-top: -80px; /* Pulls content up over the wave */
     position: relative;
     z-index: 10;
     padding-bottom: 50px;
 }
 
-/* --- Dashboard Sidebar --- */
+/* Page Titles */
+.page-title-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 25px;
+}
+.page-heading { font-size: 28px; font-weight: 700; margin-bottom: 5px; color: #111; }
+.page-subheading { font-size: 14px; color: var(--text-grey); margin: 0; }
+
+
+/* --- 4. Sidebar / Dashboard Card --- */
 .dashboard-card {
     background: white;
     border-radius: 20px;
     padding: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid white;
-    height: 100%;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    height: 100%; /* Full height to match content */
+    position: sticky;
+    top: 20px;
 }
 
+/* Mini Seller Profile */
 .seller-profile-mini {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
+    display: flex; align-items: center; gap: 15px;
     padding-bottom: 20px;
+    margin-bottom: 20px;
     border-bottom: 1px solid var(--border-color);
 }
 .mini-avatar {
     width: 50px; height: 50px;
-    border-radius: 10px;
-    background: var(--primary-purple);
-    color: white;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-}
-
-.dash-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.dash-link {
-    display: flex; align-items: center; gap: 15px;
-    padding: 12px 15px;
-    border-radius: 10px;
-    color: var(--text-grey);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 15px;
-    transition: 0.2s;
-}
-.dash-link:hover { background-color: #F9FAFB; color: var(--primary-purple); }
-.dash-link.active {
     background-color: var(--primary-light);
-    color: var(--primary-dark);
-    font-weight: 600;
-}
-.dash-link i { width: 20px; text-align: center; }
-
-.btn-new-product {
-    background-color: var(--primary-purple);
-    color: white;
-    width: 100%; padding: 12px;
-    border-radius: 50px; border: none;
-    font-weight: 600; font-size: 14px;
-    margin-top: 20px;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: 0.2s;
-}
-.btn-new-product:hover { background-color: var(--primary-dark); color: white; }
-
-
-/* --- Dashboard Main Area --- */
-.page-title-row {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 20px;
-}
-.page-heading { font-size: 24px; font-weight: 700; color: #111; margin: 0; }
-.page-subheading { font-size: 13px; color: var(--text-grey); margin: 0; }
-
-/* Stats Grid */
-.stat-card {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-    border: 1px solid white;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    transition: 0.2s;
-}
-.stat-card:hover { transform: translateY(-3px); }
-
-.stat-icon {
-    width: 50px; height: 50px;
+    color: var(--primary-purple);
     border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     font-size: 20px;
 }
+
+/* Sidebar Navigation */
+.dash-nav { display: flex; flex-direction: column; gap: 5px; }
+
+.dash-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-grey);
+    font-weight: 500;
+    transition: 0.2s;
+}
+.dash-link:hover {
+    background-color: #F3F4F6;
+    color: var(--primary-purple);
+}
+.dash-link.active {
+    background-color: var(--primary-purple);
+    color: white;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+/* New Product Button */
+.btn-new-product {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #111; /* Black contrast button */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.btn-new-product:hover { background-color: #333; transform: translateY(-2px); }
+
+
+/* --- 5. Statistics Cards --- */
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex; align-items: center; gap: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.02);
+    transition: transform 0.2s;
+}
+.stat-card:hover { transform: translateY(-5px); }
+
+.stat-icon {
+    width: 60px; height: 60px;
+    border-radius: 15px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
 /* Icon Colors */
-.icon-purple { background: #F3E8FF; color: var(--primary-purple); }
-.icon-green { background: #ECFDF5; color: var(--success-green); }
-.icon-blue { background: #EFF6FF; color: #3B82F6; }
-.icon-orange { background: #FFFBEB; color: var(--warning-orange); }
+.icon-purple { background: #F3E8FF; color: #7C3AED; }
+.icon-blue   { background: #DBEAFE; color: #2563EB; }
+.icon-orange { background: #FFEDD5; color: #EA580C; }
+.icon-green  { background: #DCFCE7; color: #16A34A; }
 
-.stat-info h3 { font-size: 24px; font-weight: 700; margin: 0; line-height: 1.2; }
-.stat-info p { font-size: 13px; color: var(--text-grey); margin: 0; }
+.stat-info h3 { font-size: 24px; font-weight: 700; margin: 0; color: #111; }
+.stat-info p { margin: 0; font-size: 13px; color: var(--text-grey); margin-top: 2px; }
 
 
-/* Recent Orders Table */
+/* --- 6. Tables & Data --- */
 .table-card {
     background: white;
     border-radius: 20px;
     padding: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid white;
-    margin-top: 30px;
+    margin-top: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
 }
 
 .table-header {
@@ -173,24 +191,56 @@ body {
     margin-bottom: 20px;
 }
 .table-title { font-size: 18px; font-weight: 700; margin: 0; }
-.btn-view-all { font-size: 13px; color: var(--primary-purple); text-decoration: none; font-weight: 600; }
+.btn-view-all {
+    font-size: 13px; font-weight: 600; color: var(--primary-purple);
+    text-decoration: none;
+}
 
+/* Custom Table Styling */
 .custom-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
-.custom-table th {
-    font-size: 12px; color: var(--text-grey); font-weight: 600; text-transform: uppercase;
-    padding: 0 15px 10px 15px; border-bottom: 1px solid var(--border-color);
+
+.custom-table thead th {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-grey);
+    font-weight: 600;
+    padding: 0 15px 10px 15px;
+    border: none;
+    text-align: left;
 }
+
+.custom-table tbody tr {
+    background-color: white;
+    transition: 0.2s;
+}
+.custom-table tbody tr:hover { background-color: #F9FAFB; }
+
 .custom-table td {
-    padding: 15px; background: white; font-size: 14px; color: var(--text-dark);
-    border-top: 1px solid #F9FAFB; border-bottom: 1px solid #F9FAFB;
+    padding: 15px;
+    vertical-align: middle;
+    border-top: 1px solid #f3f4f6;
+    font-size: 14px;
+    color: var(--text-dark);
 }
-.custom-table tr:hover td { background: #F9FAFB; }
+.custom-table tr:last-child td { border-bottom: none; }
 
+/* Status Pills */
 .status-pill {
-    padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
 }
-.status-pending { background: #FFFBEB; color: var(--warning-orange); }
-.status-shipped { background: #EFF6FF; color: #3B82F6; }
-.status-delivered { background: #ECFDF5; color: var(--success-green); }
+.status-pending { background-color: var(--status-pending-bg); color: var(--status-pending-text); }
+.status-shipped { background-color: var(--status-shipped-bg); color: var(--status-shipped-text); }
+.status-delivered { background-color: var(--status-delivered-bg); color: var(--status-delivered-text); }
 
-.action-dots { color: var(--text-grey); cursor: pointer; }
+.action-dots {
+    color: var(--text-grey);
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.2s;
+}
+.action-dots:hover { color: var(--primary-purple); }

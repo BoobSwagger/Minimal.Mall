@@ -1,0 +1,170 @@
+/* assets/store_profile.css */
+
+/* --- 1. Left Sidebar: Store Profile Card --- */
+.store-profile-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.store-logo-large {
+    width: 80px; height: 80px;
+    background-color: #E9D5FF; /* Light Purple */
+    color: #7C3AED;
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px auto;
+}
+
+.store-name-large {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 5px;
+}
+
+.store-rating {
+    color: #111; /* Black stars as per image */
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.star-filled { color: #111; }
+.star-empty { color: #E5E7EB; }
+
+.store-meta {
+    font-size: 13px;
+    color: #6B7280; /* Gray */
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+.sales-highlight {
+    color: #7C3AED; /* Purple sales count */
+    font-weight: 700;
+}
+
+.btn-message {
+    width: 100%;
+    background-color: #8B5CF6; /* Bright Purple */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s;
+}
+.btn-message:hover {
+    background-color: #7C3AED;
+    transform: translateY(-2px);
+}
+
+/* --- 2. Main Content: Search & Tabs --- */
+.store-search-bar {
+    position: relative;
+    margin-bottom: 20px;
+    max-width: 300px;
+}
+.store-search-input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border-radius: 50px;
+    border: 1px solid #E5E7EB;
+    background: white;
+    font-size: 14px;
+    outline: none;
+}
+.search-clear-icon {
+    position: absolute; right: 15px; top: 50%;
+    transform: translateY(-50%);
+    color: #9CA3AF; cursor: pointer; font-size: 12px;
+}
+
+.store-tabs {
+    display: flex; gap: 30px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #F3F4F6;
+}
+.store-tab-link {
+    padding-bottom: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #6B7280;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+}
+.store-tab-link.active {
+    color: #7C3AED;
+    border-bottom-color: #7C3AED;
+}
+
+/* --- 3. Categories Row --- */
+.category-row {
+    display: flex; gap: 15px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 5px; /* Scrollbar space */
+}
+.mini-cat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    min-width: 140px;
+    flex: 1;
+    border: 1px solid #F3F4F6;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+.mini-cat-title { font-weight: 700; font-size: 14px; color: #111; margin-bottom: 4px; }
+.mini-cat-count { font-size: 12px; color: #6B7280; }
+
+/* --- 4. Product List Item --- */
+.product-list-item {
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    border: 1px solid white;
+    transition: 0.2s;
+}
+.product-list-item:hover {
+    border-color: #E9D5FF;
+    transform: translateY(-2px);
+}
+
+.prod-list-img {
+    width: 60px; height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+    background-color: #F3F4F6;
+}
+
+.prod-details { margin-left: 15px; flex-grow: 1; }
+.prod-name { font-weight: 700; font-size: 15px; color: #111; margin-bottom: 2px; }
+.prod-sub { font-size: 12px; color: #9CA3AF; }
+
+.prod-price-tag { font-weight: 700; font-size: 15px; color: #111; margin-right: 20px; }
+
+/* Buttons */
+.btn-view-pill {
+    background-color: #F3E8FF; color: #7C3AED;
+    padding: 6px 20px; border-radius: 50px;
+    font-size: 12px; font-weight: 700;
+    text-decoration: none; border: none;
+    margin-right: 10px;
+}
+.btn-add-pill {
+    background-color: #7C3AED; color: white;
+    padding: 6px 20px; border-radius: 50px;
+    font-size: 12px; font-weight: 700;
+    border: none; margin-right: 10px;
+}
+.btn-heart {
+    color: #9CA3AF;
+    background: transparent; border: none;
+    font-size: 16px; cursor: pointer;
+}
+.btn-heart:hover { color: #EF4444; }
