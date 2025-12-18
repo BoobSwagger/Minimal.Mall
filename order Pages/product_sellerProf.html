@@ -16,28 +16,38 @@
     <header class="page-header">
         <div class="header-shape shape-1"></div>
         <div class="header-shape shape-2"></div>
-
+        
         <div class="container position-relative z-2">
             <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-3">
                 <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
+                    <i class="fa-solid fa-bag-shopping fs-3"></i>
                     <span class="fw-bold fs-4 logo-text">minimal.<span class="fw-light">mall</span></span>
                 </a>
                 
                 <div class="header-search d-none d-md-flex align-items-center bg-white bg-opacity-25 rounded-pill px-3 py-2" style="width: 400px;">
                     <i class="fa-solid fa-magnifying-glass text-white opacity-75 me-2"></i>
-                    <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Looking for something?..." style="outline: none;">
+                    <input type="text" class="bg-transparent border-0 text-white w-100" placeholder="Looking for something?" style="outline: none;">
                 </div>
 
                 <div class="d-flex align-items-center gap-4 text-white">
-                    <a href="#" class="nav-icon-btn"><i class="fa-regular fa-bell fs-5"></i></a>
-                    <a href="#" class="nav-icon-btn"><i class="fa-regular fa-envelope fs-5"></i></a>
-                    <a href="dashboard.html" class="nav-icon-btn"><i class="fa-regular fa-user fs-5"></i></a>
+                    <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">My Orders</a>
+                    <a href="#" class="text-white text-decoration-none fw-bold d-none d-lg-block" style="opacity: 1;">Favorites</a>
+                    <a href="#" class="text-white"><i class="fa-regular fa-bell fs-5"></i></a>
+                    <a href="#" class="text-white"><i class="fa-regular fa-user fs-5"></i></a>
+                    <a href="#" class="text-white"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
                 </div>
             </nav>
         </div>
     </header>
 
     <div class="container main-container">
+        
+        <div class="d-flex align-items-center gap-2 mb-3 ms-2 text-white opacity-75 small">
+             <a href="dashboard.html" class="text-white text-decoration-none">Home</a> 
+             <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i> 
+             <span class="fw-bold">Store Profile</span>
+        </div>
+
         <div class="row g-4">
             
             <div class="col-lg-3">
@@ -66,89 +76,92 @@
 
             <div class="col-lg-9">
                 
-                <div class="store-search-bar">
-                    <input type="text" class="store-search-input" placeholder="Search this Store">
-                    <i class="fa-solid fa-xmark search-clear-icon"></i>
-                </div>
-
-                <div class="store-tabs">
-                    <a href="#" class="store-tab-link active">Featured</a>
-                    <a href="#" class="store-tab-link">All Products</a>
-                    <a href="#" class="store-tab-link">Reviews</a>
-                </div>
-
-                <div class="category-row">
-                    <div class="mini-cat-card">
-                        <div class="mini-cat-title">Shoes</div>
-                        <div class="mini-cat-count">3.1k Products</div>
-                    </div>
-                    <div class="mini-cat-card">
-                        <div class="mini-cat-title">Outerwear</div>
-                        <div class="mini-cat-count">1.4k Products</div>
-                    </div>
-                    <div class="mini-cat-card">
-                        <div class="mini-cat-title">Underwear</div>
-                        <div class="mini-cat-count">5k Products</div>
-                    </div>
-                    <div class="mini-cat-card">
-                        <div class="mini-cat-title">Fitness</div>
-                        <div class="mini-cat-count">320 Products</div>
-                    </div>
-                </div>
-
-                <div class="product-list">
+                <div class="seller-content-card">
                     
-                    <div class="product-list-item">
-                        <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/60" class="prod-list-img" alt="Shoe">
-                            <div class="prod-details">
-                                <div class="prod-name">Converse AS-1 Pro Leather Ox</div>
-                                <div class="prod-sub">Premium Leather / White</div>
-                            </div>
+                    <div class="store-search-bar">
+                        <input type="text" class="store-search-input" placeholder="Search this Store">
+                        <i class="fa-solid fa-xmark search-clear-icon"></i>
+                    </div>
+
+                    <div class="store-tabs">
+                        <a href="#" class="store-tab-link active">Featured</a>
+                        <a href="#" class="store-tab-link">All Products</a>
+                        <a href="#" class="store-tab-link">Reviews</a>
+                    </div>
+
+                    <div class="category-row">
+                        <div class="mini-cat-card">
+                            <div class="mini-cat-title">Shoes</div>
+                            <div class="mini-cat-count">3.1k Products</div>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <span class="prod-price-tag">[$1,234.56]</span>
-                            <a href="#" class="btn-view-pill">View</a>
-                            <button class="btn-add-pill">Add</button>
-                            <button class="btn-heart"><i class="fa-regular fa-heart"></i></button>
+                        <div class="mini-cat-card">
+                            <div class="mini-cat-title">Outerwear</div>
+                            <div class="mini-cat-count">1.4k Products</div>
+                        </div>
+                        <div class="mini-cat-card">
+                            <div class="mini-cat-title">Underwear</div>
+                            <div class="mini-cat-count">5k Products</div>
+                        </div>
+                        <div class="mini-cat-card">
+                            <div class="mini-cat-title">Fitness</div>
+                            <div class="mini-cat-count">320 Products</div>
                         </div>
                     </div>
 
-                    <div class="product-list-item">
-                        <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/60" class="prod-list-img" alt="Jacket">
-                            <div class="prod-details">
-                                <div class="prod-name">Denim Jacket Blue Wash</div>
-                                <div class="prod-sub">Classic Fit / Denim</div>
+                    <div class="product-list">
+                        
+                        <div class="product-list-item">
+                            <div class="d-flex align-items-center">
+                                <img src="https://via.placeholder.com/60" class="prod-list-img" alt="Shoe">
+                                <div class="prod-details">
+                                    <div class="prod-name">Converse AS-1 Pro Leather Ox</div>
+                                    <div class="prod-sub">Premium Leather / White</div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="prod-price-tag">[$1,234.56]</span>
+                                <a href="#" class="btn-view-pill">View</a>
+                                <button class="btn-add-pill">Add</button>
+                                <button class="btn-heart"><i class="fa-regular fa-heart"></i></button>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <span class="prod-price-tag">[$1,234.56]</span>
-                            <a href="#" class="btn-view-pill">View</a>
-                            <button class="btn-add-pill">Add</button>
-                            <button class="btn-heart"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
 
-                    <div class="product-list-item">
-                        <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/60" class="prod-list-img" alt="T-Shirt">
-                            <div class="prod-details">
-                                <div class="prod-name">Cotton Essential T-Shirt</div>
-                                <div class="prod-sub">100% Cotton / White</div>
+                        <div class="product-list-item">
+                            <div class="d-flex align-items-center">
+                                <img src="https://via.placeholder.com/60" class="prod-list-img" alt="Jacket">
+                                <div class="prod-details">
+                                    <div class="prod-name">Denim Jacket Blue Wash</div>
+                                    <div class="prod-sub">Classic Fit / Denim</div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="prod-price-tag">[$1,234.56]</span>
+                                <a href="#" class="btn-view-pill">View</a>
+                                <button class="btn-add-pill">Add</button>
+                                <button class="btn-heart"><i class="fa-regular fa-heart"></i></button>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <span class="prod-price-tag">[$1,234.56]</span>
-                            <a href="#" class="btn-view-pill">View</a>
-                            <button class="btn-add-pill">Add</button>
-                            <button class="btn-heart"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
 
+                        <div class="product-list-item">
+                            <div class="d-flex align-items-center">
+                                <img src="https://via.placeholder.com/60" class="prod-list-img" alt="T-Shirt">
+                                <div class="prod-details">
+                                    <div class="prod-name">Cotton Essential T-Shirt</div>
+                                    <div class="prod-sub">100% Cotton / White</div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="prod-price-tag">[$1,234.56]</span>
+                                <a href="#" class="btn-view-pill">View</a>
+                                <button class="btn-add-pill">Add</button>
+                                <button class="btn-heart"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                
                 </div>
-
-            </div>
+                </div>
         </div>
     </div>
     

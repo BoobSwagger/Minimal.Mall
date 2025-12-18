@@ -168,3 +168,18 @@
     font-size: 16px; cursor: pointer;
 }
 .btn-heart:hover { color: #EF4444; }
+/* Add this to assets/product_sellerProf.css */
+
+.seller-content-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid white;
+    height: 100%;
+}
+
+/* Adjust inner padding if needed */
+.store-search-bar {
+    margin-bottom: 25px;
+}

@@ -32,24 +32,23 @@
             backdrop-filter: blur(5px);
         }
 
-        /* 2. Stats Cards */
+        /* 2. Stats Cards (Inside the main card) */
         .stat-card {
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            display: flex; align-items: center; gap: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.02);
+            background: #F8F9FB; /* Changed to light grey to stand out inside white card */
+            padding: 20px;
+            border-radius: 15px;
+            display: flex; align-items: center; gap: 15px;
+            border: 1px solid #eee;
             height: 100%;
             transition: transform 0.2s;
         }
-        .stat-card:hover { transform: translateY(-5px); }
+        .stat-card:hover { transform: translateY(-3px); }
 
         .stat-icon {
-            width: 60px; height: 60px;
-            border-radius: 15px;
+            width: 50px; height: 50px;
+            border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
             flex-shrink: 0;
         }
 
@@ -59,23 +58,19 @@
         .icon-orange { background: #FFEDD5; color: #EA580C; }
         .icon-green  { background: #DCFCE7; color: #16A34A; }
 
-        .stat-info h3 { font-size: 26px; font-weight: 700; margin: 0; color: #111; }
-        .stat-info p { margin: 0; font-size: 13px; color: #6B7280; margin-top: 2px; font-weight: 500; }
+        .stat-info h3 { font-size: 22px; font-weight: 700; margin: 0; color: #111; }
+        .stat-info p { margin: 0; font-size: 12px; color: #6B7280; margin-top: 2px; font-weight: 500; }
 
-        /* 3. Recent Orders Card */
-        .recent-orders-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-
+        /* 3. Recent Orders Section */
         .section-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #F3F4F6;
         }
         .section-title { font-size: 18px; font-weight: 700; margin: 0; color: #111; }
-        .link-view-all { font-size: 14px; font-weight: 600; color: #7C3AED; text-decoration: none; }
+        .link-view-all { font-size: 13px; font-weight: 600; color: #7C3AED; text-decoration: none; }
 
         /* Table Styling */
         .custom-table th {
@@ -96,7 +91,7 @@
         .custom-table tr:last-child td { border-bottom: none; }
 
         /* Status Pills */
-        .status-pill { padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; display: inline-block; }
+        .status-pill { padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; display: inline-block; }
         .status-pending { background-color: #FFEDD5; color: #C2410C; }
         .status-shipped { background-color: #DBEAFE; color: #2563EB; }
         .status-delivered { background-color: #DCFCE7; color: #16A34A; }
@@ -159,56 +154,57 @@
 
             <div class="col-lg-9">
                 
-                <div class="d-flex justify-content-between align-items-end mb-4">
-                    <div>
-                        <h1 class="fw-bold m-0" style="font-size: 28px; color: #111;">Dashboard Overview</h1>
-                        <p class="text-muted m-0 small">Here is what's happening with your store today.</p>
+                <div class="dashboard-card">
+                    
+                    <div class="d-flex justify-content-between align-items-end mb-4">
+                        <div>
+                            <h1 class="fw-bold m-0" style="font-size: 28px; color: #111;">Dashboard Overview</h1>
+                            <p class="text-muted m-0 small">Here is what's happening with your store today.</p>
+                        </div>
+                        <div class="text-muted small fw-bold">
+                            <i class="fa-regular fa-calendar me-2"></i> Oct 24, 2025
+                        </div>
                     </div>
-                    <div class="text-muted small fw-bold">
-                        <i class="fa-regular fa-calendar me-2"></i> Oct 24, 2025
-                    </div>
-                </div>
 
-                <div class="row g-3 mb-4">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="stat-card">
-                            <div class="stat-icon icon-purple"><i class="fa-solid fa-sack-dollar"></i></div>
-                            <div class="stat-info">
-                                <h3>$24k</h3>
-                                <p>Total Revenue</p>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card">
+                                <div class="stat-icon icon-purple"><i class="fa-solid fa-sack-dollar"></i></div>
+                                <div class="stat-info">
+                                    <h3>$24k</h3>
+                                    <p>Total Revenue</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card">
+                                <div class="stat-icon icon-blue"><i class="fa-solid fa-bag-shopping"></i></div>
+                                <div class="stat-info">
+                                    <h3>152</h3>
+                                    <p>Total Orders</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card">
+                                <div class="stat-icon icon-orange"><i class="fa-solid fa-box"></i></div>
+                                <div class="stat-info">
+                                    <h3>45</h3>
+                                    <p>Products</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card">
+                                <div class="stat-icon icon-green"><i class="fa-solid fa-star"></i></div>
+                                <div class="stat-info">
+                                    <h3>4.8</h3>
+                                    <p>Store Rating</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="stat-card">
-                            <div class="stat-icon icon-blue"><i class="fa-solid fa-bag-shopping"></i></div>
-                            <div class="stat-info">
-                                <h3>152</h3>
-                                <p>Total Orders</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="stat-card">
-                            <div class="stat-icon icon-orange"><i class="fa-solid fa-box"></i></div>
-                            <div class="stat-info">
-                                <h3>45</h3>
-                                <p>Products</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="stat-card">
-                            <div class="stat-icon icon-green"><i class="fa-solid fa-star"></i></div>
-                            <div class="stat-info">
-                                <h3>4.8</h3>
-                                <p>Store Rating</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="recent-orders-card">
                     <div class="section-header">
                         <h3 class="section-title">Recent Orders</h3>
                         <a href="orders.html" class="link-view-all">View All</a>
@@ -262,9 +258,9 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
 
-            </div>
+                </div>
+                </div>
         </div>
     </div>
     
