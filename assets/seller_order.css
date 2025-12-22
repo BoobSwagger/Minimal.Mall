@@ -129,3 +129,244 @@
     background-color: #333;
     transform: scale(1.1);
 }
+
+
+/* Additional styles for order management */
+
+.customer-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn-action {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-process {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.btn-ship {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.btn-process:hover,
+.btn-ship:hover {
+    opacity: 0.9;
+}
+
+/* Status Pills */
+.status-pill {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    text-transform: capitalize;
+}
+
+.status-pending-orange {
+    background: rgba(255, 152, 0, 0.15);
+    color: #ff9800;
+}
+
+.status-processing-blue {
+    background: rgba(33, 150, 243, 0.15);
+    color: #2196f3;
+}
+
+.status-shipped-blue {
+    background: rgba(3, 169, 244, 0.15);
+    color: #03a9f4;
+}
+
+.status-delivered-green {
+    background: rgba(76, 175, 80, 0.15);
+    color: #4caf50;
+}
+
+.status-cancelled-red {
+    background: rgba(244, 67, 54, 0.15);
+    color: #f44336;
+}
+
+.status-refunded-gray {
+    background: rgba(158, 158, 158, 0.15);
+    color: #9e9e9e;
+}
+
+/* Modal Enhancements */
+.modal-content {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 16px 16px 0 0;
+    border: none;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-body h6 {
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+.modal-body hr {
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.modal-body .bg-light {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+}
+
+/* Table Enhancements */
+.table-sm {
+    font-size: 0.9rem;
+}
+
+.table-sm thead {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.table-sm code {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+/* Loading State */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Toast Notifications */
+.alert {
+    animation: slideIn 0.3s ease-out;
+    min-width: 300px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Empty State */
+.table tbody tr[colspan] {
+    text-align: center;
+}
+
+.table tbody tr[colspan] i {
+    opacity: 0.3;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .customer-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+    
+    .btn-action {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+}
+
+/* Action Buttons Row */
+.d-flex.gap-2 {
+    gap: 0.5rem;
+}
+
+/* Hover Effects for Table Rows */
+.custom-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.custom-table tbody tr:hover {
+    background: rgba(102, 126, 234, 0.05);
+    transform: translateX(4px);
+}
+
+/* Earnings Box Styling */
+.bg-light.p-3.rounded {
+    border: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+/* Badge Counter Animation */
+.nav-badge {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
