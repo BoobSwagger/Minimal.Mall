@@ -370,3 +370,162 @@
         transform: scale(1.1);
     }
 }
+
+.toast-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-notification.error {
+    background: #dc3545;
+}
+
+.toast-notification.success {
+    background: #28a745;
+}
+
+.status-cancelled-red {
+    background: #fee;
+    color: #c00;
+}
+
+/* Add these styles to your seller_order.css file */
+
+/* Status Dropdown Styles */
+.status-dropdown-container {
+    position: relative;
+    display: inline-block;
+    min-width: 120px;
+}
+
+.status-select {
+    padding: 6px 30px 6px 12px;
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    transition: all 0.2s ease;
+    outline: none;
+    width: 100%;
+}
+
+.status-select:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.status-select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.status-select:focus {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Status Colors for Select */
+.status-select.status-pending-orange {
+    background-color: #ff9800;
+    color: white;
+}
+
+.status-select.status-shipped-blue {
+    background-color: #2196f3;
+    color: white;
+}
+
+.status-select.status-delivered-green {
+    background-color: #4caf50;
+    color: white;
+}
+
+.status-select.status-cancelled-red {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Option styling (limited browser support) */
+.status-select option {
+    background-color: white;
+    color: #333;
+    padding: 8px;
+}
+
+/* Toast Notifications */
+.toast-notification {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* View button hover effect */
+.btn-view {
+    transition: all 0.2s ease;
+}
+
+.btn-view:hover {
+    transform: scale(1.1);
+}
+
+/* Table row hover */
+.custom-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.custom-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Loading state for status select */
+.status-select.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.status-select.loading::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border: 2px solid white;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .status-dropdown-container {
+        min-width: 100px;
+    }
+    
+    .status-select {
+        font-size: 12px;
+        padding: 5px 25px 5px 10px;
+    }
+}

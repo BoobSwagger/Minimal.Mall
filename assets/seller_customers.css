@@ -98,3 +98,8 @@
     color: #7C3AED;
     background-color: #F5F3FF;
 }
+
+
+.avatar-green { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
+.avatar-purple { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+.avatar-pink { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
