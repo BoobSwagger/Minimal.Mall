@@ -1,7 +1,7 @@
 // API Configuration
 const API_BASE_URL = 'https://minimallbackend.onrender.com/api';
 
-// Get token from localStorage (using your auth.js naming)
+// Get token from localStorage
 function getAuthToken() {
     return localStorage.getItem('authToken');
 }
@@ -104,9 +104,12 @@ async function loadSellerProfile() {
     } catch (error) {
         console.error('Error loading seller profile:', error);
         
-        // Check if user is not a seller (403) or not found (404)
-        if (error.message.includes('not a seller') || error.message.includes('You are not a seller')) {
-            // Check application status first before redirecting
+        // Check if user is not a seller or profile not found
+        const errorMessage = error.message.toLowerCase();
+        if (errorMessage.includes('not a seller') || 
+            errorMessage.includes('seller profile not found') ||
+            errorMessage.includes('not found')) {
+            // Check application status and handle accordingly
             await checkApplicationStatusAndRedirect();
         } else {
             showError('Failed to load seller profile');
@@ -129,15 +132,41 @@ async function checkApplicationStatusAndRedirect() {
                 alert('Your seller application was rejected. Please apply again from your profile page.');
                 window.location.href = '../customer Pages/profile.html';
             } else if (applicationStatus.status === 'approved') {
-                // This shouldn't happen, but if it does, try to load profile again
-                showError('Your application was approved but profile not found. Please contact support.');
-                setTimeout(() => {
-                    window.location.href = '../customer Pages/profile.html';
-                }, 2000);
+                // Application approved but profile not created - try to create it
+                console.log('Application approved, creating seller profile...');
+                showSuccess('Creating your seller profile...');
+                
+                try {
+                    const createResult = await fetchWithAuth(
+                        `${API_BASE_URL}/seller/profile/create`,
+                        { method: 'POST' }
+                    );
+                    
+                    if (createResult) {
+                        showSuccess('Seller profile created successfully! Refreshing dashboard...');
+                        
+                        // Store the new seller data
+                        localStorage.setItem('sellerData', JSON.stringify(createResult));
+                        
+                        // Reload the page after a short delay
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+                        
+                        return; // Exit to prevent further redirects
+                    }
+                } catch (createError) {
+                    console.error('Error creating seller profile:', createError);
+                    showError('Failed to create seller profile. Please contact support.');
+                    setTimeout(() => {
+                        window.location.href = '../customer Pages/profile.html';
+                    }, 2000);
+                }
             }
         }
     } catch (error) {
-        // No application found
+        // No application found (404)
+        console.log('No seller application found');
         alert('You need to apply as a seller first. Please go to your profile and click "Start Selling".');
         window.location.href = '../customer Pages/profile.html';
     }
@@ -150,25 +179,25 @@ async function loadDashboardStats() {
         
         if (stats) {
             // Update Total Revenue
-            const revenueElement = document.querySelector('.icon-purple').closest('.stat-card').querySelector('h3');
+            const revenueElement = document.querySelector('.icon-purple')?.closest('.stat-card')?.querySelector('h3');
             if (revenueElement) {
                 revenueElement.textContent = formatCurrency(stats.total_spent || 0);
             }
             
             // Update Total Orders
-            const ordersElement = document.querySelector('.icon-blue').closest('.stat-card').querySelector('h3');
+            const ordersElement = document.querySelector('.icon-blue')?.closest('.stat-card')?.querySelector('h3');
             if (ordersElement) {
                 ordersElement.textContent = stats.total_orders || 0;
             }
             
             // Update Products count
-            const productsElement = document.querySelector('.icon-orange').closest('.stat-card').querySelector('h3');
+            const productsElement = document.querySelector('.icon-orange')?.closest('.stat-card')?.querySelector('h3');
             if (productsElement && stats.total_products) {
                 productsElement.textContent = stats.total_products;
             }
             
             // Update Average Rating (if available in stats)
-            const ratingElement = document.querySelector('.icon-green').closest('.stat-card').querySelector('h3');
+            const ratingElement = document.querySelector('.icon-green')?.closest('.stat-card')?.querySelector('h3');
             if (ratingElement && stats.average_rating) {
                 ratingElement.textContent = stats.average_rating.toFixed(1);
             }
@@ -208,8 +237,8 @@ async function loadRecentTransactions() {
                         <tr>
                             <td>#${orderId}</td>
                             <td>${transaction.product_name || 'Product'}</td>
-                            <td>${formatDate(transaction.created_at)}</td>
-                            <td class="fw-bold">${formatCurrency(transaction.amount)}</td>
+                            <td>${formatDate(transaction.purchased_date || transaction.created_at)}</td>
+                            <td class="fw-bold">${formatCurrency(transaction.total_amount || transaction.amount || 0)}</td>
                             <td><span class="status-pill ${statusClass}">${capitalizeFirst(transaction.status)}</span></td>
                             <td>
                                 <i class="fa-solid fa-ellipsis action-dots" 
@@ -263,7 +292,6 @@ function capitalizeFirst(str) {
 
 // Show order actions (placeholder)
 function showOrderActions(orderId) {
-    // TODO: Implement order actions dropdown/modal
     console.log('Show actions for order:', orderId);
     
     const actions = [
@@ -276,7 +304,7 @@ function showOrderActions(orderId) {
     alert(`Actions for Order #${orderId}\n\n${actions.map((a, i) => `${i + 1}. ${a}`).join('\n')}`);
 }
 
-// Show error message (using your auth.js style)
+// Show error message
 function showError(message) {
     console.error(message);
     
@@ -341,7 +369,7 @@ function updateUserGreeting() {
             if (hour >= 12 && hour < 18) greeting = 'Good Afternoon';
             else if (hour >= 18) greeting = 'Good Evening';
             
-            // You can customize the greeting if needed
+            // Optional: Customize the greeting
             // greetingElement.textContent = `${greeting}, ${user.full_name}!`;
         }
     }
@@ -379,9 +407,16 @@ async function initDashboard() {
             mainCard.style.opacity = '1';
         }
         
+        showSuccess('Dashboard loaded successfully!');
+        
     } catch (error) {
         console.error('Error initializing dashboard:', error);
-        showError('Failed to load dashboard data');
+        
+        // Only show error if it's not a redirect scenario
+        if (!error.message.includes('not a seller') && 
+            !error.message.includes('not found')) {
+            showError('Failed to load dashboard data');
+        }
         
         // Remove loading state
         if (mainCard) {
@@ -407,6 +442,6 @@ setInterval(() => {
     loadRecentTransactions();
 }, 300000);
 
-// Make showOrderActions available globally
+// Make functions available globally
 window.showOrderActions = showOrderActions;
 window.logout = logout;

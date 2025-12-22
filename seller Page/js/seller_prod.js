@@ -1,16 +1,16 @@
 // API Configuration
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = 'https://minimallbackend.onrender.com/api';
 
 // Get auth token from localStorage
 function getAuthToken() {
-    return localStorage.getItem('access_token');
+    return localStorage.getItem('authToken');
 }
 
 // Check authentication
 function checkAuth() {
     const token = getAuthToken();
     if (!token) {
-        window.location.href = '../auth/login.html';
+        window.location.href = '../logIn Pages/signin.html';
         return false;
     }
     return true;
@@ -73,13 +73,18 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load seller profile
 async function loadSellerProfile() {
     try {
-        const response = await fetch(`${API_BASE_URL}/profile/seller/profile`, {
+        const response = await fetch(`${API_BASE_URL}/seller/profile`, {
             headers: getHeaders()
         });
         
         if (response.ok) {
             const data = await response.json();
             updateSellerInfo(data);
+        } else if (response.status === 401) {
+            // Unauthorized - redirect to login
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userData');
+            window.location.href = '../logIn Pages/signin.html';
         }
     } catch (error) {
         console.error('Error loading seller profile:', error);
@@ -137,6 +142,11 @@ async function loadProducts() {
             renderProducts();
             renderPagination();
             updateTabCounts(data.counts);
+        } else if (response.status === 401) {
+            // Unauthorized - redirect to login
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userData');
+            window.location.href = '../logIn Pages/signin.html';
         } else {
             showError('Failed to load products');
         }
@@ -289,6 +299,12 @@ async function uploadProductImage(file) {
         if (response.ok) {
             const result = await response.json();
             return result.secure_url;
+        } else if (response.status === 401) {
+            // Unauthorized - redirect to login
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userData');
+            window.location.href = '../logIn Pages/signin.html';
+            return null;
         } else {
             const error = await response.json();
             throw new Error(error.detail || 'Upload failed');
@@ -482,6 +498,11 @@ async function editProduct(productId) {
                 
                 document.querySelector('#productModal .modal-title').textContent = 'Edit Product';
             }, 100);
+        } else if (response.status === 401) {
+            // Unauthorized - redirect to login
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userData');
+            window.location.href = '../logIn Pages/signin.html';
         } else {
             showError('Failed to load product details');
         }
@@ -570,6 +591,11 @@ async function saveProduct() {
             
             // Reload products
             loadProducts();
+        } else if (response.status === 401) {
+            // Unauthorized - redirect to login
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userData');
+            window.location.href = '../logIn Pages/signin.html';
         } else {
             const error = await response.json();
             showError(error.detail || 'Failed to save product');
@@ -603,6 +629,11 @@ async function deleteProduct(productId) {
         if (response.ok) {
             showSuccess('Product deleted successfully!');
             loadProducts();
+        } else if (response.status === 401) {
+            // Unauthorized - redirect to login
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userData');
+            window.location.href = '../logIn Pages/signin.html';
         } else {
             const error = await response.json();
             showError(error.detail || 'Failed to delete product');
@@ -641,7 +672,6 @@ function showSuccess(message) {
     alert('✅ ' + message);
 }
 
-
 function escapeHtml(text) {
     const map = {
         '&': '&amp;',
@@ -653,8 +683,9 @@ function escapeHtml(text) {
     return String(text).replace(/[&<>"']/g, m => map[m]);
 }
 
-
 function logout() {
-    localStorage.removeItem('access_token');
-    window.location.href = '../auth/login.html';
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userData');
+    localStorage.removeItem('sellerData');
+    window.location.href = '../logIn Pages/signin.html';
 }
