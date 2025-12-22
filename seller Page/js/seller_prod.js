@@ -641,7 +641,7 @@ function showSuccess(message) {
     alert('✅ ' + message);
 }
 
-// Escape HTML to prevent XSS
+
 function escapeHtml(text) {
     const map = {
         '&': '&amp;',
@@ -653,7 +653,7 @@ function escapeHtml(text) {
     return String(text).replace(/[&<>"']/g, m => map[m]);
 }
 
-// Logout
+
 function logout() {
     localStorage.removeItem('access_token');
     window.location.href = '../auth/login.html';
