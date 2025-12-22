@@ -18,7 +18,7 @@
 
         <div class="container position-relative z-2">
             <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-3">
-                    <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
+                <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
                     <i class="fa-solid fa-bag-shopping fs-3"></i>
                     <span class="fw-bold fs-4 logo-text">minimal.<span class="fw-light">mall</span></span>
                 </a>
@@ -28,13 +28,13 @@
                     <input type="text" placeholder="Looking for something?">
                 </div>
 
-                <div class="d-flex align-items-center gap-4 text-white">
-                    <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">My Orders</a>
-                    <a href="#" class="text-white text-decoration-none fw-medium d-none d-lg-block">Favorites</a>
-                    <a href="#" class="text-white"><i class="fa-regular fa-bell fs-5"></i></a>
-                    <a href="#" class="text-white"><i class="fa-regular fa-user fs-5"></i></a>
-                    <a href="#" class="text-white"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
-                </div>
+               <div class="d-flex align-items-center gap-4 text-white">
+    <a href="../order Pages/order_history.html" class="text-white text-decoration-none fw-medium d-none d-lg-block">My Orders</a>
+    <a href="favorites.html" class="text-white text-decoration-none fw-medium d-none d-lg-block">Favorites</a>
+    <a href="#" class="text-white"><i class="fa-regular fa-bell fs-5"></i></a>
+    <a href="profile.html" class="text-white"><i class="fa-regular fa-user fs-5"></i></a>
+    <a href="cart.html" class="text-white"><i class="fa-solid fa-cart-shopping fs-5"></i></a>
+</div>
             </nav>
         </div>
     </header>
@@ -53,12 +53,12 @@
                 <div class="profile-card">
                     <div class="profile-header">
                         <div class="avatar">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0z3XXBar90pwi5AYm5MSKIK6ZYrmb96gbxA&s?auto=format&fit=crop&w=150&q=80" alt="Profile">
+                            <img src="https://via.placeholder.com/150" alt="Profile">
                         </div>
                         <div>
-                            <div class="user-name">Sheen Empeynado</div>
-                            <div class="user-email">sheendempeynado@su.edu.ph</div>
-                            <div class="user-handle">@_dontmindsen</div>
+                            <div class="user-name">Loading...</div>
+                            <div class="user-email">Loading...</div>
+                            <div class="user-handle">@user</div>
                         </div>
                     </div>
 
@@ -75,7 +75,7 @@
                             </div>
                             <i class="fa-solid fa-chevron-right small text-muted"></i>
                         </a>
-                        <a href="seller_profile.html" class="menu-item">
+                        <a href="../seller Page/seller_dash.html" class="menu-item" style="display: none;">
                             <div class="d-flex align-items-center gap-3">
                                 <i class="fa-solid fa-chart-line menu-icon"></i> Seller Stats
                             </div>
@@ -94,24 +94,24 @@
 
                     <div class="bio-box">
                         <span class="bio-label">Bio</span>
-                        <p class="bio-text">I exist to read books, beyond that my life is void and meaningless... I’m just kidding I live to help other peoples lives. A future medicine doctor <3</p>
+                        <p class="bio-text">Loading...</p>
                     </div>
 
                     <div class="stats-container">
                         <div class="stat-box">
-                            <div class="stat-value">152</div>
+                            <div class="stat-value">0</div>
                             <div class="stat-label">Purchased Products</div>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-value">24k</div>
-                            <div class="stat-label">Total Sales</div>
+                            <div class="stat-value">$0</div>
+                            <div class="stat-label">Total Spent</div>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-value">69</div>
+                            <div class="stat-value">0</div>
                             <div class="stat-label">Coupons & Offers</div>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-value">240</div>
+                            <div class="stat-value">0</div>
                             <div class="stat-label">Loyalty Points</div>
                         </div>
                     </div>
@@ -119,28 +119,10 @@
                     <div class="trans-header">Recent Transactions</div>
 
                     <div class="trans-list">
-                        <div class="trans-item">
-                            <div>
-                                <div class="trans-id">Order #1</div>
-                                <div class="trans-date">Purchased on: 01/01/1900</div>
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
                             </div>
-                            <div class="trans-price">$1,234.56</div>
-                        </div>
-
-                        <div class="trans-item">
-                            <div>
-                                <div class="trans-id">Order #1</div>
-                                <div class="trans-date">Purchased on: 01/01/1900</div>
-                            </div>
-                            <div class="trans-price">$1,234.56</div>
-                        </div>
-
-                        <div class="trans-item">
-                            <div>
-                                <div class="trans-id">Order #1</div>
-                                <div class="trans-date">Purchased on: 01/01/1900</div>
-                            </div>
-                            <div class="trans-price">$1,234.56</div>
                         </div>
                     </div>
 
@@ -151,5 +133,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/profile.js"></script>
 </body>
 </html>
