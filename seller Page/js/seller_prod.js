@@ -114,8 +114,9 @@ async function loadProducts() {
         
         // Build filter params
         let params = new URLSearchParams({
+            page: currentPage,
             limit: 10,
-            offset: (currentPage - 1) * 10
+            status: filterStatus
         });
         
         // Add search if exists
@@ -123,32 +124,19 @@ async function loadProducts() {
             params.append('search', searchQuery);
         }
         
-        // For now, we'll use the general products endpoint and filter client-side
-        // In production, you should create a /seller/products endpoint
-        const response = await fetch(`${API_BASE_URL}/products?${params}`, {
+        // Use seller products endpoint
+        const response = await fetch(`${API_BASE_URL}/seller/products?${params}`, {
             headers: getHeaders()
         });
         
         if (response.ok) {
             const data = await response.json();
-            let products = data.products || [];
-            
-            // Client-side filtering by status
-            if (filterStatus !== 'all') {
-                products = products.filter(p => {
-                    if (filterStatus === 'active') return p.is_active && p.quantity_in_stock > 0;
-                    if (filterStatus === 'draft') return !p.is_active;
-                    if (filterStatus === 'out_of_stock') return p.is_active && p.quantity_in_stock === 0;
-                    return true;
-                });
-            }
-            
-            currentProducts = products;
-            totalPages = Math.ceil((data.total || products.length) / 10);
+            currentProducts = data.products || [];
+            totalPages = Math.ceil((data.total || 0) / 10);
             
             renderProducts();
             renderPagination();
-            updateTabCounts(products);
+            updateTabCounts(data.counts);
         } else {
             showError('Failed to load products');
         }
@@ -261,18 +249,15 @@ function changePage(page) {
 }
 
 // Update tab counts
-function updateTabCounts(products) {
-    const all = products.length;
-    const active = products.filter(p => p.is_active && p.quantity_in_stock > 0).length;
-    const draft = products.filter(p => !p.is_active).length;
-    const outOfStock = products.filter(p => p.is_active && p.quantity_in_stock === 0).length;
+function updateTabCounts(counts) {
+    if (!counts) return;
     
     const tabs = document.querySelectorAll('.tab-item');
     if (tabs.length >= 4) {
-        tabs[0].textContent = `All (${all})`;
-        tabs[1].textContent = `Active (${active})`;
-        tabs[2].textContent = `Drafts (${draft})`;
-        tabs[3].textContent = `Out of Stock (${outOfStock})`;
+        tabs[0].textContent = `All (${counts.all || 0})`;
+        tabs[1].textContent = `Active (${counts.active || 0})`;
+        tabs[2].textContent = `Drafts (${counts.draft || 0})`;
+        tabs[3].textContent = `Out of Stock (${counts.out_of_stock || 0})`;
     }
 }
 
@@ -284,6 +269,37 @@ function handleSearch(e) {
         currentPage = 1;
         loadProducts();
     }, 500);
+}
+
+// Upload image to Cloudinary
+async function uploadProductImage(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    try {
+        showLoading();
+        const response = await fetch(`${API_BASE_URL}/upload/product-image`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${getAuthToken()}`
+            },
+            body: formData
+        });
+        
+        if (response.ok) {
+            const result = await response.json();
+            return result.secure_url;
+        } else {
+            const error = await response.json();
+            throw new Error(error.detail || 'Upload failed');
+        }
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        showError('Failed to upload image: ' + error.message);
+        return null;
+    } finally {
+        hideLoading();
+    }
 }
 
 // Show add product modal
@@ -299,6 +315,7 @@ function showAddProductModal() {
                     <div class="modal-body">
                         <form id="productForm">
                             <input type="hidden" id="productId">
+                            <input type="hidden" id="existingImageUrl">
                             
                             <div class="mb-3">
                                 <label class="form-label">Product Name *</label>
@@ -364,10 +381,13 @@ function showAddProductModal() {
                             </div>
                             
                             <div class="mb-3">
-                                <label class="form-label">Product Image URL</label>
-                                <input type="url" class="form-control" id="productImage" 
-                                       placeholder="https://example.com/image.jpg">
-                                <small class="text-muted">Use Unsplash or any image hosting service</small>
+                                <label class="form-label">Product Image</label>
+                                <input type="file" class="form-control" id="productImageFile" 
+                                       accept="image/jpeg,image/png,image/webp,image/gif">
+                                <small class="text-muted">Max size: 10MB. Formats: JPG, PNG, WEBP, GIF</small>
+                                <div id="imagePreview" class="mt-2" style="display: none;">
+                                    <img id="previewImg" src="" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 8px;">
+                                </div>
                             </div>
                             
                             <div class="form-check mb-3">
@@ -387,7 +407,10 @@ function showAddProductModal() {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+                        <button type="button" class="btn btn-primary" onclick="saveProduct()">
+                            <span class="save-btn-text">Save Product</span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -401,6 +424,19 @@ function showAddProductModal() {
     // Add modal to body
     document.body.insertAdjacentHTML('beforeend', modalHTML);
     
+    // Add image preview listener
+    document.getElementById('productImageFile').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewImg').src = e.target.result;
+                document.getElementById('imagePreview').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    
     // Show modal
     const modal = new bootstrap.Modal(document.getElementById('productModal'));
     modal.show();
@@ -409,7 +445,9 @@ function showAddProductModal() {
 // Edit product
 async function editProduct(productId) {
     try {
-        const response = await fetch(`${API_BASE_URL}/products/id/${productId}`);
+        const response = await fetch(`${API_BASE_URL}/seller/products/${productId}`, {
+            headers: getHeaders()
+        });
         
         if (response.ok) {
             const result = await response.json();
@@ -434,7 +472,9 @@ async function editProduct(productId) {
                 // Image - get primary image
                 const primaryImage = product.images?.find(img => img.is_primary);
                 if (primaryImage) {
-                    document.getElementById('productImage').value = primaryImage.image_url;
+                    document.getElementById('existingImageUrl').value = primaryImage.image_url;
+                    document.getElementById('previewImg').src = primaryImage.image_url;
+                    document.getElementById('imagePreview').style.display = 'block';
                 }
                 
                 document.getElementById('productFeatured').checked = product.is_featured || false;
@@ -451,7 +491,7 @@ async function editProduct(productId) {
     }
 }
 
-// Save product (Note: This requires backend endpoints that don't exist yet)
+// Save product
 async function saveProduct() {
     const form = document.getElementById('productForm');
     if (!form.checkValidity()) {
@@ -459,72 +499,118 @@ async function saveProduct() {
         return;
     }
     
-    const productId = document.getElementById('productId').value;
+    const saveBtn = document.querySelector('.btn-primary');
+    const btnText = saveBtn.querySelector('.save-btn-text');
+    const spinner = saveBtn.querySelector('.spinner-border');
     
-    // Create slug from name
-    const name = document.getElementById('productName').value;
-    const slug = name.toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-');
+    // Disable button and show spinner
+    saveBtn.disabled = true;
+    btnText.classList.add('d-none');
+    spinner.classList.remove('d-none');
     
-    const productData = {
-        name: name,
-        slug: slug,
-        category_id: parseInt(document.getElementById('productCategory').value),
-        sku: document.getElementById('productSKU').value || null,
-        short_description: document.getElementById('productShortDesc').value || null,
-        description: document.getElementById('productDescription').value || null,
-        price: parseFloat(document.getElementById('productPrice').value),
-        compare_at_price: document.getElementById('productComparePrice').value 
-            ? parseFloat(document.getElementById('productComparePrice').value) 
-            : null,
-        quantity_in_stock: parseInt(document.getElementById('productStock').value),
-        weight: document.getElementById('productWeight').value 
-            ? parseFloat(document.getElementById('productWeight').value) 
-            : null,
-        is_featured: document.getElementById('productFeatured').checked,
-        is_active: document.getElementById('productActive').checked,
-        image_url: document.getElementById('productImage').value || null
-    };
-    
-    // Since backend doesn't have seller product endpoints yet, show message
-    console.log('Product data to save:', productData);
-    
-    showError('Product management endpoints are not yet implemented in the backend. Please add seller product CRUD endpoints first.');
-    
-    // TODO: Implement when backend is ready
-    // const url = productId 
-    //     ? `${API_BASE_URL}/seller/products/${productId}`
-    //     : `${API_BASE_URL}/seller/products`;
-    // const method = productId ? 'PUT' : 'POST';
+    try {
+        const productId = document.getElementById('productId').value;
+        
+        // Upload image if new file selected
+        let imageUrl = document.getElementById('existingImageUrl').value;
+        const imageFile = document.getElementById('productImageFile').files[0];
+        
+        if (imageFile) {
+            const uploadedUrl = await uploadProductImage(imageFile);
+            if (!uploadedUrl) {
+                throw new Error('Failed to upload image');
+            }
+            imageUrl = uploadedUrl;
+        }
+        
+        // Create slug from name
+        const name = document.getElementById('productName').value;
+        const slug = name.toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+        
+        const productData = {
+            name: name,
+            slug: slug,
+            category_id: parseInt(document.getElementById('productCategory').value),
+            sku: document.getElementById('productSKU').value || null,
+            short_description: document.getElementById('productShortDesc').value || null,
+            description: document.getElementById('productDescription').value || null,
+            price: parseFloat(document.getElementById('productPrice').value),
+            compare_at_price: document.getElementById('productComparePrice').value 
+                ? parseFloat(document.getElementById('productComparePrice').value) 
+                : null,
+            quantity_in_stock: parseInt(document.getElementById('productStock').value),
+            weight: document.getElementById('productWeight').value 
+                ? parseFloat(document.getElementById('productWeight').value) 
+                : null,
+            is_featured: document.getElementById('productFeatured').checked,
+            is_active: document.getElementById('productActive').checked,
+            image_url: imageUrl
+        };
+        
+        const url = productId 
+            ? `${API_BASE_URL}/seller/products/${productId}`
+            : `${API_BASE_URL}/seller/products`;
+        const method = productId ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+            method: method,
+            headers: getHeaders(),
+            body: JSON.stringify(productData)
+        });
+        
+        if (response.ok) {
+            showSuccess(productId ? 'Product updated successfully!' : 'Product created successfully!');
+            
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('productModal'));
+            modal.hide();
+            
+            // Reload products
+            loadProducts();
+        } else {
+            const error = await response.json();
+            showError(error.detail || 'Failed to save product');
+        }
+    } catch (error) {
+        console.error('Error saving product:', error);
+        showError('Error saving product: ' + error.message);
+    } finally {
+        // Re-enable button
+        saveBtn.disabled = false;
+        btnText.classList.remove('d-none');
+        spinner.classList.add('d-none');
+    }
 }
 
 // Confirm delete product
 function confirmDeleteProduct(productId, productName) {
-    if (confirm(`Are you sure you want to delete "${productName}"?\n\nThis action cannot be undone.`)) {
+    if (confirm(`Are you sure you want to delete "${productName}"?\n\nThis will deactivate the product.`)) {
         deleteProduct(productId);
     }
 }
 
-// Delete product (Note: This requires backend endpoints that don't exist yet)
+// Delete product
 async function deleteProduct(productId) {
-    showError('Product delete endpoint is not yet implemented in the backend. Please add seller product DELETE endpoint first.');
-    
-    // TODO: Implement when backend is ready
-    // try {
-    //     const response = await fetch(`${API_BASE_URL}/seller/products/${productId}`, {
-    //         method: 'DELETE',
-    //         headers: getHeaders()
-    //     });
-    //     
-    //     if (response.ok) {
-    //         showSuccess('Product deleted successfully');
-    //         loadProducts();
-    //     }
-    // } catch (error) {
-    //     console.error('Error deleting product:', error);
-    // }
+    try {
+        const response = await fetch(`${API_BASE_URL}/seller/products/${productId}`, {
+            method: 'DELETE',
+            headers: getHeaders()
+        });
+        
+        if (response.ok) {
+            showSuccess('Product deleted successfully!');
+            loadProducts();
+        } else {
+            const error = await response.json();
+            showError(error.detail || 'Failed to delete product');
+        }
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        showError('Error deleting product');
+    }
 }
 
 // UI Helper functions
