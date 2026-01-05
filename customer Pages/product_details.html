@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Minimal Mall</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/index.css">
+    
+    <style>
+        .product-detail-container {
+            padding: 80px 0 50px;
+            min-height: 100vh;
+        }
+        
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            color: #6c757d;
+        }
+        
+        .main-image-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #f8f9fa;
+            aspect-ratio: 1;
+            margin-bottom: 20px;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .favorite-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .favorite-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .favorite-btn i {
+            font-size: 20px;
+            color: #dc3545;
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: #0d6efd;
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stars {
+            color: #ffc107;
+        }
+        
+        .rating-text {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .price-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .current-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0d6efd;
+        }
+        
+        .original-price {
+            font-size: 1.5rem;
+            text-decoration: line-through;
+            color: #6c757d;
+            margin-left: 15px;
+        }
+        
+        .savings {
+            display: inline-block;
+            background: #d4edda;
+            color: #155724;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .option-section {
+            margin-bottom: 30px;
+        }
+        
+        .option-label {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .option-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .option-btn {
+            padding: 10px 20px;
+            border: 2px solid #dee2e6;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .option-btn:hover {
+            border-color: #0d6efd;
+            background: #f8f9fa;
+        }
+        
+        .option-btn.active {
+            border-color: #0d6efd;
+            background: #0d6efd;
+            color: white;
+        }
+        
+        .color-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .color-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-btn.active {
+            border-color: #0d6efd;
+        }
+        
+        .color-btn.active::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .quantity-btn {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #dee2e6;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+        
+        .quantity-btn:hover {
+            border-color: #0d6efd;
+            background: #f8f9fa;
+        }
+        
+        .quantity-input {
+            width: 80px;
+            height: 45px;
+            text-align: center;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn-add-cart {
+            flex: 1;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-buy-now {
+            flex: 1;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+        }
+        
+        .product-info-tabs {
+            margin-top: 50px;
+        }
+        
+        .nav-tabs {
+            border: none;
+            gap: 20px;
+        }
+        
+        .nav-tabs .nav-link {
+            border: none;
+            color: #6c757d;
+            font-weight: 600;
+            padding: 15px 0;
+            border-bottom: 3px solid transparent;
+            background: transparent;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            border-bottom-color: #0d6efd;
+        }
+        
+        .tab-content {
+            padding: 30px 0;
+        }
+        
+        .specification-table {
+            width: 100%;
+        }
+        
+        .specification-table tr {
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .specification-table td {
+            padding: 15px 0;
+        }
+        
+        .specification-table td:first-child {
+            font-weight: 600;
+            width: 200px;
+            color: #2c3e50;
+        }
+        
+        .related-products {
+            margin-top: 80px;
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        
+        .stock-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .stock-status.in-stock {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .stock-status.low-stock {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .stock-status.out-of-stock {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-shape shape-1"></div>
+        <div class="header-shape shape-2"></div>
+
+        <div class="container position-relative z-2">
+            <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-3">
+                <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2 text-white">
+                    <i class="fa-solid fa-bag-shopping fs-3"></i>
+                    <span class="fw-bold fs-4 logo-text">minimal.<span class="fw-light">mall</span></span>
+                </a>
+                
+                <div class="header-search d-none d-md-flex align-items-center bg-white bg-opacity-25 rounded-pill px-3 py-2" style="width: 400px;">
+                    <i class="fa-solid fa-magnifying-glass text-white opacity-75 me-2"></i>
+                    <input type="text" id="searchInput" class="bg-transparent border-0 text-white w-100" placeholder="Looking for something?" style="outline: none;" autocomplete="off">
+                </div>
+
+                <div class="d-flex align-items-center gap-4 text-white">
+                    <a href="../order Pages/order_history.html" class="text-white text-decoration-none fw-medium d-none d-lg-block">My Orders</a>
+                    <a href="favorites.html" class="text-white text-decoration-none fw-medium d-none d-lg-block">Favorites</a>
+                    <a href="#" class="text-white"><i class="fa-regular fa-bell fs-5"></i></a>
+                    <a href="profile.html" class="text-white" id="userIcon"><i class="fa-regular fa-user fs-5"></i></a>
+                    <a href="cart.html" class="text-white position-relative" id="cartIconLink">
+                        <i class="fa-solid fa-cart-shopping fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount" style="display: none;">
+                            0
+                        </span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Product Detail Section -->
+    <div class="product-detail-container">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#" id="categoryBreadcrumb">Category</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" id="productBreadcrumb">Product</li>
+                </ol>
+            </nav>
+
+            <div class="row">
+                <!-- Product Images -->
+                <div class="col-lg-6">
+                    <div class="main-image-container">
+                        <img src="" alt="Product" class="main-image" id="mainImage">
+                        <span class="discount-badge" id="discountBadge" style="display: none;">20% OFF</span>
+                        <button class="favorite-btn" id="favoriteBtn">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="thumbnail-container" id="thumbnailContainer">
+                        <!-- Thumbnails will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="col-lg-6">
+                    <div id="loadingSpinner" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-3 text-muted">Loading product details...</p>
+                    </div>
+
+                    <div id="productInfo" style="display: none;">
+                        <h1 class="product-title" id="productTitle">Product Name</h1>
+                        
+                        <div class="product-rating">
+                            <div class="stars" id="productRating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                            <span class="rating-text" id="ratingText">(4.5 / 127 reviews)</span>
+                        </div>
+
+                        <div class="stock-status in-stock" id="stockStatus">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock</span>
+                        </div>
+                        
+                        <div class="price-section">
+                            <div>
+                                <span class="current-price" id="currentPrice">₱0.00</span>
+                                <span class="original-price" id="originalPrice" style="display: none;">₱0.00</span>
+                            </div>
+                            <div class="savings" id="savings" style="display: none;">You save ₱0.00</div>
+                        </div>
+
+                        <!-- Size Selection -->
+                        <div class="option-section" id="sizeSection" style="display: none;">
+                            <div class="option-label">Size</div>
+                            <div class="option-buttons" id="sizeButtons">
+                                <!-- Size options will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Color Selection -->
+                        <div class="option-section" id="colorSection" style="display: none;">
+                            <div class="option-label">Color</div>
+                            <div class="option-buttons" id="colorButtons">
+                                <!-- Color options will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Quantity Selector -->
+                        <div class="option-section">
+                            <div class="option-label">Quantity</div>
+                            <div class="quantity-selector">
+                                <button class="quantity-btn" id="decreaseQty">−</button>
+                                <input type="number" class="quantity-input" id="quantityInput" value="1" min="1" max="99">
+                                <button class="quantity-btn" id="increaseQty">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button class="btn btn-primary btn-add-cart" id="addToCartBtn">
+                                <i class="fa-solid fa-cart-plus me-2"></i>Add to Cart
+                            </button>
+                            <button class="btn btn-success btn-buy-now" id="buyNowBtn">
+                                <i class="fa-solid fa-bolt me-2"></i>Buy Now
+                            </button>
+                        </div>
+
+                        <!-- Product Description -->
+                        <div class="product-info-tabs">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab">
+                                        Description
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab">
+                                        Specifications
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">
+                                        Reviews
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="description" role="tabpanel">
+                                    <p id="productDescription">Loading description...</p>
+                                </div>
+                                <div class="tab-pane fade" id="specifications" role="tabpanel">
+                                    <table class="specification-table" id="specificationsTable">
+                                        <tbody>
+                                            <!-- Specifications will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                                    <p class="text-muted">No reviews yet. Be the first to review this product!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <div class="related-products">
+                <h2 class="section-title">You May Also Like</h2>
+                <div class="row g-4" id="relatedProductsContainer">
+                    <!-- Related products will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="cartToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fa-solid fa-check-circle me-2"></i>
+                    <span id="toastMessage">Product added to cart!</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+   
+    <script src="./js/cart.js"></script>
+    <script src="./js/product.js"></script>
+    <script src="./js/product_details.js"></script>
+</body>
+</html>
