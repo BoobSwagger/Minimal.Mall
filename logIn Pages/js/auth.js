@@ -1,47 +1,68 @@
-// auth.js - Authentication handler with OTP support - FIXED VERSION
+// auth.js - Authentication handler with OTP support and Admin logic
 
 const AUTH_API_BASE_URL = 'https://minimallbackend.onrender.com';
 
-// Store token in localStorage
+// Store token in sessionStorage (more secure for admin)
 function saveToken(token) {
-    localStorage.setItem('authToken', token);
+    sessionStorage.setItem('authToken', token);
 }
 
-// Get token from localStorage
+// Get token from sessionStorage
 function getToken() {
-    return localStorage.getItem('authToken');
+    return sessionStorage.getItem('authToken');
 }
 
-// Remove token from localStorage
+// Remove token from sessionStorage
 function removeToken() {
-    localStorage.removeItem('authToken');
+    sessionStorage.removeItem('authToken');
 }
 
 // Save user data
 function saveUser(user) {
-    localStorage.setItem('userData', JSON.stringify(user));
+    sessionStorage.setItem('userData', JSON.stringify(user));
 }
 
 // Get user data
 function getUser() {
-    const userData = localStorage.getItem('userData');
+    const userData = sessionStorage.getItem('userData');
     return userData ? JSON.parse(userData) : null;
+}
+
+// Get user role
+function getUserRole() {
+    const user = getUser();
+    return user ? user.role : null;
+}
+
+// Check if user is admin
+function isAdmin() {
+    return getUserRole() === 'admin';
+}
+
+// Check if user is seller
+function isSeller() {
+    return getUserRole() === 'seller';
+}
+
+// Check if user is customer
+function isCustomer() {
+    return getUserRole() === 'customer';
 }
 
 // Store temporary signup data
 function saveTempSignupData(data) {
-    localStorage.setItem('tempSignupData', JSON.stringify(data));
+    sessionStorage.setItem('tempSignupData', JSON.stringify(data));
     console.log('Saved temp signup data:', data);
 }
 
 function getTempSignupData() {
-    const data = localStorage.getItem('tempSignupData');
+    const data = sessionStorage.getItem('tempSignupData');
     console.log('Retrieved temp signup data:', data);
     return data ? JSON.parse(data) : null;
 }
 
 function clearTempSignupData() {
-    localStorage.removeItem('tempSignupData');
+    sessionStorage.removeItem('tempSignupData');
     console.log('Cleared temp signup data');
 }
 
@@ -57,7 +78,6 @@ function extractErrorMessage(data) {
 
     if (Array.isArray(data.detail)) {
         const errorMessages = data.detail.map(err => {
-            // Handle FastAPI validation errors
             if (err.msg) return err.msg;
             if (err.message) return err.message;
             if (err.loc && err.msg) {
@@ -227,11 +247,15 @@ async function signUp(email, password, fullName, phone = null, otpCode) {
 
         if (data.token) {
             saveToken(data.token);
+            if (data.user) {
+                saveUser(data.user);
+            }
             clearTempSignupData();
             return {
                 success: true,
                 message: data.message || 'Account created successfully',
-                user_id: data.user_id
+                user_id: data.user_id,
+                user: data.user
             };
         } else {
             throw new Error(data.message || 'Sign up failed - no token received');
@@ -246,7 +270,7 @@ async function signUp(email, password, fullName, phone = null, otpCode) {
     }
 }
 
-// Sign In with password
+// Sign In with password (supports all roles)
 async function signIn(email, password) {
     console.log('Signing in:', email);
     try {
@@ -295,16 +319,13 @@ async function signIn(email, password) {
     }
 }
 
-// Sign In with OTP - FIXED VERSION (Uses Query Parameters)
+// Sign In with OTP
 async function signInWithOTP(email, otpCode) {
     console.log('=== SIGN IN WITH OTP START ===');
     console.log('Email:', email);
     console.log('OTP Code:', otpCode);
-    console.log('OTP Code Type:', typeof otpCode);
-    console.log('OTP Code Length:', otpCode.length);
     
     try {
-        // Backend expects query parameters, not request body
         const params = new URLSearchParams({
             email: email,
             otp_code: otpCode.toString()
@@ -321,16 +342,11 @@ async function signInWithOTP(email, otpCode) {
         });
 
         console.log('Response status:', response.status);
-        console.log('Response headers:', Object.fromEntries(response.headers.entries()));
-        
         const data = await response.json();
         console.log('Signin with OTP Response:', JSON.stringify(data, null, 2));
 
         if (!response.ok) {
-            const errorMessage = extractErrorMessage(data);
-            console.error('API Error:', errorMessage);
-            console.error('Full error data:', data);
-            throw new Error(errorMessage);
+            throw new Error(extractErrorMessage(data));
         }
 
         if (data.token) {
@@ -346,21 +362,47 @@ async function signInWithOTP(email, otpCode) {
                 user: data.user
             };
         } else {
-            console.error('No token in response');
             throw new Error(data.message || 'Sign in failed - no token received');
         }
 
     } catch (error) {
         console.error('=== SIGN IN WITH OTP ERROR ===');
-        console.error('Error type:', error.constructor.name);
         console.error('Error message:', error.message);
-        console.error('Error stack:', error.stack);
         return {
             success: false,
             message: error.message || 'An error occurred during sign in'
         };
     } finally {
         console.log('=== SIGN IN WITH OTP END ===');
+    }
+}
+
+// Admin Sign In (password-based authentication)
+async function adminSignIn(email, password) {
+    console.log('Admin signing in:', email);
+    try {
+        const result = await signIn(email, password);
+        
+        if (result.success && result.user) {
+            // Verify user is actually an admin
+            if (result.user.role !== 'admin') {
+                // Clear the token if not admin
+                removeToken();
+                sessionStorage.removeItem('userData');
+                return {
+                    success: false,
+                    message: 'Access denied. Admin privileges required.'
+                };
+            }
+        }
+        
+        return result;
+    } catch (error) {
+        console.error('Admin sign in error:', error);
+        return {
+            success: false,
+            message: error.message || 'An error occurred during admin sign in'
+        };
     }
 }
 
@@ -444,17 +486,88 @@ async function verifyToken() {
     }
 }
 
+// Get role-based redirect URL
+function getRoleBasedRedirectURL(role) {
+    switch(role) {
+        case 'admin':
+            return '../admin/admin.html';
+        case 'seller':
+            return '../seller Pages/dashboard.html';
+        case 'customer':
+        default:
+            return '../customer Pages/index.html';
+    }
+}
+
+// Redirect based on user role
+function redirectByRole(user) {
+    if (!user || !user.role) {
+        console.error('Invalid user data for redirect');
+        return;
+    }
+    
+    const redirectUrl = getRoleBasedRedirectURL(user.role);
+    console.log(`Redirecting ${user.role} to: ${redirectUrl}`);
+    window.location.href = redirectUrl;
+}
+
 // Sign out function
 function signOut() {
     removeToken();
-    localStorage.removeItem('userData');
+    sessionStorage.removeItem('userData');
     clearTempSignupData();
-    window.location.href = '../logIn Pages/signin.html';
+    
+    // Determine where to redirect based on current page
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('admin')) {
+        window.location.href = '../logIn Pages/admin-login.html';
+    } else {
+        window.location.href = '../logIn Pages/signin.html';
+    }
 }
 
 // Check if user is authenticated
 function isAuthenticated() {
     return getToken() !== null;
+}
+
+// Require authentication (redirect to login if not authenticated)
+function requireAuth(requiredRole = null) {
+    if (!isAuthenticated()) {
+        console.log('Not authenticated, redirecting to login');
+        window.location.href = '../logIn Pages/signin.html';
+        return false;
+    }
+    
+    if (requiredRole) {
+        const user = getUser();
+        if (!user || user.role !== requiredRole) {
+            console.log(`Access denied. Required role: ${requiredRole}, User role: ${user?.role}`);
+            signOut();
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+// Require admin authentication
+function requireAdmin() {
+    if (!isAuthenticated()) {
+        console.log('Not authenticated, redirecting to admin login');
+        window.location.href = '../logIn Pages/admin-login.html';
+        return false;
+    }
+    
+    const user = getUser();
+    if (!user || user.role !== 'admin') {
+        console.log('Access denied. Admin privileges required.');
+        alert('Access denied. Admin privileges required.');
+        signOut();
+        return false;
+    }
+    
+    return true;
 }
 
 // Display message
@@ -477,6 +590,50 @@ function hideMessage(elementId) {
     if (messageElement) {
         messageElement.style.display = 'none';
     }
+}
+
+// Initialize Admin Login Form
+function initAdminLoginForm() {
+    const loginForm = document.getElementById('adminLoginForm');
+    if (!loginForm) {
+        console.log('Admin login form not found');
+        return;
+    }
+
+    console.log('Initializing admin login form');
+
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log('Admin login form submitted');
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Signing In...';
+        }
+        hideMessage('errorMessage');
+
+        const result = await adminSignIn(email, password);
+
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Sign In';
+        }
+
+        if (result.success) {
+            console.log('Admin sign in successful!');
+            showMessage('errorMessage', 'Admin sign in successful! Redirecting...', false);
+            setTimeout(() => {
+                window.location.href = '../admin/admin.html';
+            }, 1000);
+        } else {
+            console.error('Admin sign in failed:', result.message);
+            showMessage('errorMessage', result.message, true);
+        }
+    });
 }
 
 // Initialize Sign In Form
@@ -518,15 +675,11 @@ function initSignInForm() {
             if (result.success) {
                 console.log('OTP sent successfully for sign in');
                 otpSent = true;
-                // Show OTP Modal
                 showOTPModal('signin');
                 showMessage('errorMessage', 'OTP sent to your email! Please check your inbox.', false);
             } else {
                 showMessage('errorMessage', result.message, true);
             }
-        } else {
-            // Step 2: Verify OTP (This will be handled by otpForm submit event)
-            console.log('OTP already sent, waiting for OTP form submission');
         }
     });
 
@@ -540,11 +693,6 @@ function initSignInForm() {
             const email = document.getElementById('email').value;
             const otpCode = document.getElementById('otpCode')?.value;
             
-            console.log('Email from form:', email);
-            console.log('OTP Code from form:', otpCode);
-            console.log('OTP Code type:', typeof otpCode);
-            console.log('OTP Code length:', otpCode?.length);
-            
             if (!otpCode || otpCode.length !== 6) {
                 showMessage('errorMessage', 'Please enter a valid 6-digit OTP', true);
                 return;
@@ -557,9 +705,7 @@ function initSignInForm() {
             }
             hideMessage('errorMessage');
 
-            console.log('Calling signInWithOTP...');
             const result = await signInWithOTP(email, otpCode);
-            console.log('signInWithOTP result:', JSON.stringify(result, null, 2));
 
             if (submitBtn) {
                 submitBtn.disabled = false;
@@ -571,7 +717,7 @@ function initSignInForm() {
                 showMessage('errorMessage', 'Sign in successful! Redirecting...', false);
                 closeOTPModal();
                 setTimeout(() => {
-                    window.location.href = '../customer Pages/index.html';
+                    redirectByRole(result.user);
                 }, 1000);
             } else {
                 console.error('Sign in with OTP failed:', result.message);
@@ -590,7 +736,6 @@ function initSignUpForm() {
     }
 
     console.log('Initializing sign up form');
-
     let otpSent = false;
 
     signupForm.addEventListener('submit', async (e) => {
@@ -621,13 +766,9 @@ function initSignUpForm() {
             if (result.success) {
                 console.log('OTP sent successfully');
                 otpSent = true;
-                // Save form data temporarily
                 saveTempSignupData({ email, password, fullName, phone });
-                
-                // Show OTP Modal
                 showOTPModal('signup');
                 showMessage('errorMessage', 'OTP sent to your email! Please check your inbox (including spam folder).', false);
-                
                 if (submitBtn) {
                     submitBtn.textContent = 'Send OTP';
                 }
@@ -650,17 +791,10 @@ function initSignUpForm() {
 
             const otpCode = document.getElementById('otpCode')?.value;
             
-            if (!otpCode) {
-                showMessage('errorMessage', 'Please enter the OTP code', true);
-                return;
-            }
-
-            if (otpCode.length !== 6) {
+            if (!otpCode || otpCode.length !== 6) {
                 showMessage('errorMessage', 'Please enter a valid 6-digit OTP', true);
                 return;
             }
-
-            console.log('OTP code entered:', otpCode);
 
             const submitBtn = otpForm.querySelector('button[type="submit"]');
             if (submitBtn) {
@@ -669,7 +803,6 @@ function initSignUpForm() {
             }
             hideMessage('errorMessage');
 
-            // Get saved data
             const savedData = getTempSignupData();
             
             if (!savedData) {
@@ -682,8 +815,6 @@ function initSignUpForm() {
                 return;
             }
 
-            console.log('Completing signup with saved data');
-            
             const result = await signUp(
                 savedData.email, 
                 savedData.password, 
@@ -702,7 +833,7 @@ function initSignUpForm() {
                 showMessage('errorMessage', 'Account created successfully! Redirecting...', false);
                 closeOTPModal();
                 setTimeout(() => {
-                    window.location.href = '../customer Pages/index.html';
+                    redirectByRole(result.user);
                 }, 1500);
             } else {
                 console.error('Sign up failed:', result.message);
@@ -719,7 +850,6 @@ function showOTPModal(formType) {
     
     if (modal) {
         modal.style.display = 'flex';
-        // Clear previous OTP code
         if (otpInput) {
             otpInput.value = '';
             setTimeout(() => otpInput.focus(), 100);
@@ -741,115 +871,16 @@ function closeOTPModal() {
     }
 }
 
-// Show OTP input field
-function showOTPInput() {
-    const form = document.getElementById('signupForm');
-    if (!form) return;
-
-    // Check if OTP input already exists
-    if (document.getElementById('otpCode')) {
-        console.log('OTP input already exists');
-        return;
-    }
-
-    console.log('Creating OTP input field');
-
-    // Disable other inputs
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const fullNameInput = document.getElementById('fullName');
-    const phoneInput = document.getElementById('phone');
-
-    if (emailInput) emailInput.disabled = true;
-    if (passwordInput) passwordInput.disabled = true;
-    if (fullNameInput) fullNameInput.disabled = true;
-    if (phoneInput) phoneInput.disabled = true;
-
-    // Create OTP input
-    const otpWrapper = document.createElement('div');
-    otpWrapper.className = 'input-wrapper';
-    otpWrapper.id = 'otpWrapper';
-    otpWrapper.innerHTML = `
-        <i class="fa-solid fa-key input-icon"></i>
-        <input type="text" id="otpCode" class="custom-input" placeholder="Enter 6-digit OTP" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" required>
-    `;
-
-    // Find the submit button
-    const submitBtn = document.getElementById('submitBtn');
-    const submitButtonDiv = submitBtn.parentElement;
-
-    // Insert OTP input before the submit button's parent div
-    form.insertBefore(otpWrapper, submitButtonDiv);
-
-    // Add resend OTP button
-    const resendDiv = document.createElement('div');
-    resendDiv.className = 'text-center mb-3';
-    resendDiv.id = 'resendWrapper';
-    resendDiv.innerHTML = `
-        <button type="button" id="resendOTP" class="btn btn-link text-decoration-none small" style="color: #7C3AED;">
-            Didn't receive OTP? Resend
-        </button>
-    `;
-    form.insertBefore(resendDiv, submitButtonDiv);
-
-    // Focus on OTP input
-    setTimeout(() => {
-        document.getElementById('otpCode').focus();
-    }, 100);
-
-    // Resend OTP functionality
-    document.getElementById('resendOTP').addEventListener('click', async () => {
-        console.log('Resend OTP clicked');
-        const savedData = getTempSignupData();
-        if (!savedData) {
-            showMessage('errorMessage', 'Session expired. Please refresh and start over.', true);
-            return;
-        }
-
-        const resendBtn = document.getElementById('resendOTP');
-        resendBtn.disabled = true;
-        resendBtn.textContent = 'Sending...';
-
-        const result = await sendRegistrationOTP(savedData.email, savedData.fullName);
-        
-        if (result.success) {
-            showMessage('errorMessage', 'New OTP sent to your email!', false);
-        } else {
-            showMessage('errorMessage', result.message, true);
-        }
-
-        resendBtn.disabled = false;
-        resendBtn.textContent = "Didn't receive OTP? Resend";
-    });
-}
-
-// Remove OTP input field
-function removeOTPInput() {
-    const otpWrapper = document.getElementById('otpWrapper');
-    const resendWrapper = document.getElementById('resendWrapper');
-    
-    if (otpWrapper) otpWrapper.remove();
-    if (resendWrapper) resendWrapper.remove();
-
-    // Re-enable other inputs
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const fullNameInput = document.getElementById('fullName');
-    const phoneInput = document.getElementById('phone');
-
-    if (emailInput) emailInput.disabled = false;
-    if (passwordInput) passwordInput.disabled = false;
-    if (fullNameInput) fullNameInput.disabled = false;
-    if (phoneInput) phoneInput.disabled = false;
-}
-
 // Check if user is already logged in on page load
 function checkAuthOnLoad() {
     if (isAuthenticated()) {
         const currentPage = window.location.pathname;
-        if (currentPage.includes('signin') || currentPage.includes('signup')) {
+        const user = getUser();
+        
+        // If on login/signup pages and already authenticated, redirect to appropriate dashboard
+        if (currentPage.includes('signin') || currentPage.includes('signup') || currentPage.includes('admin-login')) {
             console.log('User already authenticated, redirecting...');
-            window.location.href = '../customer Pages/index.html';
+            redirectByRole(user);
         }
     }
 }
@@ -858,8 +889,11 @@ function checkAuthOnLoad() {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing auth system');
     checkAuthOnLoad();
+    
+    // Initialize appropriate form based on page
     initSignInForm();
     initSignUpForm();
+    initAdminLoginForm();
 
     // Setup modal close handlers
     const closeModalBtn = document.getElementById('closeOtpModal');
@@ -883,7 +917,6 @@ document.addEventListener('DOMContentLoaded', () => {
         resendBtn.addEventListener('click', async () => {
             console.log('Resend OTP clicked from modal');
             const email = document.getElementById('email')?.value;
-            const fullName = document.getElementById('fullName')?.value;
 
             if (!email) {
                 const savedData = getTempSignupData();
@@ -891,6 +924,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     showMessage('errorMessage', 'Session expired. Please refresh and start over.', true);
                     return;
                 }
+                
                 resendBtn.disabled = true;
                 resendBtn.innerHTML = 'Sending...';
 
@@ -905,7 +939,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 resendBtn.disabled = false;
                 resendBtn.innerHTML = "Didn't receive code? <strong>Resend</strong>";
             } else {
-                // Sign in resend
                 resendBtn.disabled = true;
                 resendBtn.innerHTML = 'Sending...';
 
@@ -930,6 +963,7 @@ if (typeof module !== 'undefined' && module.exports) {
         signIn,
         signUp,
         signInWithOTP,
+        adminSignIn,
         sendRegistrationOTP,
         sendLoginOTP,
         verifyOTP,
@@ -937,8 +971,15 @@ if (typeof module !== 'undefined' && module.exports) {
         verifyToken,
         signOut,
         isAuthenticated,
+        requireAuth,
+        requireAdmin,
+        isAdmin,
+        isSeller,
+        isCustomer,
+        getUserRole,
         getToken,
         getUser,
+        redirectByRole,
         showMessage,
         hideMessage
     };
