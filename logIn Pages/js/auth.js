@@ -4,27 +4,25 @@ const AUTH_API_BASE_URL = 'https://minimallbackend.onrender.com';
 
 // Store token in sessionStorage (more secure for admin)
 function saveToken(token) {
-    sessionStorage.setItem('authToken', token);
+    localStorage.setItem('authToken', token);
 }
 
 // Get token from sessionStorage
 function getToken() {
-    return sessionStorage.getItem('authToken');
+    return localStorage.getItem('authToken');
 }
-
 // Remove token from sessionStorage
 function removeToken() {
-    sessionStorage.removeItem('authToken');
+    localStorage.removeItem('authToken');
 }
 
 // Save user data
 function saveUser(user) {
-    sessionStorage.setItem('userData', JSON.stringify(user));
+    localStorage.setItem('userData', JSON.stringify(user));
 }
-
 // Get user data
 function getUser() {
-    const userData = sessionStorage.getItem('userData');
+    const userData = localStorage.getItem('userData');
     return userData ? JSON.parse(userData) : null;
 }
 
@@ -62,7 +60,7 @@ function getTempSignupData() {
 }
 
 function clearTempSignupData() {
-    sessionStorage.removeItem('tempSignupData');
+    localStorage.removeItem('tempSignupData');
     console.log('Cleared temp signup data');
 }
 
@@ -514,7 +512,7 @@ function redirectByRole(user) {
 // Sign out function
 function signOut() {
     removeToken();
-    sessionStorage.removeItem('userData');
+    localStorage.removeItem('userData');
     clearTempSignupData();
     
     // Determine where to redirect based on current page
